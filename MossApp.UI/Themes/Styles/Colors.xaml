@@ -1,0 +1,82 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  Primary Palette  -->
+    <Color x:Key="ColorCardinalRed">#ff8c1515</Color>
+    <Color x:Key="ColorProcessBlack">#ff2e2d29</Color>
+    <Color x:Key="ColorPrimaryWhite">#ffffff</Color>
+    <Color x:Key="ColorControlBackground">#1E1E1E</Color>
+    <Color x:Key="ColorCoolGrey">#53565A</Color>
+    <Color x:Key="ColorWindowBackground">#FF323232</Color>
+    <!--  Accent Palette  -->
+    <Color x:Key="ColorPaloAlto">#175e54</Color>
+    <Color x:Key="ColorBay">#6FA287</Color>
+    <Color x:Key="ColorSky">#4298B5</Color>
+    <Color x:Key="ColorPrimaryBlack">#000000</Color>
+    <Color x:Key="ColorPoppy">#F9A44A</Color>
+    <Color x:Key="ColorPlum">#620059</Color>
+    <Color x:Key="ColorLagunita">#007C92</Color>
+    <Color x:Key="ColorSpirited">#F4795B</Color>
+
+    <!--  Brushes  -->
+    <SolidColorBrush x:Key="BrushPrimaryWhite" Color="{StaticResource ColorPrimaryWhite}" />
+    <SolidColorBrush x:Key="BrushProcessBlack" Color="{StaticResource ColorProcessBlack}" />
+    <SolidColorBrush x:Key="BrushControlBackground" Color="{StaticResource ColorControlBackground}" />
+    <SolidColorBrush x:Key="BrushCardinalRed" Color="{StaticResource ColorCardinalRed}" />
+    <SolidColorBrush x:Key="BrushColorSKy" Color="{StaticResource ColorSky}" />
+    <SolidColorBrush x:Key="BrushCoolGrey" Color="{StaticResource ColorCoolGrey}" />
+    <SolidColorBrush x:Key="BrushPaloAlto" Color="{StaticResource ColorPaloAlto}" />
+    <SolidColorBrush x:Key="BrushBay" Color="{StaticResource ColorBay}" />
+    <SolidColorBrush x:Key="BrushPoppy" Color="{StaticResource ColorPoppy}" />
+    <SolidColorBrush x:Key="BrushPlum" Color="{StaticResource ColorPlum}" />
+    <SolidColorBrush x:Key="BrushLagunita" Color="{StaticResource ColorLagunita}" />
+    <SolidColorBrush x:Key="BrushSpirited" Color="{StaticResource ColorSpirited}" />
+    <SolidColorBrush x:Key="BrushWindowBackground" Color="{StaticResource ColorWindowBackground}" />
+
+    <Color x:Key="CardinalRed">#8c1515</Color>
+    <Color x:Key="Magnolia">#f7f2fa</Color>
+    <Color x:Key="ProcessBlack">#2e2d29</Color>
+    <Color x:Key="CoolGrey">#53565a</Color>
+    <Color x:Key="EerieBlack">#141414</Color>
+    <Color x:Key="PaloAlto">#175e54</Color>
+    <Color x:Key="CardinalRedLight">#b83a4b</Color>
+    <Color x:Key="BrickDark">#42081b</Color>
+    <Color x:Key="LagunitaLight">#009ab4</Color>
+    <Color x:Key="EtonBlue">#85B79D</Color>
+
+    <SolidColorBrush x:Key="BrushCardinalRed" Color="{DynamicResource CardinalRed}" />
+    <SolidColorBrush x:Key="BrushMagnolia" Color="{DynamicResource Magnolia}" />
+    <SolidColorBrush x:Key="BrushProcessBlack" Color="{DynamicResource ProcessBlack}" />
+    <SolidColorBrush x:Key="BrushCoolGrey" Color="{DynamicResource CoolGrey}" />
+    <SolidColorBrush x:Key="BrushEerieBlack" Color="{DynamicResource EerieBlack}" />
+    <SolidColorBrush x:Key="BrushPaloAlto" Color="{DynamicResource PaloAlto}" />
+    <SolidColorBrush x:Key="BrushCardinalRedLight" Color="{DynamicResource CardinalRedLight}" />
+    <SolidColorBrush x:Key="BrushBrickDark" Color="{DynamicResource BrickDark}" />
+    <SolidColorBrush x:Key="BrushLagunitaLight" Color="{DynamicResource LagunitaLight}" />
+    <SolidColorBrush x:Key="BrushEtonBlue" Color="{DynamicResource EtonBlue}" />
+
+
+    <LinearGradientBrush x:Key="BlacksGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0.0" Color="{DynamicResource EerieBlack}" />
+        <GradientStop Offset="1.0" Color="{DynamicResource ColorXiketic}" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="LightRedsGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0.0" Color="{DynamicResource CardinalRed}" />
+        <GradientStop Offset="1.0" Color="{DynamicResource CardinalRedLight}" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="DarkRedsGradient" StartPoint="0,0" EndPoint="1,2">
+        <GradientStop Offset="1.0" Color="{DynamicResource CardinalRed}" />
+        <GradientStop Offset="0.5" Color="{DynamicResource BrickDark}" />
+        <GradientStop Offset="0.0" Color="{DynamicResource CardinalRed}" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="GreensGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0.0" Color="{DynamicResource PaloAlto}" />
+        <GradientStop Offset="1.0" Color="{DynamicResource EtonBlue}" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="BluesGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0.0" Color="{DynamicResource LagunitaLight}" />
+        <GradientStop Offset="1.0" Color="{DynamicResource EtonBlue}" />
+    </LinearGradientBrush>
+</ResourceDictionary>

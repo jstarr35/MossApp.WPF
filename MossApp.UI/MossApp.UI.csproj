@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon />
+    <StartupObject />
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.06</Version>
+    <Authors>Jason Starr</Authors>
+    <PackageProjectUrl>https://github.com/jstarr35/MossApp.WPF</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jstarr35/MossApp.WPF</RepositoryUrl>
+    <PackageIcon>moss-nuget-logo.png</PackageIcon>
+    <PackageIconUrl />
+    <Description>Styles and themes for MossApp WPF.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="AttachedProperties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\jason\Pictures\Designs\moss-nuget-logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+	
+
+</Project>
