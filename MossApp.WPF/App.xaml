@@ -1,0 +1,17 @@
+﻿<Application x:Class="MossApp.WPF.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:MossApp.WPF"
+    Startup="OnStartup">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MossApp.UI;component/Themes/MossApp.UI.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="fontawesome-brands">/Resources/Fonts/fontawesome-brands.otf#Font Awesome 5 Brands Regular</FontFamily>
+            <FontFamily x:Key="fontawesome-solid">/Resources/Fonts/fontawesome-solid.otf#Font Awesome 5 Free Solid</FontFamily>
+            <FontFamily x:Key="fontawesome-regular">/Resources/Fonts/fontawesome-regular.otf#Font Awesome 5 Free Regular</FontFamily>
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

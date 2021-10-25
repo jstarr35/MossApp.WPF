@@ -20,12 +20,12 @@
 
     <!--  Brushes  -->
     <SolidColorBrush x:Key="BrushPrimaryWhite" Color="{StaticResource ColorPrimaryWhite}" />
-    <SolidColorBrush x:Key="BrushProcessBlack" Color="{StaticResource ColorProcessBlack}" />
+    <!--<SolidColorBrush x:Key="BrushProcessBlack" Color="{StaticResource ColorProcessBlack}" />-->
     <SolidColorBrush x:Key="BrushControlBackground" Color="{StaticResource ColorControlBackground}" />
-    <SolidColorBrush x:Key="BrushCardinalRed" Color="{StaticResource ColorCardinalRed}" />
+    <!--<SolidColorBrush x:Key="BrushCardinalRed" Color="{StaticResource ColorCardinalRed}" />-->
     <SolidColorBrush x:Key="BrushColorSKy" Color="{StaticResource ColorSky}" />
-    <SolidColorBrush x:Key="BrushCoolGrey" Color="{StaticResource ColorCoolGrey}" />
-    <SolidColorBrush x:Key="BrushPaloAlto" Color="{StaticResource ColorPaloAlto}" />
+    <!--<SolidColorBrush x:Key="BrushCoolGrey" Color="{StaticResource ColorCoolGrey}" />
+    <SolidColorBrush x:Key="BrushPaloAlto" Color="{StaticResource ColorPaloAlto}" />-->
     <SolidColorBrush x:Key="BrushBay" Color="{StaticResource ColorBay}" />
     <SolidColorBrush x:Key="BrushPoppy" Color="{StaticResource ColorPoppy}" />
     <SolidColorBrush x:Key="BrushPlum" Color="{StaticResource ColorPlum}" />
@@ -43,6 +43,8 @@
     <Color x:Key="BrickDark">#42081b</Color>
     <Color x:Key="LagunitaLight">#009ab4</Color>
     <Color x:Key="EtonBlue">#85B79D</Color>
+    <Color x:Key="ColorXiketic">#1C0000</Color>
+    <Color x:Key="ColorEerieBlack">#141414</Color>
 
     <SolidColorBrush x:Key="BrushCardinalRed" Color="{DynamicResource CardinalRed}" />
     <SolidColorBrush x:Key="BrushMagnolia" Color="{DynamicResource Magnolia}" />
@@ -54,6 +56,8 @@
     <SolidColorBrush x:Key="BrushBrickDark" Color="{DynamicResource BrickDark}" />
     <SolidColorBrush x:Key="BrushLagunitaLight" Color="{DynamicResource LagunitaLight}" />
     <SolidColorBrush x:Key="BrushEtonBlue" Color="{DynamicResource EtonBlue}" />
+    <SolidColorBrush x:Key="BrushXiketic" Color="{DynamicResource ColorXiketic}" />
+
 
 
     <LinearGradientBrush x:Key="BlacksGradient" StartPoint="0,0" EndPoint="0,1">

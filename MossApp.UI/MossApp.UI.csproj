@@ -17,10 +17,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Fonts\fontawesome-brands.otf" />
+    <None Remove="Resources\Fonts\fontawesome-regular.otf" />
+    <None Remove="Resources\Fonts\fontawesome-solid.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Fonts\fontawesome-brands.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Fonts\fontawesome-regular.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\Fonts\fontawesome-solid.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="AttachedProperties\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="C:\Users\jason\Pictures\Designs\moss-nuget-logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
