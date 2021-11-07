@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="MossApp.WPF.Views.Controls.OptionsFlyoutContent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MossApp.WPF.Views.Controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:MossApp.WPF.ViewModels"
+    xmlns:wpf="https://github.com/jstarr35/MossAppWpf"
+    MinWidth="300"
+    d:DesignWidth="150"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Slider.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+    <StackPanel
+        MinHeight="280"
+        Margin="18">
+        <!--<TextBox
+            HorizontalAlignment="Center"
+            materialDesign:HintAssist.Hint="Maximum"
+            materialDesign:TextFieldAssist.RippleOnFocusEnabled="False"
+            Style="{StaticResource MaterialDesignFilledTextBox}"
+            Text="{Binding Maximum, UpdateSourceTrigger=PropertyChanged}" />
+        <Slider
+            MinWidth="1"
+            MinHeight="1"
+            Margin="8,8,8,8"
+            HorizontalAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            Maximum="100"
+            Minimum="0"
+            Orientation="Horizontal"
+            Style="{StaticResource MaterialDesignDiscreteSlider}"
+            TickFrequency="1"
+            TickPlacement="BottomRight"
+            Value="{Binding Maximum}" />-->
+        <!--<TextBox
+            MinWidth="120"
+            wpf:HintAssist.Hint="Hint 1"
+            FontSize="18"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <TextBox
+            MinWidth="120"
+            Margin="0,8,0,0"
+            wpf:HintAssist.Hint="Hint 2"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />-->
+        <!--<TextBlock
+            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+            Text="Request Options" />-->
+
+        <TextBox
+            Margin="0,8,0,8"
+            VerticalAlignment="Center"
+            materialDesign:HintAssist.Hint="Max Matches"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <TextBox
+            Margin="0,8,0,8"
+            VerticalAlignment="Center"
+            materialDesign:HintAssist.Hint="Results to Display"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+
+        <TextBox
+            Height="100"
+            Margin="0,16,0,8"
+            VerticalAlignment="Top"
+            materialDesign:HintAssist.Hint="Comments"
+            AcceptsReturn="True"
+            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+            TextWrapping="Wrap"
+            VerticalScrollBarVisibility="Auto" />
+
+
+
+        <Expander
+            Margin="0,36,0,0"
+            HorizontalAlignment="Stretch"
+            FontSize="12"
+            Header="Advanced">
+            <StackPanel
+                Margin="24,4,12,16"
+                Orientation="Vertical"
+                TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                <TextBox
+                    Margin="0,0,0,8"
+                    VerticalAlignment="Center"
+                    materialDesign:HintAssist.Hint="Server"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox
+                    Margin="0,8,0,8"
+                    VerticalAlignment="Center"
+                    materialDesign:HintAssist.Hint="Port"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,8,0,8"
+                        Style="{StaticResource MaterialDesignTextBlock}"
+                        Text="Use Experimental Version" />
+                    <ToggleButton
+                        Margin="8,0,0,0"
+                        HorizontalAlignment="Stretch"
+                        IsChecked="True"
+                        Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"
+                        ToolTip="MaterialDesignSwitchDarkToggleButton" />
+                </StackPanel>
+            </StackPanel>
+        </Expander>
+    </StackPanel>
+</UserControl>

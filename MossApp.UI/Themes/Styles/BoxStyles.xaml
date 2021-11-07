@@ -1,18 +1,20 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Royale">
-    
-    <!--GroupBox-->
-    
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Royale">
+
+    <!--  GroupBox  -->
+
     <Style TargetType="{x:Type GroupBox}">
         <Setter Property="Foreground" Value="{DynamicResource BrushCardinalRed}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BrushCardinalRed}" />
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Padding" Value="8"/>
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="8" />
     </Style>
 
 
 
-    <!--TextBox-->
+    <!--  TextBox  -->
 
     <Style TargetType="{x:Type TextBox}">
         <Setter Property="Foreground" Value="{DynamicResource BrushMagnolia}" />
@@ -25,8 +27,8 @@
     </Style>
 
 
-    <!--ListBox-->
-    
+    <!--  ListBox  -->
+
     <Style TargetType="{x:Type ListBox}">
         <Setter Property="Background" Value="{DynamicResource BrushEerieBlack}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BrushXiketic}" />
@@ -41,9 +43,9 @@
         </Setter>
     </Style>
 
-    
-    
-    <!--ComboBox-->
+
+
+    <!--  ComboBox  -->
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Background" Color="#1E1E1E" />
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Border" Color="{DynamicResource BrickDark}" />
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Background" Color="Transparent" />
@@ -418,6 +420,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
-    
+
+
 </ResourceDictionary>

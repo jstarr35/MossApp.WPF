@@ -11,6 +11,9 @@
     <None Remove="Resources\Fonts\fontawesome-brands.otf" />
     <None Remove="Resources\Fonts\fontawesome-regular.otf" />
     <None Remove="Resources\Fonts\fontawesome-solid.otf" />
+    <None Remove="Resources\moss.png" />
+    <None Remove="Resources\moss2.png" />
+    <None Remove="Resources\moss3.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,20 +27,38 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Views\" />
+    <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dragablz" Version="0.0.3.223" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.37" />
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
+    <PackageReference Include="Prism.Unity" Version="8.1.97" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0" />
+    <PackageReference Include="ShowMeTheXAML" Version="2.0.0" />
+    <PackageReference Include="ShowMeTheXAML.AvalonEdit" Version="2.0.0" />
+    <PackageReference Include="ShowMeTheXAML.MSBuild" Version="2.0.0" />
+    <PackageReference Include="Unity.Microsoft.DependencyInjection" Version="5.11.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MossApp.Model\MossApp.Data.csproj" />
+    <ProjectReference Include="..\MossApp.Modules.Request\MossApp.Modules.Request.csproj" />
+    <ProjectReference Include="..\MossApp.Modules.SourceFileList\MossApp.Modules.SourceFileList.csproj" />
     <ProjectReference Include="..\MossApp.UI\MossApp.UI.csproj" />
     <ProjectReference Include="..\MossApp.Utilities\MossApp.Utilities.csproj" />
   </ItemGroup>
@@ -45,6 +66,15 @@
   <ItemGroup>
     <Resource Include="Resources\Fonts\fontawesome-solid.otf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\moss.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\moss2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\moss3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 

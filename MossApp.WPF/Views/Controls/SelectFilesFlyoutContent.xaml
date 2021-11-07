@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="MossApp.WPF.Views.Controls.SelectFilesFlyoutContent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MossApp.WPF.Views.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:vm="clr-namespace:MossApp.WPF.ViewModels"
+    d:DesignHeight="600"
+    d:DesignWidth="350"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+    <UserControl.Resources />
+
+
+    <Grid>
+        <Grid.ColumnDefinitions />
+
+
+
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Text="{Binding Path=SelectedAction, Mode=TwoWay}" />
+
+        <mde:OpenMultipleFilesControl
+            Grid.Row="0"
+            Margin="16"
+            Cancel="OpenMultipleFilesControl_Cancel"
+            FilesSelected="OpenMultipleFilesControl_DirectoriesSelected"
+            Filters="All files|*.*|C# files|*.cs|XAML files|*.xaml"
+            FontSize="10"
+            ShowHiddenFilesAndDirectories="False"
+            ShowSystemFilesAndDirectories="False"
+            SwitchPathPartsAsButtonsEnabled="False" />
+
+
+
+    </Grid>
+</UserControl>

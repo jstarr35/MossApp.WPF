@@ -13,7 +13,13 @@ namespace MossApp.Data
         /// </summary>
         private const string FileUploadFormat = "file {0} {1} {2} {3}\n";
 
-        
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        /// <value>
+        /// The user identifier.
+        /// </value>
+        public long UserId { get; set; }
 
         /// <summary>
         /// The language for this request. 
