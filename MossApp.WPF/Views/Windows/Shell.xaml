@@ -14,8 +14,8 @@
     xmlns:vm="clr-namespace:MossApp.WPF.ViewModels"
     xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
     Title="MOSS"
-    Width="1200"
-    Height="675"
+    Width="1400"
+    Height="787"
     prism:ViewModelLocator.AutoWireViewModel="True"
     FontFamily="{DynamicResource MahApps.Fonts.Family.Window.Title}"
     Icon="/Resources/moss3.png"
@@ -80,26 +80,36 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="3*" />
+
+            <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="42" />
             <RowDefinition Height="9*" />
         </Grid.RowDefinitions>
-
-        <ContentControl Grid.ColumnSpan="3" prism:RegionManager.RegionName="TopMenuBarRegion"/>
+        <materialDesign:DialogHost
+            OverlayBackground="Transparent"
+            Grid.Row="1"
+            Grid.Column="0"
+            Width="250"
+            Height="150"
+            Margin="8,8,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            DialogTheme="Inherit"
+            Identifier="RootDialog"
+            SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}" />
+        <ContentControl
+            Grid.ColumnSpan="2"
+            prism:RegionManager.RegionName="TopMenuBarRegion" />
         <ContentControl
             Grid.Row="1"
-            Grid.RowSpan="1"
-            Grid.Column="1"
             prism:RegionManager.RegionName="SourceFileListRegion" />
-        
+
         <ContentControl
-            Grid.Column="2"
             Grid.Row="1"
-            VerticalAlignment="Stretch"
+            Grid.Column="1"
             prism:RegionManager.RegionName="SourceFilesRegion" />
         <!--<materialDesign:DrawerHost x:Name="DrawerHost"
                         Grid.RowSpan="2"
@@ -243,8 +253,9 @@
 
         <Button x:Name="DisplayOptionsButton"
             Grid.Row="1"
+            Width="48"
             Height="48"
-            Margin="12"
+            Margin="12,0,0,12"
             Padding="0,0,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"

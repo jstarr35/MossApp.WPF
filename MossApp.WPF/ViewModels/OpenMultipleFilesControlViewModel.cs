@@ -1,18 +1,13 @@
-﻿using MossApp.WPF.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MossApp.WPF.ViewModels
 {
     public class OpenMultipleFilesControlViewModel : FileSystemControlViewModel, IOpenMultipleFilesControlViewModel
     {
 
-        public OpenMultipleFilesControlViewModel() : base() 
+        public OpenMultipleFilesControlViewModel() : base()
         {
-          
+
         }
 
         public override void AddSourceFile(string fileName)
@@ -35,7 +30,7 @@ namespace MossApp.WPF.ViewModels
         public override void OnSourceFilesChanged(string file)
         {
             base.OnSourceFilesChanged(file);
-          //  SendTo<RequestConfigViewModel>(file);
+            //  SendTo<RequestConfigViewModel>(file);
         }
 
         public override List<string> GetSourceFiles()
@@ -48,7 +43,7 @@ namespace MossApp.WPF.ViewModels
         //    throw new NotImplementedException();
         //}
 
-      
+
 
     }
 }

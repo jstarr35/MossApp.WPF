@@ -12,7 +12,7 @@ namespace MossApp.WPF.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -62,9 +62,9 @@ namespace MossApp.WPF.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int UserId {
+        public long UserId {
             get {
-                return ((int)(this["UserId"]));
+                return ((long)(this["UserId"]));
             }
             set {
                 this["UserId"] = value;
@@ -75,30 +75,30 @@ namespace MossApp.WPF.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>c,.c,.h</string>
-  <string>cc,.cpp,.h,.hpp,.cc</string>
-  <string>java,.java</string>
-  <string>ml,.ml</string>
-  <string>pascal,.pas</string>
-  <string>ada,.ada</string>
-  <string>lisp,.lisp</string>
-  <string>scheme,.scm</string>
-  <string>haskell,.hs</string>
-  <string>fortran,.f90,.f95,.f03</string>
-  <string>ascii,.asc,.txt</string>
-  <string>vhdl,.vhdl</string>
-  <string>perl,.perl,.pl</string>
-  <string>matlab,.matlab</string>
-  <string>python,.py</string>
-  <string>mips,.s,.asm</string>
-  <string>prolog,.pl</string>
-  <string>spice,.sp</string>
-  <string>vb,.vb</string>
-  <string>csharp,.cs</string>
-  <string>modula2,.mod</string>
-  <string>a8086,.asm</string>
-  <string>javascript,.js</string>
-  <string>plsql,.json</string>
+  <string>C,.c,.h</string>
+  <string>C++,.cpp,.h,.hpp,.cc</string>
+  <string>Java,.java</string>
+  <string>Meta Language,.ml</string>
+  <string>Pascal,.pas</string>
+  <string>Ada,.ada</string>
+  <string>Lisp,.lisp</string>
+  <string>Scheme,.scm</string>
+  <string>Haskell,.hs</string>
+  <string>Fortran,.f90,.f95,.f03</string>
+  <string>ASCII,.asc,.txt</string>
+  <string>VHDL,.vhdl</string>
+  <string>Perl,.perl,.pl</string>
+  <string>Matlab,.matlab</string>
+  <string>Python,.py</string>
+  <string>MIPS,.s,.asm</string>
+  <string>Prolog,.pl</string>
+  <string>Spice,.sp</string>
+  <string>VB,.vb</string>
+  <string>C#,.cs</string>
+  <string>Modula2,.mod</string>
+  <string>A8086,.asm</string>
+  <string>JavaScript,.js</string>
+  <string>PL/SQL,.json</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection Languages {
             get {

@@ -1,5 +1,3 @@
-using System.Net.Sockets;
-
 namespace MossApp.Request
 {
     //public partial class MossRequest

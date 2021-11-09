@@ -12,7 +12,7 @@ namespace MossApp.Modules.Request.Business
         private string _fileName;
         public string FileName
         {
-            get { return _fileName; }
+            get => _fileName;
             set
             {
                 _fileName = value;
@@ -23,7 +23,7 @@ namespace MossApp.Modules.Request.Business
         private string _language;
         public string Language
         {
-            get { return _language; }
+            get => _language;
             set
             {
                 _language = value;
@@ -34,7 +34,7 @@ namespace MossApp.Modules.Request.Business
         private string _extension;
         public string Extension
         {
-            get { return _extension; }
+            get => _extension;
             set
             {
                 _extension = value;
@@ -45,7 +45,7 @@ namespace MossApp.Modules.Request.Business
         private int _age;
         public int Age
         {
-            get { return _age; }
+            get => _age;
             set
             {
                 _age = value;
@@ -56,7 +56,7 @@ namespace MossApp.Modules.Request.Business
         private DateTime? _lastUpdated;
         public DateTime? LastUpdated
         {
-            get { return _lastUpdated; }
+            get => _lastUpdated;
             set
             {
                 _lastUpdated = value;

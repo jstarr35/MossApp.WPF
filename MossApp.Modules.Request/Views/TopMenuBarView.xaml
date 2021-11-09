@@ -7,13 +7,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignWidth="900"
     mc:Ignorable="d" Height="41">
-    <Grid>
-        <ToolBarTray Margin="0,0,0,2">
+    <Grid VerticalAlignment="Top" Height="42">
+        <ToolBarTray Margin="0,0,0,0">
             <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                <Button
+                    Content="{materialDesign:PackIcon Kind=AccountBox, Size=20}" 
+                    Command="{Binding OpenUserIdDialogCommand}"
+                    Padding="16,8,16,8"/>
                 <Button
                     Command="New"
                     Content="{materialDesign:PackIcon Kind=HomePlus}"
-                    ToolTip="New MOSS Request" Padding="16,8,16,7" />
+                    ToolTip="New MOSS Request" Padding="16,8,16,8" />
                 <Button
                     Content="{materialDesign:PackIcon Kind=ContentSave}"
                     ToolTip="Save" Padding="16,8,16,8" />
@@ -69,14 +73,13 @@
                 -->
 
                 <Separator />
-
-
-
-
-
-
-
                 <ToggleButton />
+                <Separator Margin="6,11,6,11" />
+            
+              
+
+               
+                
             </ToolBar>
         </ToolBarTray>
     </Grid>

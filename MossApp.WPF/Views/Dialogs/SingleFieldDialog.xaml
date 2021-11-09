@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="MossApp.WPF.Views.Dialogs.SingleFieldDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:domain="clr-namespace:MossApp.Utilities.Validation;assembly=MossApp.Utilities"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    d:DesignHeight="250"
+    d:DesignWidth="600"
+    mc:Ignorable="d">
+    <Grid Margin="16">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock>User ID:</TextBlock>
+
+        <TextBox
+            Grid.Row="1"
+            Width="200"
+            Height="47"
+            Margin="0,6,0,0"
+            HorizontalAlignment="Left"
+            wpf:HintAssist.Hint="User ID"
+            FontSize="14"
+            Style="{DynamicResource MaterialDesignFloatingHintTextBox}">
+            <TextBox.Text>
+                <Binding
+                    Path="UserId"
+                    UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+
+
+
+        <StackPanel
+            Grid.Row="3"
+            Margin="0,16,0,0"
+            Orientation="Horizontal">
+            <Button
+                Command="{x:Static wpf:DialogHost.CloseDialogCommand}"
+                IsDefault="True"
+                Style="{DynamicResource MaterialDesignFlatButton}">
+                <Button.CommandParameter>
+                    <system:Boolean>True</system:Boolean>
+                </Button.CommandParameter>
+                SAVE
+            </Button>
+            <Button
+                Margin="8,0,0,0"
+                Command="{x:Static wpf:DialogHost.CloseDialogCommand}"
+                IsCancel="True"
+                Style="{DynamicResource MaterialDesignFlatButton}">
+                <Button.CommandParameter>
+                    <system:Boolean>False</system:Boolean>
+                </Button.CommandParameter>
+                CANCEL
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MossApp.Request
 {
@@ -14,7 +15,9 @@ namespace MossApp.Request
         int NumberOfResultsToShow { get; set; }
         string Response { get; set; }
         long UserId { get; set; }
+        int Port { get; set; }
+        string Server { get; set; }
 
-        bool SendRequest();
+        Task<bool> SendRequestAsync();
     }
 }

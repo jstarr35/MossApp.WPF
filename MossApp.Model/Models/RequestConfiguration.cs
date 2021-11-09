@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MossApp.Data
 {
@@ -100,7 +96,7 @@ namespace MossApp.Data
         /// </remarks>
         public List<string> BaseFile { get; set; } = new List<string>();
 
-        
+
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is beta request.

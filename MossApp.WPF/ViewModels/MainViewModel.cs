@@ -1,10 +1,5 @@
 ﻿using MossApp.Utilities;
 using MossApp.Utilities.Wrapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MossApp.WPF.ViewModels
 {
@@ -44,11 +39,8 @@ namespace MossApp.WPF.ViewModels
 
         public bool IsSettingsOpen
         {
-            get { return mIsSettingsOpen; }
-            set
-            {
-                SetProperty(ref mIsSettingsOpen, value);
-            }
+            get => mIsSettingsOpen;
+            set => SetProperty(ref mIsSettingsOpen, value);
         }
 
         public RelayCommand OpenSettings { get; set; }
@@ -59,10 +51,10 @@ namespace MossApp.WPF.ViewModels
 
         public MainViewModel()
         {
-           OpenSettings = new RelayCommand((object o) => { IsSettingsOpen = true; });
+            OpenSettings = new RelayCommand((object o) => { IsSettingsOpen = true; });
         }
 
-       
+
         #endregion
 
     }

@@ -2,9 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MossApp.Modules.Request.ViewModels
 {
@@ -16,13 +13,10 @@ namespace MossApp.Modules.Request.ViewModels
         private bool m_createNewDirectoryEnabled;
         private bool m_switchPathPartsAsButtonsEnabled;
 
-        
+
         public bool CreateNewDirectoryEnabled
         {
-            get
-            {
-                return m_createNewDirectoryEnabled;
-            }
+            get => m_createNewDirectoryEnabled;
 
             set
             {
@@ -34,10 +28,7 @@ namespace MossApp.Modules.Request.ViewModels
 
         public string SelectedAction
         {
-            get
-            {
-                return m_selectedAction;
-            }
+            get => m_selectedAction;
 
             set
             {
@@ -49,10 +40,7 @@ namespace MossApp.Modules.Request.ViewModels
 
         public bool ShowHiddenFilesAndDirectories
         {
-            get
-            {
-                return m_showHiddenFilesAndDirectories;
-            }
+            get => m_showHiddenFilesAndDirectories;
 
             set
             {
@@ -64,10 +52,7 @@ namespace MossApp.Modules.Request.ViewModels
 
         public bool ShowSystemFilesAndDirectories
         {
-            get
-            {
-                return m_showSystemFilesAndDirectories;
-            }
+            get => m_showSystemFilesAndDirectories;
 
             set
             {
@@ -79,10 +64,7 @@ namespace MossApp.Modules.Request.ViewModels
 
         public bool SwitchPathPartsAsButtonsEnabled
         {
-            get
-            {
-                return m_switchPathPartsAsButtonsEnabled;
-            }
+            get => m_switchPathPartsAsButtonsEnabled;
 
             set
             {
@@ -123,7 +105,7 @@ namespace MossApp.Modules.Request.ViewModels
         }
 
         public FileSystemControlViewModel()
-            
+
         {
             m_selectedAction = null;
             m_showHiddenFilesAndDirectories = false;
@@ -141,10 +123,10 @@ namespace MossApp.Modules.Request.ViewModels
     {
         public FileListChangedEventArgs(string? fileName)
         {
-            
+
         }
 
         public virtual string? FileName { get; }
         public virtual List<string> FileList { get; }
-     }
+    }
 }

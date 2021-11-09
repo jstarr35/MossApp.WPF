@@ -3,11 +3,11 @@
 namespace MossApp.WPF.Views.Dialogs
 {
     /// <summary>
-    /// Interaction logic for MessageDialog.xaml
+    /// Interaction logic for SingleFieldDialog.xaml
     /// </summary>
-    public partial class MessageDialog : UserControl
+    public partial class SingleFieldDialog : UserControl
     {
-        public MessageDialog()
+        public SingleFieldDialog()
         {
             InitializeComponent();
         }

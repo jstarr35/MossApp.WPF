@@ -9,9 +9,11 @@ namespace MossApp.Request
     using System.Net;
     using System.Net.Sockets;
     using System.Text;
-
+    using System.Threading.Tasks;
     using MossApp.WPF.Properties;
     using Prism.Mvvm;
+
+
 
     /// <summary>
     /// Models a Moss (for a Measure Of Software Similarity) Request. 
@@ -113,7 +115,7 @@ namespace MossApp.Request
 
         public int MaxMatches
         {
-            get =>  _maxMatches;
+            get => _maxMatches;
             set => SetProperty(ref _maxMatches, value);
         }
 
@@ -158,7 +160,7 @@ namespace MossApp.Request
         /// </value>
         private long _userId;
 
-        public long UserId 
+        public long UserId
         {
             get => _userId;
             set => SetProperty(ref _userId, value);
@@ -177,7 +179,7 @@ namespace MossApp.Request
         /// </remarks>
         /// 
         private bool _isBetaRequest;
-        public bool IsBetaRequest 
+        public bool IsBetaRequest
         {
             get => _isBetaRequest;
             set => SetProperty(ref _isBetaRequest, value);
@@ -205,8 +207,8 @@ namespace MossApp.Request
 
         public string Response
         {
-            get => _reponse; 
-            set => SetProperty(ref _reponse, value); 
+            get => _reponse;
+            set => SetProperty(ref _reponse, value ?? string.Empty);
         }
 
 
@@ -264,7 +266,12 @@ namespace MossApp.Request
         /// <value>
         /// The server.
         /// </value>
-        private string Server { get; set; }
+        private string _server;
+        public string Server
+        {
+            get => _server;
+            set => SetProperty(ref _server, value ?? string.Empty);
+        }
 
         /// <summary>
         /// Gets or sets the port.
@@ -272,7 +279,12 @@ namespace MossApp.Request
         /// <value>
         /// The port.
         /// </value>
-        private int Port { get; set; }
+        private int _port;
+        public int Port
+        {
+            get => _port;
+            set => SetProperty(ref _port, value);
+        }
 
         /// <summary>
         /// Gets or sets the moss socket.
@@ -289,7 +301,7 @@ namespace MossApp.Request
         /// The size of the response byte array.
         /// </value>
         private int ReplySize { get; set; } = 512;
-       
+
         /// <summary>
         /// Sends the request.
         /// </summary>
@@ -300,7 +312,7 @@ namespace MossApp.Request
         /// <remarks>
         /// If the request is successful, <code>true</code> is returned, then response is a valid <see cref="System.Uri"/>
         /// </remarks>
-        public bool SendRequest()
+        public async Task<bool> SendRequestAsync()
         {
             try
             {
@@ -312,7 +324,7 @@ namespace MossApp.Request
                 using (var socket = new Socket(ipe.AddressFamily, SocketType.Stream, ProtocolType.Tcp))
                 {
 
-                    socket.Connect(ipe);
+                    await socket.ConnectAsync(ipe);
                     // Status.Status = $"Sending Moss option: {Settings.Default.MossOption} with UserID: {UserId}";
                     this.SendOption(
                         Settings.Default.MossOption,
@@ -360,9 +372,9 @@ namespace MossApp.Request
 
                 if (Uri.TryCreate(result, UriKind.Absolute, out var url))
                 {
-                   Response = url?.ToString().IndexOf("\n", System.StringComparison.Ordinal) > 0
-                                   ? url.ToString().Split('\n')[0]
-                                   : url?.ToString();
+                    Response = url?.ToString().IndexOf("\n", System.StringComparison.Ordinal) > 0
+                                    ? url.ToString().Split('\n')[0]
+                                    : url?.ToString();
                     return true;
                 } // else, not a valid URL, DoNothing();
 
@@ -435,7 +447,41 @@ namespace MossApp.Request
             Console.WriteLine(fileInfo.FullName.Replace("\\", "/").Replace(" ", string.Empty));
             socket.BeginSendFile(file, FileSendCallback, socket);
         }
-
+        private static async Task<string> SendRequestAsync(string server, int port, string method, string data)
+        {
+            try
+            {
+                IPAddress ipAddress = null;
+                IPHostEntry ipHostInfo = Dns.GetHostEntry(server);
+                for (int i = 0; i < ipHostInfo.AddressList.Length; ++i)
+                {
+                    if (ipHostInfo.AddressList[i].AddressFamily ==
+                      AddressFamily.InterNetwork)
+                    {
+                        ipAddress = ipHostInfo.AddressList[i];
+                        break;
+                    }
+                }
+                if (ipAddress == null)
+                    throw new Exception("No IPv4 address for server");
+                TcpClient client = new TcpClient();
+                await client.ConnectAsync(ipAddress, port); // Connect
+                NetworkStream networkStream = client.GetStream();
+                StreamWriter writer = new StreamWriter(networkStream);
+                StreamReader reader = new StreamReader(networkStream);
+                writer.AutoFlush = true;
+                string requestData = "method=" + method + "&" + "data=" +
+                  data + "&eor"; // 'End-of-request'
+                await writer.WriteLineAsync(requestData);
+                string response = await reader.ReadLineAsync();
+                client.Close();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
         private static void FileSendCallback(IAsyncResult result)
         {
             var client = result.AsyncState as Socket;

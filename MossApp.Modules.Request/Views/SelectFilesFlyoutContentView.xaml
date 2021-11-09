@@ -8,14 +8,15 @@
     xmlns:localization="clr-namespace:MaterialDesignExtensions.Localization;assembly=MaterialDesignExtensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:md1="clr-namespace:ControlzEx;assembly=MaterialDesignThemes.Wpf"
     xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
     xmlns:prism="http://prismlibrary.com/"
-    xmlns:vm="clr-namespace:MossApp.Modules.Request.ViewModels" xmlns:md1="clr-namespace:ControlzEx;assembly=MaterialDesignThemes.Wpf"
-             d:DesignHeight="600"
+    xmlns:vm="clr-namespace:MossApp.Modules.Request.ViewModels"
+    d:DesignHeight="600"
     d:DesignWidth="350"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
-  
+
 
 
     <Grid>
@@ -27,7 +28,7 @@
 
         <mde:OpenMultipleFilesControl
             Grid.Row="0"
-            Margin="16"
+            Margin="0,0,8,0"
             Cancel="OpenMultipleFilesControl_Cancel"
             CurrentDirectory="{Binding CurrentDirectory}"
             FilesSelected="OpenMultipleFilesControl_DirectoriesSelected"
@@ -37,7 +38,7 @@
             ShowHiddenFilesAndDirectories="False"
             ShowSystemFilesAndDirectories="False"
             Style="{DynamicResource OpenMultipleFilesControlStyle1}"
-            SwitchPathPartsAsButtonsEnabled="False" />
+            SwitchPathPartsAsButtonsEnabled="False" FontFamily="Roboto" />
 
 
 

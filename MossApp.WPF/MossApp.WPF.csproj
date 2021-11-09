@@ -58,7 +58,6 @@
   <ItemGroup>
     <ProjectReference Include="..\MossApp.Model\MossApp.Data.csproj" />
     <ProjectReference Include="..\MossApp.Modules.Request\MossApp.Modules.Request.csproj" />
-    <ProjectReference Include="..\MossApp.Modules.SourceFileList\MossApp.Modules.SourceFileList.csproj" />
     <ProjectReference Include="..\MossApp.UI\MossApp.UI.csproj" />
     <ProjectReference Include="..\MossApp.Utilities\MossApp.Utilities.csproj" />
   </ItemGroup>
@@ -76,6 +75,21 @@
     <Resource Include="Resources\moss3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

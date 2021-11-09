@@ -1,19 +1,8 @@
 ﻿using MaterialDesignExtensions.Controls;
 using MossApp.WPF.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MossApp.WPF.Views.Controls
 {
@@ -25,7 +14,7 @@ namespace MossApp.WPF.Views.Controls
         private readonly IOpenMultipleFilesControlViewModel _vm;
         public SelectFilesFlyoutContent()
         {
-           
+
             InitializeComponent();
         }
 
@@ -38,7 +27,7 @@ namespace MossApp.WPF.Views.Controls
                 eventArgs.Files.ForEach(f => viewModel.AddSourceFile(f));
 
                 viewModel.SelectedAction = sb.ToString();
-              
+
             }
         }
 
@@ -48,9 +37,9 @@ namespace MossApp.WPF.Views.Controls
             {
                 viewModel.SelectedAction = "Cancel open files";
             }
-            
+
         }
 
-     
+
     }
 }

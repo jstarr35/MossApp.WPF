@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-
-#nullable disable
+﻿#nullable disable
 
 namespace MossApp.Data.Models
 {
     public partial class MatchPair
     {
         public int Id { get; set; }
-        
+
         public string AlphaFileName { get; set; }
         public string BetaFileName { get; set; }
         public int LinesMatched { get; set; }

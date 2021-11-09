@@ -12,6 +12,7 @@ namespace MossApp.Modules.Request
             var regionManager = containerProvider.Resolve<IRegionManager>();
             regionManager.RegisterViewWithRegion("SourceFilesRegion", typeof(SelectFilesFlyoutContentView));
             regionManager.RegisterViewWithRegion("TopMenuBarRegion", typeof(TopMenuBarView));
+            regionManager.RegisterViewWithRegion("SourceFileListRegion", typeof(SourceFileListView));
             //regionManager.RegisterViewWithRegion("FileSelectionRegion", typeof(FileSelectionView));
         }
 

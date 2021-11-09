@@ -1,9 +1,5 @@
 ﻿using MossApp.Utilities.Wrapper;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MossApp.WPF.Navigation
 {
@@ -15,47 +11,23 @@ namespace MossApp.WPF.Navigation
 
         public string Label
         {
-            get
-            {
-                return m_label;
-            }
+            get => m_label;
 
-            set
-            {
-             
-
-                SetProperty(ref m_label, value);
-            }
+            set => SetProperty(ref m_label, value);
         }
 
         public Func<object> Action
         {
-            get
-            {
-                return m_action;
-            }
+            get => m_action;
 
-            set
-            {
-               
-
-                SetProperty(ref m_action, value);
-            }
+            set => SetProperty(ref m_action, value);
         }
 
         public bool IsSelected
         {
-            get
-            {
-                return m_isSelected;
-            }
+            get => m_isSelected;
 
-            set
-            {
-               
-
-                SetProperty(ref m_isSelected, value);
-            }
+            set => SetProperty(ref m_isSelected, value);
         }
 
         public NavigationItem()

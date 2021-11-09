@@ -59,11 +59,13 @@
             Margin="0,8,0,8"
             VerticalAlignment="Center"
             materialDesign:HintAssist.Hint="Max Matches"
+            Text="{Binding MaxMatches}"
             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
         <TextBox
             Margin="0,8,0,8"
             VerticalAlignment="Center"
             materialDesign:HintAssist.Hint="Results to Display"
+            Text="{Binding NumberOfResultsToShow}"
             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
 
@@ -92,6 +94,7 @@
                     Margin="0,0,0,8"
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="Server"
+                    Text="{Binding Server}"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                 <TextBox
                     Margin="0,8,0,8"
@@ -106,7 +109,7 @@
                     <ToggleButton
                         Margin="8,0,0,0"
                         HorizontalAlignment="Stretch"
-                        IsChecked="True"
+                        IsChecked="{Binding IsBetaRequest}"
                         Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"
                         ToolTip="MaterialDesignSwitchDarkToggleButton" />
                 </StackPanel>

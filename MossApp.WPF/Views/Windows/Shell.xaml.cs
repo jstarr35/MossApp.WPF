@@ -2,20 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using MossApp.WPF.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MossApp.WPF.Views.Windows
 {
@@ -30,12 +19,12 @@ namespace MossApp.WPF.Views.Windows
 
         public RequestConfigWindow()
         {
-           // _serviceProvider = serviceProvider;
+            // _serviceProvider = serviceProvider;
             InitializeComponent();
-            this.DataContext = new RequestConfigViewModel();
-          //  _requestConfigViewModel = serviceProvider.GetService<RequestConfigViewModel>();
-          //  this.DataContext = _requestConfigViewModel;
-         //   _openMultipleFilesControlViewModel = serviceProvider.GetService<IOpenMultipleFilesControlViewModel>();
+
+            //  _requestConfigViewModel = serviceProvider.GetService<RequestConfigViewModel>();
+            //  this.DataContext = _requestConfigViewModel;
+            //   _openMultipleFilesControlViewModel = serviceProvider.GetService<IOpenMultipleFilesControlViewModel>();
         }
 
         private void GoToGitHubButtonClickHandler(object sender, RoutedEventArgs args)

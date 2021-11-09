@@ -1,5 +1,5 @@
 ﻿namespace MossApp.WPF.Resources.Themes
-{ 
+{
     public enum ThemeResourceKey
     {
         PrimaryColor,

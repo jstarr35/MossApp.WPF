@@ -2,10 +2,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using MossApp.Modules.Request.ViewModels;
 using MossApp.Modules.Request.Views;
-using MossApp.Modules.SourceFileList.ViewModels;
-using MossApp.Modules.SourceFileList.Views;
+
+
 using MossApp.Request;
 using MossApp.Utilities.Regions.Adapters;
+using MossApp.WPF.ViewModels;
 using MossApp.WPF.Views.Windows;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -30,7 +31,7 @@ namespace MossApp.WPF
         protected override Window CreateShell()
         {
 
-           
+
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
@@ -56,8 +57,9 @@ namespace MossApp.WPF
                 .WriteTo.Console()
                 .CreateLogger();
 
-            containerRegistry.RegisterSingleton<IMossRequest, MossRequest>();
-           
+            containerRegistry.Register<IMossRequest, MossRequest>();
+
+
         }
 
         protected override IContainerExtension CreateContainerExtension()
@@ -96,11 +98,12 @@ namespace MossApp.WPF
             ViewModelLocationProvider.Register<SelectFilesFlyoutContentView, SelectFilesFlyoutContentViewModel>();
 
             ViewModelLocationProvider.Register<SourceFileListView, SourceFileListViewModel>();
+            ViewModelLocationProvider.Register<RequestConfigWindow, RequestConfigViewModel>();
         }
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             moduleCatalog.AddModule<Modules.Request.RequestModule>();
-            moduleCatalog.AddModule<Modules.SourceFileList.SourceFileListModule>();
+            //moduleCatalog.AddModule<Modules.SourceFileList.SourceFileListModule>();
         }
 
         //protected override IModuleCatalog CreateModuleCatalog()

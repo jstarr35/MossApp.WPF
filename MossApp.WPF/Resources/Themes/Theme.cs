@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace MossApp.WPF.Resources.Themes
 {
-    public sealed class Theme 
+    public sealed class Theme
     {
         [ThreadStatic]
         private static ResourceDictionary resourceDictionary;

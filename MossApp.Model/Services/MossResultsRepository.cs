@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MossApp.Data.Models;
 
 namespace MossApp.Data.Services
 {
-    public class MossResultsRepository  : IMossResultsRepository, IDisposable
+    public class MossResultsRepository : IMossResultsRepository, IDisposable
     {
         private MossResultsContext _context;
 
