@@ -8,16 +8,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MossApp.WPF.Properties {
+namespace MossApp.WPF {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
-    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class user : global::System.Configuration.ApplicationSettingsBase {
         
-        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        private static user defaultInstance = ((user)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new user())));
         
-        public static Settings Default {
+        public static user Default {
             get {
                 return defaultInstance;
             }
@@ -62,9 +62,9 @@ namespace MossApp.WPF.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public long UserId {
+        public int UserId {
             get {
-                return ((long)(this["UserId"]));
+                return ((int)(this["UserId"]));
             }
             set {
                 this["UserId"] = value;
@@ -73,7 +73,7 @@ namespace MossApp.WPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("moss.stanford.edu")]
+        [global::System.Configuration.DefaultSettingValueAttribute("moss.standford.edu")]
         public string Server {
             get {
                 return ((string)(this["Server"]));
@@ -166,7 +166,7 @@ namespace MossApp.WPF.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
   <string>C,LanguageC,.c,.h</string>
-  <string>C++,LanguageCpp,.cpp,.h,.hpp,.cc</string>
+  <string>C,LanguageCpp,.cpp,.h,.hpp,.cc</string>
   <string>Java,LanguageJava,.java</string>
   <string>Meta Language,CodeTags,.ml</string>
   <string>Pascal,CodeTags,.pas</string>
@@ -184,11 +184,11 @@ namespace MossApp.WPF.Properties {
   <string>Prolog,CodeTags,.pl</string>
   <string>Spice,CodeTags,.sp</string>
   <string>VB,CodeTags,.vb</string>
-  <string>C#,LanguageCsharp,.cs</string>
+  <string>C,LanguageCsharp,.cs</string>
   <string>Modula2,CodeTags,.mod</string>
   <string>A8086,CodeTags,.asm</string>
   <string>JavaScript,LanguageJavascript,.js</string>
-  <string>PL/SQL,CodeTags,.json</string>
+  <string>PLSQL,CodeTags,.json</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection Languages {
             get {

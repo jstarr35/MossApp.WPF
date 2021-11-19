@@ -33,6 +33,8 @@
                 <!--  ShowMeTheXaml  -->
                 <ResourceDictionary Source="pack://application:,,,/ShowMeTheXAML.AvalonEdit;component/Themes/xamldisplayer.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/Generic.xaml" />
+
+                <ResourceDictionary Source="Resources/Themes/ThemeColors.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!--  MahApps Brushes  -->

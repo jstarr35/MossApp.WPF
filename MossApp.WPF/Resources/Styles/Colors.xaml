@@ -1,29 +1,30 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Color x:Key="CardinalRed">#8c1515</Color>
-            <Color x:Key="Magnolia">#f7f2fa</Color>
-            <Color x:Key="ProcessBlack">#2e2d29</Color>
-            <Color x:Key="CoolGrey">#53565a</Color>
-            <Color x:Key="EerieBlack">#141414</Color>
-            <Color x:Key="PaloAlto">#175e54</Color>
-            <Color x:Key="CardinalRedLight">#b83a4b</Color>
-            <Color x:Key="BrickDark">#42081b</Color>
-            <Color x:Key="LagunitaLight">#009ab4</Color>
-            <Color x:Key="EtonBlue">#85B79D</Color>
-            <Color x:Key="ColorXiketic">#1C0000</Color>
-            <Color x:Key="ColorEerieBlack">#141414</Color>
+    <Color x:Key="Magnolia">#f7f2fa</Color>
+    <Color x:Key="ProcessBlack">#2e2d29</Color>
+    <Color x:Key="CoolGrey">#53565a</Color>
+    <Color x:Key="EerieBlack">#141414</Color>
+    <Color x:Key="PaloAlto">#175e54</Color>
+    <Color x:Key="CardinalRedLight">#b83a4b</Color>
+    <Color x:Key="BrickDark">#42081b</Color>
+    <Color x:Key="LagunitaLight">#009ab4</Color>
+    <Color x:Key="EtonBlue">#85B79D</Color>
+    <Color x:Key="ColorXiketic">#1C0000</Color>
+    <Color x:Key="ColorEerieBlack">#141414</Color>
 
-            <SolidColorBrush x:Key="BrushCardinalRed" Color="{DynamicResource CardinalRed}" />
-            <SolidColorBrush x:Key="BrushMagnolia" Color="{DynamicResource Magnolia}" />
-            <SolidColorBrush x:Key="BrushProcessBlack" Color="{DynamicResource ProcessBlack}" />
-            <SolidColorBrush x:Key="BrushCoolGrey" Color="{DynamicResource CoolGrey}" />
-            <SolidColorBrush x:Key="BrushEerieBlack" Color="{DynamicResource EerieBlack}" />
-            <SolidColorBrush x:Key="BrushPaloAlto" Color="{DynamicResource PaloAlto}" />
-            <SolidColorBrush x:Key="BrushCardinalRedLight" Color="{DynamicResource CardinalRedLight}" />
-            <SolidColorBrush x:Key="BrushBrickDark" Color="{DynamicResource BrickDark}" />
-            <SolidColorBrush x:Key="BrushLagunitaLight" Color="{DynamicResource LagunitaLight}" />
-            <SolidColorBrush x:Key="BrushEtonBlue" Color="{DynamicResource EtonBlue}" />
-            <SolidColorBrush x:Key="BrushXiketic" Color="{DynamicResource ColorXiketic}" />
+    <SolidColorBrush x:Key="BrushCardinalRed" Color="{DynamicResource CardinalRed}" />
+    <SolidColorBrush x:Key="BrushMagnolia" Color="{DynamicResource Magnolia}" />
+    <SolidColorBrush x:Key="BrushProcessBlack" Color="{DynamicResource ProcessBlack}" />
+    <SolidColorBrush x:Key="BrushCoolGrey" Color="{DynamicResource CoolGrey}" />
+    <SolidColorBrush x:Key="BrushEerieBlack" Color="{DynamicResource EerieBlack}" />
+    <SolidColorBrush x:Key="BrushPaloAlto" Color="{DynamicResource PaloAlto}" />
+    <SolidColorBrush x:Key="BrushCardinalRedLight" Color="{DynamicResource CardinalRedLight}" />
+    <SolidColorBrush x:Key="BrushBrickDark" Color="{DynamicResource BrickDark}" />
+    <SolidColorBrush x:Key="BrushLagunitaLight" Color="{DynamicResource LagunitaLight}" />
+    <SolidColorBrush x:Key="BrushEtonBlue" Color="{DynamicResource EtonBlue}" />
+    <SolidColorBrush x:Key="BrushXiketic" Color="{DynamicResource ColorXiketic}" />
 
 
     <Color x:Key="cardinalred_50">#f1e3e3</Color>

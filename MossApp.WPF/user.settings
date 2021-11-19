@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MossApp.WPF.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MossApp.WPF" GeneratedClassName="user">
   <Profiles />
   <Settings>
     <Setting Name="OptionN" Type="System.Int32" Scope="User">
@@ -11,11 +11,11 @@
     <Setting Name="OptionM" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="UserId" Type="System.Int64" Scope="User">
+    <Setting Name="UserId" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="Server" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">moss.stanford.edu</Value>
+      <Value Profile="(Default)">moss.standford.edu</Value>
     </Setting>
     <Setting Name="Port" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">7690</Value>
@@ -48,7 +48,7 @@
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;string&gt;C,LanguageC,.c,.h&lt;/string&gt;
-  &lt;string&gt;C++,LanguageCpp,.cpp,.h,.hpp,.cc&lt;/string&gt;
+  &lt;string&gt;C,LanguageCpp,.cpp,.h,.hpp,.cc&lt;/string&gt;
   &lt;string&gt;Java,LanguageJava,.java&lt;/string&gt;
   &lt;string&gt;Meta Language,CodeTags,.ml&lt;/string&gt;
   &lt;string&gt;Pascal,CodeTags,.pas&lt;/string&gt;
@@ -66,11 +66,11 @@
   &lt;string&gt;Prolog,CodeTags,.pl&lt;/string&gt;
   &lt;string&gt;Spice,CodeTags,.sp&lt;/string&gt;
   &lt;string&gt;VB,CodeTags,.vb&lt;/string&gt;
-  &lt;string&gt;C#,LanguageCsharp,.cs&lt;/string&gt;
+  &lt;string&gt;C,LanguageCsharp,.cs&lt;/string&gt;
   &lt;string&gt;Modula2,CodeTags,.mod&lt;/string&gt;
   &lt;string&gt;A8086,CodeTags,.asm&lt;/string&gt;
   &lt;string&gt;JavaScript,LanguageJavascript,.js&lt;/string&gt;
-  &lt;string&gt;PL/SQL,CodeTags,.json&lt;/string&gt;
+  &lt;string&gt;PLSQL,CodeTags,.json&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
   </Settings>

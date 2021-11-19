@@ -47,7 +47,7 @@ namespace MossApp.WPF
             theme.SetSecondaryColor(secondaryColor);
             theme.Background = (Color)ColorConverter.ConvertFromString("#292929");
             helper.SetTheme(theme);
-            return Container.Resolve<RequestConfigWindow>();
+            return Container.Resolve<MainShell>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -58,6 +58,7 @@ namespace MossApp.WPF
                 .CreateLogger();
 
             containerRegistry.Register<IMossRequest, MossRequest>();
+            //  containerRegistry.Register
 
 
         }
@@ -95,10 +96,11 @@ namespace MossApp.WPF
                 return Type.GetType(viewModelName);
             });
 
-            ViewModelLocationProvider.Register<SelectFilesFlyoutContentView, SelectFilesFlyoutContentViewModel>();
+            //  ViewModelLocationProvider.Register<SelectFilesFlyoutContentView, SelectFilesFlyoutContentViewModel>();
 
-            ViewModelLocationProvider.Register<SourceFileListView, SourceFileListViewModel>();
-            ViewModelLocationProvider.Register<RequestConfigWindow, RequestConfigViewModel>();
+            //   ViewModelLocationProvider.Register<SourceFileListView, SourceFileListViewModel>();
+            //  ViewModelLocationProvider.Register<RequestConfigWindow, RequestConfigViewModel>();
+            ViewModelLocationProvider.Register<MainShell, RequestConfigViewModel>();
         }
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {

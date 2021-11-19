@@ -14,7 +14,11 @@ using System.Diagnostics;
 using System.Collections.ObjectModel;
 using MossApp.Utilities.Extensions;
 using Prism.Events;
-using MossApp.Core;
+
+using System.Linq;
+
+using System.Windows.Media;
+
 
 namespace MossApp.WPF.ViewModels
 {
@@ -22,6 +26,261 @@ namespace MossApp.WPF.ViewModels
 
     public class RequestConfigViewModel : BindableBase
     {
+
+        #region FileList
+        private ObservableCollection<string> _baseFiles;
+        public ObservableCollection<string> BaseFiles
+        {
+            get => _baseFiles;
+            set => SetProperty(ref _baseFiles, value);
+        }
+
+        private ObservableCollection<string> _files;
+        public ObservableCollection<string> Files
+        {
+            get => _files;
+            set => SetProperty(ref _files, value);
+        }
+
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set => SetProperty(ref _isLoading, value);
+        }
+
+        public RelayCommand SendRequestCommand { get; set; }
+
+        #endregion FileList
+
+        #region PrimaryConfigSet
+
+        /// <summary>
+        /// Gets or sets the maximum matches.
+        /// </summary>
+        /// <value>
+        /// The maximum matches.
+        /// </value>
+        /// <remarks>
+        /// ++ The -m option sets the maximum number of times a given passage may appear 
+        /// before it is ignored.  A passage of code that appears in many programs 
+        /// is probably legitimate sharing and not the result of plagiarism.  With -m N, 
+        /// any passage appearing in more than N programs is treated as if it appeared in 
+        /// a base file (i.e., it is never reported).  Option -m can be used to control 
+        /// moss' sensitivity.  With -m 2, moss reports only passages that appear 
+        /// in exactly two programs.  If one expects many very similar solutions 
+        /// (e.g., the short first assignments typical of introductory programming courses) 
+        /// then using -m 3 or -m 4 is a good way to eliminate all but 
+        /// truly unusual matches between programs while still being able to detect 
+        /// 3-way or 4-way plagiarism.  With -m 1000000 (or any very large number), 
+        /// moss reports all matches, no matter how often they appear.  
+        /// The -m setting is most useful for large assignments where one also a base file 
+        /// expected to hold all legitimately shared code.  
+        /// The default for -m is 3.
+        /// </remarks>
+        private int _maxMatches;
+
+        public int MaxMatches
+        {
+            get => _maxMatches;
+            set => SetProperty(ref _maxMatches, value);
+        }
+
+        private int _numberOfResultsToShow;
+        public int NumberOfResultsToShow
+        {
+            get => _numberOfResultsToShow;
+            set
+            {
+                SetProperty(ref _numberOfResultsToShow, value);
+                _mossRequest.NumberOfResultsToShow = _numberOfResultsToShow;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is beta request.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is beta request; otherwise, <c>false</c>.
+        /// </value>
+        /// <remarks>
+        /// ++ Represents the -x option sends queries to the current experimental version of the server. 
+        /// The experimental server has the most recent Moss features and is also usually 
+        /// less stable (read: may have more bugs).
+        /// </remarks>
+        /// 
+        private bool _isBetaRequest;
+        public bool IsBetaRequest
+        {
+            get => _isBetaRequest;
+            set => SetProperty(ref _isBetaRequest, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the server.
+        /// </summary>
+        /// <value>
+        /// The server.
+        /// </value>
+        private string _server;
+        public string Server
+        {
+            get => _server;
+            set => SetProperty(ref _server, value ?? string.Empty);
+        }
+
+        /// <summary>
+        /// Gets or sets the port.
+        /// </summary>
+        /// <value>
+        /// The port.
+        /// </value>
+        private int _port;
+        public int Port
+        {
+            get => _port;
+            set => SetProperty(ref _port, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the languages.
+        /// </summary>
+        /// <value>
+        /// The languages and their associated file extensions.
+        /// </value>
+        private ObservableCollection<Language> _languages = new();
+
+        public ObservableCollection<Language> Languages
+        {
+            get => _languages;
+            set => SetProperty(ref _languages, value);
+
+        }
+
+        private string m_selectedAction;
+        public string SelectedAction
+        {
+            get => m_selectedAction;
+
+            set
+            {
+                m_selectedAction = value;
+
+                OnPropertyChanged(nameof(SelectedAction));
+            }
+        }
+      
+        private Language _selectedLanguage;
+
+        public Language SelectedLanguage
+        {
+            get => _selectedLanguage;
+            set
+            {
+                SetProperty(ref _selectedLanguage, value);
+                if (value?.Extensions != null)
+                    RestrictedFileTypesInput = value.Extensions.Split(",").ToList().ToExtensionString();
+
+            }
+        }
+
+        private string _restrictedFileTypesInput;
+
+        public string RestrictedFileTypesInput
+        {
+            get => _restrictedFileTypesInput;
+            set => SetProperty(ref _restrictedFileTypesInput, value);
+        }
+
+
+        private bool _restrictFileTypes;
+
+        public bool RestrictFileTypes
+        {
+            get => _restrictFileTypes;
+            set
+            {
+
+                SetProperty(ref _restrictFileTypes, value);
+                if (value)
+                {
+                    //SetFilters(true);
+                }
+                else
+                {
+                    // SetFilters(false);
+                }
+
+            }
+        }
+        #endregion PrimaryConfigSet
+
+        #region SelectFiles
+        private string _currentDirectory = "F:\\repos\\";
+        public string CurrentDirectory
+        {
+            get => _currentDirectory;
+            set => SetProperty(ref _currentDirectory, value);
+        }
+
+        private string _filters;
+
+        public string Filters
+        {
+            get => _filters;
+            set => SetProperty(ref _filters, value);
+        }
+
+        private bool _isBaseSelection;
+        public bool IsBaseSelection
+        {
+            get => _isBaseSelection;
+            set
+            {
+                SetProperty(ref _isBaseSelection, value);
+                if (value)
+                {
+                    SourceFileLabelColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF505050");
+                    BaseFileLabelColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFAFAFA");
+                }
+                else
+                {
+                    BaseFileLabelColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF505050");
+                    SourceFileLabelColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFAFAFA");
+                }
+            }
+        }
+
+        private SolidColorBrush _sourceFileLabelColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFAFAFA");
+        public SolidColorBrush SourceFileLabelColor
+        {
+            get => _sourceFileLabelColor;
+            set => SetProperty(ref _sourceFileLabelColor, value);
+        }
+
+        private SolidColorBrush _baseFileLabelColor;
+        public SolidColorBrush BaseFileLabelColor
+        {
+            get => _baseFileLabelColor;
+            set => SetProperty(ref _baseFileLabelColor, value);
+        }
+
+
+        public void AddFile(object param)
+        {
+            List<string> list = (List<string>)param;
+            if (_isBaseSelection)
+            {
+                list.ForEach(i => BaseFiles.Add(i));
+            }
+            else
+            {
+                list.ForEach(i => Files.Add(i));
+            }
+        }
+
+        public RelayCommand AddFileCommand { get; private set; }
+        #endregion SelectFiles
 
         public RelayCommand ShowOptionsFlyoutCommand { get; }
         public RelayCommand ShowSourceFilesFlyoutCommand { get; }
@@ -48,20 +307,20 @@ namespace MossApp.WPF.ViewModels
 
 
         // private readonly IOpenMultipleFilesControlViewModel _filesControlViewModel;
-        private IEventAggregator _ea;
-        private IServiceProvider _provider;
+        
+      
         private IMossRequest _mossRequest;
-        public RequestConfigViewModel(IMossRequest mossRequest, IEventAggregator ea)
+        public RequestConfigViewModel(IMossRequest mossRequest)
         {
             _mossRequest = mossRequest;
-            _ea = ea;
-            _ea.GetEvent<FileSentEvent>().Subscribe(FileReceived, true);
-            _ea.GetEvent<ToggleRestrictFileTypeEvent>().Subscribe(DependencyBuilt, true);
+         
+            AddFileCommand = new RelayCommand(AddFile);
             ShowOptionsFlyoutCommand = new RelayCommand(_ => ShowOptionsFlyout());
             ShowSourceFilesFlyoutCommand = new RelayCommand(_ => ShowSourceFilesFlyout());
             ShowBaseFileFlyoutCommand = new RelayCommand(_ => ShowBaseFileFlyout());
             OpenUserIdDialogCommand = new RelayCommand(_ => OpenUserIdDialog());
-
+          
+           // _ea.GetEvent<LanguageSetEvent>().Subscribe(ReceiveLanguageSet);
             ParseLanguageSettings();
             InitializeRequest();
             //_filesControlViewModel = openMultipleFilesControlViewModel;
@@ -75,16 +334,14 @@ namespace MossApp.WPF.ViewModels
 
             MaxMatches = Default.OptionM;
             NumberOfResultsToShow = Default.OptionN;
+            Server = Default.Server;
+            Port = Default.Port;
 
             Comments = Default.OptionC;
         }
 
-        private void FileReceived(string file)
-        {
-            SourceFileList.Add(file);
-        }
+        
 
-       
 
         public Flyout? OptionsFlyout { get; set; }
         public Flyout? SourceFilesFlyout { get; set; }
@@ -139,64 +396,8 @@ namespace MossApp.WPF.ViewModels
         /// All files command
         /// </summary>
         private const string AllFiles = "*.*";
-        /// <summary>
-        /// Gets or sets the languages.
-        /// </summary>
-        /// <value>
-        /// The languages and their associated file extensions.
-        /// </value>
-        private ObservableCollection<Language> _languages = new ObservableCollection<Language>();
-
-        public ObservableCollection<Language> Languages
-        {
-            get => _languages;
-            set => SetProperty(ref _languages, value);
-
-        }
-
-        private Language _selectedLanguage = new Language();
-
-        public Language SelectedLanguage
-        {
-            get => _selectedLanguage;
-            set
-            {
-                SetProperty(ref _selectedLanguage, value);
-                RestrictedFileTypesInput = value.Extensions.ToExtensionString();
-            }
-        }
-
-        private string _restrictedFileTypesInput;
-
-        public string RestrictedFileTypesInput
-        {
-            get => _restrictedFileTypesInput;
-            set => SetProperty(ref _restrictedFileTypesInput, value);
-        }
 
 
-        private bool _restrictFileTypes;
-
-        public bool RestrictFileTypes
-        {
-            get => _restrictFileTypes;
-            set => SetProperty(ref _restrictFileTypes, value);
-        }
-
-        private List<string> _sourceFiles = new();
-        public List<string> SourceFiles
-        {
-            get => _sourceFiles;
-            set => SetProperty(ref _sourceFiles, value);
-        }
-
-        private List<string> _baseFiles = new();
-
-        public List<string> BaseFiles
-        {
-            get => _baseFiles;
-            set => SetProperty(ref _baseFiles, value);
-        }
 
         private long _userId;
         [Required]
@@ -210,51 +411,9 @@ namespace MossApp.WPF.ViewModels
             }
         }
 
-        private int _port;
-        public int Port
-        {
-            get => _port;
-            set
-            {
-                SetProperty(ref _port, value);
-                _mossRequest.Port = _port;
-            }
-        }
-
-        private string _server;
-        public string Server
-        {
-            get => _server;
-            set
-            {
-                SetProperty(ref _server, value ?? string.Empty);
-                _mossRequest.Server = _server;
-            }
-        }
 
 
-        private int _maxMatches;
 
-        public int MaxMatches
-        {
-            get => _maxMatches;
-            set
-            {
-                SetProperty(ref _maxMatches, value);
-                _mossRequest.MaxMatches = _maxMatches;
-            }
-        }
-
-        private int _numberOfResultsToShow;
-        public int NumberOfResultsToShow
-        {
-            get => _numberOfResultsToShow;
-            set
-            {
-                SetProperty(ref _numberOfResultsToShow, value);
-                _mossRequest.NumberOfResultsToShow = _numberOfResultsToShow;
-            }
-        }
 
         private string _comments;
         public string Comments
@@ -267,43 +426,56 @@ namespace MossApp.WPF.ViewModels
             }
         }
 
-        private bool _isBetaRequest;
-        public bool IsBetaRequest
+
+        /// <summary>
+        /// Gets the restricted file types as a list.
+        /// </summary>
+        /// <returns>
+        /// A list of files types to accept.
+        /// </returns>
+        private List<string> GetRestrictedFileTypes()
         {
-            get => _isBetaRequest;
-            set
-            {
-                SetProperty(ref _isBetaRequest, value);
-                _mossRequest.IsBetaRequest = _isBetaRequest;
-            }
+
+            return !string.IsNullOrWhiteSpace(_restrictedFileTypesInput) ? _restrictedFileTypesInput.Split(',').ToList() : new List<string>();
         }
 
-        private void DependencyBuilt(bool isReady)
-        {
-            System.Collections.Specialized.StringCollection? languageList = Default.Languages;
-            _ea.GetEvent<ConfigEvent>().Publish(languageList);
-        }
+        /// <summary>
+        /// Parses the language settings into the Language Dictionary of
+        /// Languages => extensions.
+        /// </summary>
         private void ParseLanguageSettings()
         {
 
-           
-           
+            System.Collections.Specialized.StringCollection? languageList = Default.Languages;
+            foreach (string? language in languageList)
+            {
+                Language temp = new Language();
+
+                string[]? tokens = language?.Split(',');
+
+                if (tokens?.Length > 0)
+                {
+                    temp.Name = tokens[0];
+                }
+                if (tokens?.Length > 1)
+                {
+                    temp._icon = tokens[1];
+                }
+
+                
+                for (int index = 2; index < tokens?.Length; index++)
+                {
+                    temp.Extensions = temp.Extensions + ", " + tokens?[index];
+                }
+
+                Languages.Add(temp);
+                // because this setting is created with a specific format, this 
+                // should never fail. If it does, the underlying data source needs to be 
+                // fixed. 
+            }
         }
-        //public override void Receive(string from, string message)
-        //{
-        //    if (from.Equals("OpenMultipleFilesControlViewModel"))
-        //    {
-        //        SourceFileList.Add(message);
-        //    }
-        //}
-        
-
 
 
     }
-    public class Language
-    {
-        public string Name { get; set; }
-        public List<string> Extensions { get; set; } = new List<string>();
-    }
+  
 }

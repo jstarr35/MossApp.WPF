@@ -12,6 +12,7 @@
     xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:vm="clr-namespace:MossApp.Modules.Request.ViewModels"
+    d:DataContext="{d:DesignInstance Type=vm:SelectFilesFlyoutContentViewModel}"
     d:DesignHeight="600"
     d:DesignWidth="350"
     prism:ViewModelLocator.AutoWireViewModel="True"
@@ -28,17 +29,14 @@
 
         <mde:OpenMultipleFilesControl
             Grid.Row="0"
-            Margin="0,0,8,0"
             Cancel="OpenMultipleFilesControl_Cancel"
             CurrentDirectory="{Binding CurrentDirectory}"
             FilesSelected="OpenMultipleFilesControl_DirectoriesSelected"
             FilesSelectedCommand="{Binding PublishFileCommand}"
-            Filters="All files|*.*|C# files|*.cs|XAML files|*.xaml"
-            FontSize="10"
+            Filters="{Binding Filters}"
+            Loaded="OpenMultipleFilesControl_Loaded"
             ShowHiddenFilesAndDirectories="False"
-            ShowSystemFilesAndDirectories="False"
-            Style="{DynamicResource OpenMultipleFilesControlStyle1}"
-            SwitchPathPartsAsButtonsEnabled="False" FontFamily="Roboto" />
+            ShowSystemFilesAndDirectories="False" />
 
 
 

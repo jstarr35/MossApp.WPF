@@ -18,9 +18,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MossApp.Data", "MossApp.Mod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MossApp.Modules.Request", "MossApp.Modules.Request\MossApp.Modules.Request.csproj", "{2E0B77EB-A29B-4EA3-A7F2-F352F2B675B6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MossApp.Core", "MossApp.Core\MossApp.Core.csproj", "{F1431DB7-8434-4BDB-AFF2-2C8307D87907}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MossApp.Modules.SourceFileList", "MossApp.Modules.SourceFileList\MossApp.Modules.SourceFileList.csproj", "{632D0385-2C77-4667-84E1-266D86BD7CDA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MossApp.Common", "MossApp.Common\MossApp.Common.csproj", "{20EF1708-E05E-44D9-911A-855018DFC7CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,14 +48,14 @@ Global
 		{2E0B77EB-A29B-4EA3-A7F2-F352F2B675B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E0B77EB-A29B-4EA3-A7F2-F352F2B675B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E0B77EB-A29B-4EA3-A7F2-F352F2B675B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1431DB7-8434-4BDB-AFF2-2C8307D87907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1431DB7-8434-4BDB-AFF2-2C8307D87907}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1431DB7-8434-4BDB-AFF2-2C8307D87907}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1431DB7-8434-4BDB-AFF2-2C8307D87907}.Release|Any CPU.Build.0 = Release|Any CPU
 		{632D0385-2C77-4667-84E1-266D86BD7CDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{632D0385-2C77-4667-84E1-266D86BD7CDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{632D0385-2C77-4667-84E1-266D86BD7CDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{632D0385-2C77-4667-84E1-266D86BD7CDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20EF1708-E05E-44D9-911A-855018DFC7CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20EF1708-E05E-44D9-911A-855018DFC7CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20EF1708-E05E-44D9-911A-855018DFC7CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20EF1708-E05E-44D9-911A-855018DFC7CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

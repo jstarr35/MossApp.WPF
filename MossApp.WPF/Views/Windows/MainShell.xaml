@@ -1,0 +1,139 @@
+﻿<controls:MetroWindow x:Class="MossApp.WPF.Views.Windows.MainShell"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    xmlns:uc="clr-namespace:MossApp.WPF.Views.Controls"
+    xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
+    Title="MOSS"
+    Width="1400"
+    Height="808"
+    FontFamily="{DynamicResource MahApps.Fonts.Family.Window.Title}"
+    Icon="/Resources/moss3.png"
+    Style="{StaticResource MaterialDesignWindow}"
+    TitleBarHeight="45">
+
+    <!--<Window.DataContext>
+        <vm:RequestConfigViewModel />
+    </Window.DataContext>-->
+    <controls:MetroWindow.CommandBindings>
+        <CommandBinding
+            Command="Copy"
+            Executed="OnCopy" />
+    </controls:MetroWindow.CommandBindings>
+    <controls:MetroWindow.WindowButtonCommands>
+        <controls:WindowButtonCommands Style="{DynamicResource MahApps.Styles.WindowButtonCommands.Win10}" />
+    </controls:MetroWindow.WindowButtonCommands>
+
+    <controls:MetroWindow.Flyouts>
+        <controls:FlyoutsControl>
+            <!--<controls:Flyout x:Name="OptionsFlyout"
+                wpf:FlyoutAssist.HeaderColorMode="SecondaryMid"
+                Header="Settings"
+                Position="Left">
+                <ctls:OptionsFlyoutContent />
+            </controls:Flyout>-->
+            <controls:Flyout x:Name="SourceFilesFlyout"
+                wpf:FlyoutAssist.HeaderColorMode="SecondaryMid"
+                Header="Source Files"
+                Position="Right" />
+        </controls:FlyoutsControl>
+    </controls:MetroWindow.Flyouts>
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <StackPanel Orientation="Horizontal">
+                <Button
+                    Style="{StaticResource MaterialDesignIconForegroundButton}"
+                    ToolTip="Github">
+                    <wpf:PackIcon Kind="Github" />
+                </Button>
+            </StackPanel>
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+    <controls:MetroWindow.LeftWindowCommands>
+
+        <controls:WindowCommands>
+            <wpf:PopupBox Style="{StaticResource WindowCommandsPopupBoxStyle}">
+                <StackPanel>
+                    <Button Content="Hello World" />
+                    <Button Content="Nice Popup" />
+                    <Button Content="Goodbye" />
+                </StackPanel>
+            </wpf:PopupBox>
+        </controls:WindowCommands>
+    </controls:MetroWindow.LeftWindowCommands>
+
+
+
+
+
+
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="42" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="160" />
+        </Grid.RowDefinitions>
+        <wpf:DialogHost
+            Grid.Row="1"
+            Grid.Column="0"
+            Width="250"
+            Height="150"
+            Margin="8,8,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            DialogTheme="Inherit"
+            Identifier="RootDialog"
+            OverlayBackground="Transparent"
+            SnackbarMessageQueue="{Binding MessageQueue, ElementName=MainSnackbar}" />
+        <uc:SourceFileListView
+            Grid.Row="1"
+            Grid.Column="1" />
+        <uc:SelectFilesView
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Grid.Column="2"
+            Panel.ZIndex="2" />
+
+
+
+        <uc:TopMenuBarView
+            Grid.Row="0"
+            Grid.ColumnSpan="3" />
+
+        <!--<ctls:OptionsFlyoutContent Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" />-->
+        <uc:PrimaryConfigSetView
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            Grid.Column="0" />
+        <uc:LanguageSelectView Grid.Row="1" />
+        <!--<Button x:Name="DisplayOptionsButton"
+            Width="48"
+            Height="48"
+            Margin="12,0,0,12"
+            Padding="0,0,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Command="{Binding ShowOptionsFlyoutCommand}"
+            Style="{StaticResource MaterialDesignIconButton}">
+
+            <materialDesign:PackIcon
+                Height="28"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Top"
+                Kind="Settings" />
+        </Button>-->
+
+    </Grid>
+
+
+</controls:MetroWindow>

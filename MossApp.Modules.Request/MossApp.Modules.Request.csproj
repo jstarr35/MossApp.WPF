@@ -15,7 +15,7 @@
     <PackageReference Include="Prism.Core" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MossApp.Core\MossApp.Core.csproj" />
+    <ProjectReference Include="..\MossApp.Common\MossApp.Common.csproj" />
     <ProjectReference Include="..\MossApp.Utilities\MossApp.Utilities.csproj" />
   </ItemGroup>
   <ItemGroup>

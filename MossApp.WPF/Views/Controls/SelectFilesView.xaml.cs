@@ -4,14 +4,14 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace MossApp.Modules.Request.Views
+namespace MossApp.WPF.Views.Controls
 {
     /// <summary>
     /// Interaction logic for ViewA.xaml
     /// </summary>
-    public partial class SelectFilesFlyoutContentView : UserControl
+    public partial class SelectFilesView : UserControl
     {
-        public SelectFilesFlyoutContentView()
+        public SelectFilesView()
         {
             InitializeComponent();
         }
@@ -41,6 +41,14 @@ namespace MossApp.Modules.Request.Views
                 viewModel.SelectedAction = "Cancel open files";
             }
 
+        }
+
+        private void OpenMultipleFilesControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is SelectFilesFlyoutContentViewModel viewModel)
+            {
+                viewModel.ControlLoaded();
+            }
         }
     }
 }

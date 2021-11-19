@@ -33,7 +33,30 @@
     <controls:MetroWindow.WindowButtonCommands>
         <controls:WindowButtonCommands Style="{DynamicResource MahApps.Styles.WindowButtonCommands.Win10}" />
     </controls:MetroWindow.WindowButtonCommands>
+    <Window.Resources>
+        <Style x:Key="HorizontalExpanderContentTextBlock" TargetType="{x:Type TextBlock}">
+            <Setter Property="Opacity" Value=".68" />
+            <Setter Property="Text" Value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
 
+        <Style x:Key="VerticalExpanderContentTextBlock" BasedOn="{StaticResource HorizontalExpanderContentTextBlock}" TargetType="{x:Type TextBlock}">
+            <Setter Property="MaxWidth" Value="180" />
+        </Style>
+
+        <Style x:Key="HorizontalDividerBorder" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{DynamicResource MaterialDesignDivider}" />
+            <Setter Property="UseLayoutRounding" Value="True" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Height" Value="1" />
+        </Style>
+
+        <Style x:Key="VerticalDividerBorder" BasedOn="{StaticResource HorizontalDividerBorder}" TargetType="{x:Type Border}">
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="Height" Value="Auto" />
+            <Setter Property="Width" Value="1" />
+        </Style>
+    </Window.Resources>
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
             <controls:Flyout x:Name="OptionsFlyout"
@@ -89,7 +112,6 @@
             <RowDefinition Height="9*" />
         </Grid.RowDefinitions>
         <materialDesign:DialogHost
-            OverlayBackground="Transparent"
             Grid.Row="1"
             Grid.Column="0"
             Width="250"
@@ -99,6 +121,7 @@
             VerticalAlignment="Top"
             DialogTheme="Inherit"
             Identifier="RootDialog"
+            OverlayBackground="Transparent"
             SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}" />
         <ContentControl
             Grid.ColumnSpan="2"
@@ -107,10 +130,7 @@
             Grid.Row="1"
             prism:RegionManager.RegionName="SourceFileListRegion" />
 
-        <ContentControl
-            Grid.Row="1"
-            Grid.Column="1"
-            prism:RegionManager.RegionName="SourceFilesRegion" />
+
         <!--<materialDesign:DrawerHost x:Name="DrawerHost"
                         Grid.RowSpan="2"
                         Grid.Column="1"
@@ -271,6 +291,12 @@
                 Kind="Settings" />
         </Button>
 
+
+
+        <ContentControl
+            Grid.Row="1"
+            Grid.Column="1"
+            prism:RegionManager.RegionName="SourceFilesRegion" />
 
     </Grid>
 
