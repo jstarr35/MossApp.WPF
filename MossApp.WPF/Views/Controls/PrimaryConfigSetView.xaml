@@ -5,13 +5,16 @@
     xmlns:local="clr-namespace:MossApp.Modules.Request.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:MossApp.WPF.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:RequestConfigViewModel}"
     mc:Ignorable="d">
     <Grid Margin="8,8,0,8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
-            <ColumnDefinition/>
             <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -53,7 +56,7 @@
 
         <TextBox
             Grid.Row="0"
-            Margin="8"
+            Margin="12,8,12,4"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center"
             materialDesign:HintAssist.Hint="Max Matches"
@@ -62,7 +65,7 @@
         <d:Separator Background="{DynamicResource MaterialDesignDarkSeparatorBackground}" />
         <TextBox
             Grid.Row="1"
-            Margin="8"
+            Margin="12,4,12,8"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center"
             materialDesign:HintAssist.Hint="Results to Display"
@@ -77,20 +80,21 @@
             Grid.Column="1"
             MinWidth="180"
             MinHeight="100"
-            Margin="8,8,8,8"
-           
+            Margin="12,12,12,12"
             materialDesign:HintAssist.Hint="Comments"
             AcceptsReturn="True"
+            Text="{Binding Comments}"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             TextWrapping="Wrap"
             VerticalScrollBarVisibility="Auto" />
 
 
         <Expander
-            Grid.Column="3"
             Grid.RowSpan="2"
+            Grid.Column="3"
+            Margin="8,4,8,0"
             VerticalAlignment="Top"
-            FontSize="11" Margin="8,0,8,0" >
+            FontSize="11">
             <Expander.Header>
                 <TextBlock
                     HorizontalAlignment="Left"
@@ -105,41 +109,45 @@
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                     Text="{Binding Server}" />
                 <TextBox
-                    
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="Port"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                     Text="{Binding Port}" />
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock
-                        
-                        FontSize="12"
-                        Style="{StaticResource MaterialDesignTextBlock}"
-                        Text="Use Experimental Version" />
-                    <ToggleButton
-                        Margin="8,0,0,0"
-                        HorizontalAlignment="Stretch"
-                        IsChecked="{Binding IsBetaRequest}"
-                        Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"
-                        ToolTip="MaterialDesignSwitchDarkToggleButton" />
-                </StackPanel>
+              
             </StackPanel>
         </Expander>
         <StackPanel
             Grid.Row="0"
             Grid.Column="2"
-            Margin="0,8,0,16"
+            Margin="12,8,8,0"
             Orientation="Horizontal">
-            <TextBlock Text="Restrict File Types" Style="{DynamicResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center"/>
+            <TextBlock
+                VerticalAlignment="Center"
+                Style="{DynamicResource MaterialDesignCaptionTextBlock}"
+                Text="Restrict File Types" />
 
             <ToggleButton
-                Margin="16,0,16,0"
+                Margin="11,0,16,0"
                 IsChecked="{Binding RestrictFileTypes}"
                 Style="{StaticResource MaterialDesignSwitchToggleButton}"
                 ToolTip="Restrict File Types" />
 
         </StackPanel>
-        <TextBox Grid.Row="1"
-                 Grid.Column="2" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Restricted File Types" VerticalAlignment="Center"/>
+        <TextBox
+            Grid.Row="1"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            materialDesign:HintAssist.Hint="Restricted File Types"
+            Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="12,-6,12,0" />
+
+        <ToggleButton
+            Grid.Column="4"
+            IsChecked="{Binding IsBetaRequest}"
+            Content="BETA"
+            FontFamily="Roboto"
+            FontSize="10"
+            FontWeight="Bold"
+            Style="{StaticResource MaterialDesignActionLightToggleButton}"
+            ToolTip="MaterialDesignActionLightToggleButton" Margin="8,0,8,0" />
     </Grid>
 </UserControl>

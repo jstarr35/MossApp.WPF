@@ -1,5 +1,4 @@
-﻿using MossApp.Common.Models;
-using Prism.Events;
+﻿using Prism.Events;
 
 
 namespace MossApp.Common

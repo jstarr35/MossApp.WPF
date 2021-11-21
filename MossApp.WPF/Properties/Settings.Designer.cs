@@ -165,30 +165,29 @@ namespace MossApp.WPF.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>C,LanguageC,.c,.h</string>
-  <string>C++,LanguageCpp,.cpp,.h,.hpp,.cc</string>
-  <string>Java,LanguageJava,.java</string>
-  <string>Meta Language,CodeTags,.ml</string>
-  <string>Pascal,CodeTags,.pas</string>
-  <string>Ada,CodeTags,.ada</string>
-  <string>Lisp,CodeTags,.lisp</string>
-  <string>Scheme,CodeTags,.scm</string>
-  <string>Haskell,LanguageHaskell,.hs</string>
-  <string>Fortran,LanguageFortran,.f90,.f95,.f03</string>
-  <string>ASCII,CodeTags,.asc,.txt</string>
-  <string>VHDL,CodeTags,.vhdl</string>
-  <string>Perl,CodeTags,.perl,.pl</string>
-  <string>Matlab,CodeTags,.matlab</string>
-  <string>Python,LanguagePython,.py</string>
-  <string>MIPS,CodeTags,.s,.asm</string>
-  <string>Prolog,CodeTags,.pl</string>
-  <string>Spice,CodeTags,.sp</string>
-  <string>VB,CodeTags,.vb</string>
-  <string>C#,LanguageCsharp,.cs</string>
-  <string>Modula2,CodeTags,.mod</string>
-  <string>A8086,CodeTags,.asm</string>
-  <string>JavaScript,LanguageJavascript,.js</string>
-  <string>PL/SQL,CodeTags,.json</string>
+  <string>C,Material,LanguageC,.c,.h</string>
+  <string>C++,Material,LanguageCpp,.cpp,.h,.hpp,.cc</string>
+  <string>Java,Material,LanguageJava,.java</string>
+  <string>Haskell,Material,LanguageHaskell,.hs</string>
+  <string>Fortran,Material,LanguageFortran,.f90,.f95,.f03</string>
+  <string>Python,Material,LanguagePython,.py</string>
+  <string>C,Material,LanguageCsharp,.cs</string>
+  <string>JavaScript,Material,LanguageJavascript,.js</string>
+  <string>PLSQL,Text,PL/SQL,.json</string>
+  <string>Meta Language,Text,META,.ml</string>
+  <string>Pascal,Text,Pa,.pas</string>
+  <string>Ada,Text,ADA,.ada</string>
+  <string>Lisp,Text,LISP,.lisp</string>
+  <string>Scheme,Moss,Scheme,.scm</string>
+  <string>ASCII,Text,ASCII,.asc,.txt</string>
+  <string>VHDL,Material,Chip,.vhdl</string>
+  <string>Perl,Moss,Perl,.perl,.pl</string>
+  <string>Matlab,Moss,Matlab,.matlab</string>
+  <string>MIPS,Text,MIPS,.s,.asm</string>
+  <string>Spice,Text,SPICE,.sp</string>
+  <string>VisualBasic,Text,VB,.vb</string>
+  <string>Modula2,Text,2%,.mod</string>
+  <string>A8086,Text,ASMBLY,.asm</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection Languages {
             get {

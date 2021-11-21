@@ -1,7 +1,6 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using MahApps.Metro.Controls;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.DependencyInjection;
-using MossApp.Modules.Request.ViewModels;
-using MossApp.Modules.Request.Views;
 
 
 using MossApp.Request;
@@ -58,6 +57,7 @@ namespace MossApp.WPF
                 .CreateLogger();
 
             containerRegistry.Register<IMossRequest, MossRequest>();
+         
             //  containerRegistry.Register
 
 
@@ -77,6 +77,7 @@ namespace MossApp.WPF
         {
             base.ConfigureRegionAdapterMappings(regionAdapterMappings);
             regionAdapterMappings.RegisterMapping(typeof(StackPanel), Container.Resolve<StackPanelRegionAdapter>());
+            regionAdapterMappings.RegisterMapping(typeof(FlyoutsControl), Container.Resolve<FlyoutsControlRegionAdapter>());
             // regionAdapterMappings.RegisterMapping(typeof(StackPanel), Container.Resolve<StackPanelRegionAdapter>());
         }
 

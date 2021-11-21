@@ -4,6 +4,7 @@
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     xmlns:uc="clr-namespace:MossApp.WPF.Views.Controls"
+    xmlns:ui="clr-namespace:MossApp.UI.Resources.Icons;assembly=MossApp.UI"
     xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
     Title="MOSS"
     Width="1400"
@@ -47,6 +48,11 @@
                     ToolTip="Github">
                     <wpf:PackIcon Kind="Github" />
                 </Button>
+                <Button
+                    Style="{StaticResource MaterialDesignIconForegroundButton}"
+                    ToolTip="Moss">
+                    <ui:MossPackIcon Kind="Scheme" />
+                </Button>
             </StackPanel>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
@@ -71,8 +77,9 @@
 
 
     <Grid>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="260" />
             <ColumnDefinition Width="4*" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
@@ -96,6 +103,7 @@
         <uc:SourceFileListView
             Grid.Row="1"
             Grid.Column="1" />
+
         <uc:SelectFilesView
             Grid.Row="0"
             Grid.RowSpan="3"
@@ -111,8 +119,8 @@
         <!--<ctls:OptionsFlyoutContent Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" />-->
         <uc:PrimaryConfigSetView
             Grid.Row="2"
-            Grid.ColumnSpan="2"
-            Grid.Column="0" />
+            Grid.Column="0"
+            Grid.ColumnSpan="2" />
         <uc:LanguageSelectView Grid.Row="1" />
         <!--<Button x:Name="DisplayOptionsButton"
             Width="48"

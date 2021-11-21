@@ -5,7 +5,7 @@
     <UseWPF>true</UseWPF>
     <Authors>Jason Starr</Authors>
     <Description>Utility classes for the MOSS WPF project.</Description>
-    <PackageIcon>moss-nuget-logo.png</PackageIcon>
+    <PackageIcon></PackageIcon>
     <PackageIconUrl />
     <PackageTags>MOSS Plagirism-Detection Utilities</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -17,10 +17,6 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="C:\Users\jason\Pictures\Designs\moss-nuget-logo.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
   </ItemGroup>
 

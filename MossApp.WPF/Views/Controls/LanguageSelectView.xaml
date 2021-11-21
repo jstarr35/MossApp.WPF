@@ -4,12 +4,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="clr-namespace:MossApp.UI.Resources.Icons;assembly=MossApp.UI"
+    xmlns:utils="clr-namespace:MossApp.Utilities.Converters;assembly=MossApp.Utilities"
     xmlns:viewmodels="clr-namespace:MossApp.WPF.ViewModels"
     xmlns:windows="clr-namespace:MossApp.WPF.Views.Windows"
     d:DataContext="{d:DesignInstance Type=viewmodels:RequestConfigViewModel}"
     d:DesignHeight="579"
     d:DesignWidth="350"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style BasedOn="{StaticResource MaterialDesignScrollBarMinimal}" TargetType="{x:Type ScrollBar}">
+            <Setter Property="MaxWidth" Value="10" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <ScrollViewer
             Padding="16"
@@ -17,45 +24,79 @@
             VerticalAlignment="Stretch"
             HorizontalScrollBarVisibility="Disabled"
             VerticalScrollBarVisibility="Auto">
+
             <StackPanel x:Name="LanguagesPanel"
-                Orientation="Vertical" CanVerticallyScroll="True">
-               
+                CanVerticallyScroll="True"
+                Orientation="Vertical">
+
                 <ListBox
+                    Padding="4,4,4,4"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Left"
                     ItemsSource="{Binding Languages}"
                     SelectedIndex="0"
                     SelectedItem="{Binding SelectedLanguage}"
-                    Style="{StaticResource MaterialDesignToolVerticalToggleListBox}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" Padding="4,4,4,4">
+                    Style="{StaticResource MaterialDesignToolVerticalToggleListBox}">
                     <ListBox.ItemTemplate>
 
                         <DataTemplate>
                             <Border x:Name="Border"
+                                Width="310"
                                 Padding="4"
-                                    
                                 BorderBrush="{DynamicResource MaterialDesignDivider}"
-                                BorderThickness="0,0,0,1" Width="310" >
+                                BorderThickness="0,0,0,1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition />
                                         <ColumnDefinition />
-                                        <ColumnDefinition/>
+                                        <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <Button
-                                        
-                                        Style="{StaticResource MaterialDesignIconButton}" HorizontalAlignment="Left" Margin="8,0,0,0" MaxWidth="36">
+                                         Visibility="{Binding IsMaterialIcon, Converter={utils:BooleanToVisibilityConverter}}"
+                                        MaxWidth="36"
+                                        Margin="8,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        Style="{StaticResource MaterialDesignIconButton}">
                                         <materialDesign:PackIcon
                                             VerticalAlignment="Center"
-                                            Kind="{Binding Icon}" />
+                                            Kind="{Binding Icon}"
+                                            />
+                                      
+
                                     </Button>
+                                    <Button
+                                        Visibility="{Binding IsMossIcon, Converter={utils:BooleanToVisibilityConverter}}" 
+                                        MaxWidth="36"
+                                        Margin="8,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        Style="{StaticResource MaterialDesignIconButton}">
+                                        <ui:MossPackIcon
+                                            VerticalAlignment="Center"
+                                            Kind="{Binding Icon}"
+                                            />
 
+                                    </Button>
+                                    <Button
+                                        Visibility="{Binding IsTextIcon, Converter={utils:BooleanToVisibilityConverter}}" 
+                                        MaxWidth="36"
+                                        Margin="8,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        Style="{StaticResource MaterialDesignIconButton}">
+                                        <TextBlock Text="{Binding Icon}" Style="{StaticResource MaterialDesignCaptionTextBlock}"/>
 
-                                   
-                                        <TextBlock
-                                            Grid.Column="1"
-                                            FontWeight="Bold"
-                                            Padding="8,0,0,0"
-                                            Text="{Binding Name}" VerticalAlignment="Center" />
-                                        <!--<TextBlock Text="{Binding Description}" />-->
-                                    <Border Grid.Column="2" Width="48" BorderThickness="8,0,0,0"/>
+                                    </Button>
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        Padding="8,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Text="{Binding Name}" />
+                                    <!--<TextBlock Text="{Binding Description}" />-->
+                                    <Border
+                                        Grid.Column="2"
+                                        Width="48"
+                                        BorderThickness="8,0,0,0" />
 
                                 </Grid>
                             </Border>

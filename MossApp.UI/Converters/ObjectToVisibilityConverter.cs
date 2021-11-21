@@ -15,7 +15,7 @@ namespace MossApp.UI.Converters
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return converter ?? (converter = new ObjectToVisibilityConverter());
+            return converter ??= new ObjectToVisibilityConverter();
         }
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

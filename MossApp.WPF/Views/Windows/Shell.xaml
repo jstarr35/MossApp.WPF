@@ -7,6 +7,7 @@
     xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
     xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
     xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+                      xmlns:ui="clr-namespace:MossApp.UI.Resources.Icons;assembly=MossApp.UI"
     xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
     xmlns:model="clr-namespace:MaterialDesignExtensions.Model;assembly=MaterialDesignExtensions"
     xmlns:prism="http://prismlibrary.com/"
@@ -78,6 +79,10 @@
                     Style="{StaticResource MaterialDesignIconForegroundButton}"
                     ToolTip="Github">
                     <materialDesign:PackIcon Kind="Github" />
+                </Button>
+                <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
+                        ToolTip="Moss">
+                    <ui:MossPackIcon Kind="Scheme"/>
                 </Button>
             </StackPanel>
         </controls:WindowCommands>

@@ -11,7 +11,7 @@
     <Authors>Jason Starr</Authors>
     <PackageProjectUrl>https://github.com/jstarr35/MossApp.WPF</PackageProjectUrl>
     <RepositoryUrl>https://github.com/jstarr35/MossApp.WPF</RepositoryUrl>
-    <PackageIcon>moss-nuget-logo.png</PackageIcon>
+    <PackageIcon></PackageIcon>
     <PackageIconUrl />
     <Description>Styles and themes for MossApp WPF.</Description>
   </PropertyGroup>
@@ -40,13 +40,21 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include="C:\Users\jason\Pictures\Designs\moss-nuget-logo.png">
+    <Resource Include="..\..\..\..\OneDrive\Pictures\Designs\moss-nuget-logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
-    </None>
+    </Resource>
     <None Include="Themes\Styles\MossApp.Stanford.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ControlzEx" Version="5.0.1" />
   </ItemGroup>
 
 	

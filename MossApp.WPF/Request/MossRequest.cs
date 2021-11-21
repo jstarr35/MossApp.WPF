@@ -74,17 +74,17 @@ namespace MossApp.Request
         /// </summary>
         public MossRequest()
         {
-            this.Files = new List<string>();
-            this.BaseFile = new List<string>();
-            this.UserId = 0;
-            this.Server = Settings.Default.Server;
-            this.Port = Settings.Default.Port;
-            this.language = string.Empty;
-            this.comments = string.Empty;
-            this.MaxMatches = DefaultMaxMatches;
-            this.NumberOfResultsToShow = DefaultNumberOfResultsToShow;
-            this.IsDirectoryMode = false;
-            this.IsBetaRequest = false;
+            Files = new List<string>();
+            BaseFile = new List<string>();
+            UserId = 0;
+            Server = Settings.Default.Server;
+            Port = Settings.Default.Port;
+            language = string.Empty;
+            comments = string.Empty;
+            MaxMatches = DefaultMaxMatches;
+            NumberOfResultsToShow = DefaultNumberOfResultsToShow;
+            IsDirectoryMode = false;
+            IsBetaRequest = false;
 
         }
 
@@ -237,9 +237,9 @@ namespace MossApp.Request
         /// </remarks>
         public string Language
         {
-            get => this.language;
+            get => language;
 
-            set => this.language = value ?? string.Empty;
+            set => language = value ?? string.Empty;
         }
 
         /// <summary>
@@ -255,9 +255,9 @@ namespace MossApp.Request
         /// </remarks>
         public string Comments
         {
-            get => this.comments;
+            get => comments;
 
-            set => this.comments = value ?? string.Empty;
+            set => comments = value ?? string.Empty;
         }
 
         /// <summary>
@@ -316,58 +316,58 @@ namespace MossApp.Request
         {
             try
             {
-                var hostEntry = Dns.GetHostEntry(this.Server);
+                var hostEntry = Dns.GetHostEntry(Server);
 
                 var address = hostEntry.AddressList[0];
-                var ipe = new IPEndPoint(address, this.Port);
+                var ipe = new IPEndPoint(address, Port);
                 string result;
                 using (var socket = new Socket(ipe.AddressFamily, SocketType.Stream, ProtocolType.Tcp))
                 {
 
                     await socket.ConnectAsync(ipe);
                     // Status.Status = $"Sending Moss option: {Settings.Default.MossOption} with UserID: {UserId}";
-                    this.SendOption(
+                    SendOption(
                         Settings.Default.MossOption,
-                        this.UserId.ToString(CultureInfo.InvariantCulture),
+                        UserId.ToString(CultureInfo.InvariantCulture),
                         socket);
-                    this.SendOption(Settings.Default.DirectoryOption, this.IsDirectoryMode ? "1" : "0", socket);
-                    this.SendOption(Settings.Default.ExperimentalOption, this.IsBetaRequest ? "1" : "0", socket);
-                    this.SendOption(
+                    SendOption(Settings.Default.DirectoryOption, IsDirectoryMode ? "1" : "0", socket);
+                    SendOption(Settings.Default.ExperimentalOption, IsBetaRequest ? "1" : "0", socket);
+                    SendOption(
                         Settings.Default.MaxMatchesOption,
-                        this.MaxMatches.ToString(CultureInfo.InvariantCulture),
+                        MaxMatches.ToString(CultureInfo.InvariantCulture),
                         socket);
-                    this.SendOption(
+                    SendOption(
                         Settings.Default.ShowOption,
-                        this.NumberOfResultsToShow.ToString(CultureInfo.InvariantCulture),
+                        NumberOfResultsToShow.ToString(CultureInfo.InvariantCulture),
                         socket);
 
-                    if (this.BaseFile.Count != 0)
+                    if (BaseFile.Count != 0)
                     {
                         int counter = 1;
-                        foreach (var file in this.BaseFile)
+                        foreach (var file in BaseFile)
                         {
                             //  Status.Status = $"Sending file {counter} of {BaseFile.Count}";
-                            this.SendFile(file, socket, 0);
+                            SendFile(file, socket, 0);
                             counter++;
                         }
                     } // else, no base files to send DoNothing();
 
-                    if (this.Files.Count != 0)
+                    if (Files.Count != 0)
                     {
                         int fileCount = 1;
-                        foreach (var file in this.Files)
+                        foreach (var file in Files)
                         {
-                            this.SendFile(file, socket, fileCount++);
+                            SendFile(file, socket, fileCount++);
                         }
                     } // else, no files to send DoNothing();
 
-                    this.SendOption("query 0", this.Comments, socket);
+                    SendOption("query 0", Comments, socket);
 
-                    var bytes = new byte[this.ReplySize];
+                    var bytes = new byte[ReplySize];
                     socket.Receive(bytes);
 
                     result = Encoding.UTF8.GetString(bytes);
-                    this.SendOption(Settings.Default.EndOption, string.Empty, socket);
+                    SendOption(Settings.Default.EndOption, string.Empty, socket);
                 }
 
                 if (Uri.TryCreate(result, UriKind.Absolute, out var url))
@@ -429,19 +429,19 @@ namespace MossApp.Request
         {
             var fileInfo = new FileInfo(file);
             socket.Send(
-                this.IsDirectoryMode
+                IsDirectoryMode
                     ? Encoding.UTF8.GetBytes(
                         string.Format(
                             FileUploadFormat,
                             number,
-                            this.language,
+                            language,
                             fileInfo.Length,
                             fileInfo.FullName.Replace("\\", "/").Replace(" ", string.Empty)))
                     : Encoding.UTF8.GetBytes(
                         string.Format(
                             FileUploadFormat,
                             number,
-                            this.language,
+                            language,
                             fileInfo.Length,
                             fileInfo.Name.Replace(" ", string.Empty))));
             Console.WriteLine(fileInfo.FullName.Replace("\\", "/").Replace(" ", string.Empty));

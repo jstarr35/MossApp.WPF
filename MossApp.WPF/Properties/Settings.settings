@@ -47,30 +47,29 @@
     <Setting Name="Languages" Type="System.Collections.Specialized.StringCollection" Scope="Application">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;string&gt;C,LanguageC,.c,.h&lt;/string&gt;
-  &lt;string&gt;C++,LanguageCpp,.cpp,.h,.hpp,.cc&lt;/string&gt;
-  &lt;string&gt;Java,LanguageJava,.java&lt;/string&gt;
-  &lt;string&gt;Meta Language,CodeTags,.ml&lt;/string&gt;
-  &lt;string&gt;Pascal,CodeTags,.pas&lt;/string&gt;
-  &lt;string&gt;Ada,CodeTags,.ada&lt;/string&gt;
-  &lt;string&gt;Lisp,CodeTags,.lisp&lt;/string&gt;
-  &lt;string&gt;Scheme,CodeTags,.scm&lt;/string&gt;
-  &lt;string&gt;Haskell,LanguageHaskell,.hs&lt;/string&gt;
-  &lt;string&gt;Fortran,LanguageFortran,.f90,.f95,.f03&lt;/string&gt;
-  &lt;string&gt;ASCII,CodeTags,.asc,.txt&lt;/string&gt;
-  &lt;string&gt;VHDL,CodeTags,.vhdl&lt;/string&gt;
-  &lt;string&gt;Perl,CodeTags,.perl,.pl&lt;/string&gt;
-  &lt;string&gt;Matlab,CodeTags,.matlab&lt;/string&gt;
-  &lt;string&gt;Python,LanguagePython,.py&lt;/string&gt;
-  &lt;string&gt;MIPS,CodeTags,.s,.asm&lt;/string&gt;
-  &lt;string&gt;Prolog,CodeTags,.pl&lt;/string&gt;
-  &lt;string&gt;Spice,CodeTags,.sp&lt;/string&gt;
-  &lt;string&gt;VB,CodeTags,.vb&lt;/string&gt;
-  &lt;string&gt;C#,LanguageCsharp,.cs&lt;/string&gt;
-  &lt;string&gt;Modula2,CodeTags,.mod&lt;/string&gt;
-  &lt;string&gt;A8086,CodeTags,.asm&lt;/string&gt;
-  &lt;string&gt;JavaScript,LanguageJavascript,.js&lt;/string&gt;
-  &lt;string&gt;PL/SQL,CodeTags,.json&lt;/string&gt;
+  &lt;string&gt;C,Material,LanguageC,.c,.h&lt;/string&gt;
+  &lt;string&gt;C++,Material,LanguageCpp,.cpp,.h,.hpp,.cc&lt;/string&gt;
+  &lt;string&gt;Java,Material,LanguageJava,.java&lt;/string&gt;
+  &lt;string&gt;Haskell,Material,LanguageHaskell,.hs&lt;/string&gt;
+  &lt;string&gt;Fortran,Material,LanguageFortran,.f90,.f95,.f03&lt;/string&gt;
+  &lt;string&gt;Python,Material,LanguagePython,.py&lt;/string&gt;
+  &lt;string&gt;C,Material,LanguageCsharp,.cs&lt;/string&gt;
+  &lt;string&gt;JavaScript,Material,LanguageJavascript,.js&lt;/string&gt;
+  &lt;string&gt;PLSQL,Text,PL/SQL,.json&lt;/string&gt;
+  &lt;string&gt;Meta Language,Text,META,.ml&lt;/string&gt;
+  &lt;string&gt;Pascal,Text,Pa,.pas&lt;/string&gt;
+  &lt;string&gt;Ada,Text,ADA,.ada&lt;/string&gt;
+  &lt;string&gt;Lisp,Text,LISP,.lisp&lt;/string&gt;
+  &lt;string&gt;Scheme,Moss,Scheme,.scm&lt;/string&gt;
+  &lt;string&gt;ASCII,Text,ASCII,.asc,.txt&lt;/string&gt;
+  &lt;string&gt;VHDL,Material,Chip,.vhdl&lt;/string&gt;
+  &lt;string&gt;Perl,Moss,Perl,.perl,.pl&lt;/string&gt;
+  &lt;string&gt;Matlab,Moss,Matlab,.matlab&lt;/string&gt;
+  &lt;string&gt;MIPS,Text,MIPS,.s,.asm&lt;/string&gt;
+  &lt;string&gt;Spice,Text,SPICE,.sp&lt;/string&gt;
+  &lt;string&gt;VisualBasic,Text,VB,.vb&lt;/string&gt;
+  &lt;string&gt;Modula2,Text,2%,.mod&lt;/string&gt;
+  &lt;string&gt;A8086,Text,ASMBLY,.asm&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
   </Settings>

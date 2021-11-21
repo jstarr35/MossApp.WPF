@@ -168,27 +168,27 @@ namespace MossApp.WPF {
   <string>C,LanguageC,.c,.h</string>
   <string>C,LanguageCpp,.cpp,.h,.hpp,.cc</string>
   <string>Java,LanguageJava,.java</string>
+  <string>Haskell,LanguageHaskell,.hs</string>
+  <string>Fortran,LanguageFortran,.f90,.f95,.f03</string>
+  <string>Python,LanguagePython,.py</string>
+  <string>C,LanguageCsharp,.cs</string>
+  <string>JavaScript,LanguageJavascript,.js</string>
+  <string>PLSQL,CodeTags,.json</string>
   <string>Meta Language,CodeTags,.ml</string>
   <string>Pascal,CodeTags,.pas</string>
   <string>Ada,CodeTags,.ada</string>
   <string>Lisp,CodeTags,.lisp</string>
   <string>Scheme,CodeTags,.scm</string>
-  <string>Haskell,LanguageHaskell,.hs</string>
-  <string>Fortran,LanguageFortran,.f90,.f95,.f03</string>
   <string>ASCII,CodeTags,.asc,.txt</string>
   <string>VHDL,CodeTags,.vhdl</string>
   <string>Perl,CodeTags,.perl,.pl</string>
   <string>Matlab,CodeTags,.matlab</string>
-  <string>Python,LanguagePython,.py</string>
   <string>MIPS,CodeTags,.s,.asm</string>
   <string>Prolog,CodeTags,.pl</string>
   <string>Spice,CodeTags,.sp</string>
   <string>VB,CodeTags,.vb</string>
-  <string>C,LanguageCsharp,.cs</string>
   <string>Modula2,CodeTags,.mod</string>
   <string>A8086,CodeTags,.asm</string>
-  <string>JavaScript,LanguageJavascript,.js</string>
-  <string>PLSQL,CodeTags,.json</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection Languages {
             get {

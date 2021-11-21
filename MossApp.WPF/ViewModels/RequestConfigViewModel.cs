@@ -4,7 +4,6 @@ using System;
 using System.Windows;
 using MahApps.Metro.Controls;
 using MossApp.WPF.Views.Windows;
-
 using System.Collections.Generic;
 using MossApp.Request;
 using System.ComponentModel.DataAnnotations;
@@ -13,16 +12,13 @@ using MaterialDesignThemes.Wpf;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using MossApp.Utilities.Extensions;
-using Prism.Events;
-
 using System.Linq;
-
 using System.Windows.Media;
 
 
 namespace MossApp.WPF.ViewModels
 {
-    using static MossApp.WPF.Properties.Settings;
+    using static Properties.Settings;
 
     public class RequestConfigViewModel : BindableBase
     {
@@ -169,6 +165,8 @@ namespace MossApp.WPF.ViewModels
                 OnPropertyChanged(nameof(SelectedAction));
             }
         }
+
+
       
         private Language _selectedLanguage;
 
@@ -346,10 +344,21 @@ namespace MossApp.WPF.ViewModels
         public Flyout? OptionsFlyout { get; set; }
         public Flyout? SourceFilesFlyout { get; set; }
 
+        private void ToggleFlyout(object param)
+        {
+            var side = param as string;
+            switch (side)
+            {
+                case "Bottom":
+                    ((RequestConfigWindow)Application.Current.MainWindow).OptionsFlyout.IsOpen = !((RequestConfigWindow)Application.Current.MainWindow).OptionsFlyout.IsOpen;
+                    break;
+
+            }
+        }
+
         private void ShowOptionsFlyout()
         {
 
-            ((RequestConfigWindow)Application.Current.MainWindow).OptionsFlyout.IsOpen = !((RequestConfigWindow)Application.Current.MainWindow).OptionsFlyout.IsOpen;
         }
 
         private void ShowSourceFilesFlyout()
@@ -459,11 +468,22 @@ namespace MossApp.WPF.ViewModels
                 }
                 if (tokens?.Length > 1)
                 {
-                    temp._icon = tokens[1];
+                    var iconStatus = tokens[1];
+                    if (iconStatus == "Text")
+                        temp.IconType = IconType.Text;
+                    else if (iconStatus == "Moss")
+                        temp.IconType = IconType.Moss;
+                    else if (iconStatus == "Material")
+                        temp.IconType = IconType.Material;
+                }
+
+                if (tokens?.Length > 2)
+                {
+                    temp.Icon = tokens[2];
                 }
 
                 
-                for (int index = 2; index < tokens?.Length; index++)
+                for (int index = 3; index < tokens?.Length; index++)
                 {
                     temp.Extensions = temp.Extensions + ", " + tokens?[index];
                 }
@@ -475,6 +495,7 @@ namespace MossApp.WPF.ViewModels
             }
         }
 
+       
 
     }
   

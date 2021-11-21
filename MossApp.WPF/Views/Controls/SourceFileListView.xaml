@@ -7,21 +7,19 @@
     d:DesignHeight="600"
     d:DesignWidth="500"
     mc:Ignorable="d">
-    <Grid Margin="24,8,8,0">
+    <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
+
             <RowDefinition Height="9*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <StackPanel
-            Grid.Row="1"
             Grid.RowSpan="3"
             Orientation="Vertical">
             <Expander IsExpanded="True">
                 <Expander.Header>
                     <TextBlock
-                        Margin="-10,0,0,0"
                         Style="{StaticResource MaterialDesignTextBlock}"
                         Text="Source File(s)" />
                 </Expander.Header>
@@ -40,7 +38,6 @@
             <Expander IsExpanded="True">
                 <Expander.Header>
                     <TextBlock
-                        Margin="-10,0,0,0"
                         Style="{StaticResource MahApps.Styles.TextBlock}"
                         Text="Base File(s)" />
                 </Expander.Header>
@@ -52,9 +49,9 @@
 
 
         <Button
-            Grid.Row="2"
-            Margin="120,0,120,2"
+            Grid.Row="1"
             Padding="16,4,16,4"
+            HorizontalAlignment="Center"
             materialDesign:ButtonProgressAssist.IsIndeterminate="True"
             materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsLoading}"
             materialDesign:ButtonProgressAssist.Value="-1"

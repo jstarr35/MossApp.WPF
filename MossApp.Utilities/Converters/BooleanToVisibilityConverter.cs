@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace MossApp.Utilities
+namespace MossApp.Utilities.Converters
 {
     public class BooleanToVisibilityConverter : MarkupExtension, IValueConverter
     {
