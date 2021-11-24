@@ -78,8 +78,10 @@
                         <ControlTemplate TargetType="{x:Type ui:MossPackIcon}">
                             <Viewbox>
                                 <Canvas Width="24" Height="24">
-                                    <Path Data="{Binding Data, RelativeSource={RelativeSource TemplatedParent}}"                                  
-                              Fill="{StaticResource PrimaryColorBrush}" />
+                                    <Path Stretch="Fill" Data="{Binding Data, RelativeSource={RelativeSource TemplatedParent}}"                                  
+                              Fill="{StaticResource PrimaryColorBrush}">
+
+                                    </Path>
                                 </Canvas>
                             </Viewbox>
                         </ControlTemplate>

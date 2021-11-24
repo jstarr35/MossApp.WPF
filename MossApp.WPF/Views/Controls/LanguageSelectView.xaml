@@ -48,42 +48,18 @@
                                 BorderThickness="0,0,0,1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Button
-                                         Visibility="{Binding IsMaterialIcon, Converter={utils:BooleanToVisibilityConverter}}"
-                                        MaxWidth="36"
-                                        Margin="8,0,0,0"
-                                        HorizontalAlignment="Left"
-                                        Style="{StaticResource MaterialDesignIconButton}">
-                                        <materialDesign:PackIcon
-                                            VerticalAlignment="Center"
-                                            Kind="{Binding Icon}"
-                                            />
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="2*"/>
                                       
-
-                                    </Button>
+                                    </Grid.ColumnDefinitions>
+                                 
                                     <Button
-                                        Visibility="{Binding IsMossIcon, Converter={utils:BooleanToVisibilityConverter}}" 
-                                        MaxWidth="36"
+                                        
+                                       
                                         Margin="8,0,0,0"
                                         HorizontalAlignment="Left"
                                         Style="{StaticResource MaterialDesignIconButton}">
-                                        <ui:MossPackIcon
-                                            VerticalAlignment="Center"
-                                            Kind="{Binding Icon}"
-                                            />
-
-                                    </Button>
-                                    <Button
-                                        Visibility="{Binding IsTextIcon, Converter={utils:BooleanToVisibilityConverter}}" 
-                                        MaxWidth="36"
-                                        Margin="8,0,0,0"
-                                        HorizontalAlignment="Left"
-                                        Style="{StaticResource MaterialDesignIconButton}">
-                                        <TextBlock Text="{Binding Icon}" Style="{StaticResource MaterialDesignCaptionTextBlock}"/>
+                                        <TextBlock Text="{Binding Mapping}" Style="{StaticResource MaterialDesignCaptionTextBlock}" FontFamily="MossFont" FontSize="24"/>
 
                                     </Button>
                                     <TextBlock
@@ -91,12 +67,10 @@
                                         Padding="8,0,0,0"
                                         VerticalAlignment="Center"
                                         FontWeight="Bold"
-                                        Text="{Binding Name}" />
+                                        HorizontalAlignment="Left"
+                                        Text="{Binding DisplayName}" Margin="0,0,8,0" />
                                     <!--<TextBlock Text="{Binding Description}" />-->
-                                    <Border
-                                        Grid.Column="2"
-                                        Width="48"
-                                        BorderThickness="8,0,0,0" />
+                                   
 
                                 </Grid>
                             </Border>

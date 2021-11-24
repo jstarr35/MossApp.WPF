@@ -53,7 +53,7 @@
             Padding="16,4,16,4"
             HorizontalAlignment="Center"
             materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-            materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsLoading}"
+            materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsWaiting}"
             materialDesign:ButtonProgressAssist.Value="-1"
             Command="{Binding SendRequestCommand}"
             Style="{StaticResource MaterialDesignRaisedButton}">

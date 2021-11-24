@@ -165,29 +165,29 @@ namespace MossApp.WPF.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>C,Material,LanguageC,.c,.h</string>
-  <string>C++,Material,LanguageCpp,.cpp,.h,.hpp,.cc</string>
-  <string>Java,Material,LanguageJava,.java</string>
-  <string>Haskell,Material,LanguageHaskell,.hs</string>
-  <string>Fortran,Material,LanguageFortran,.f90,.f95,.f03</string>
-  <string>Python,Material,LanguagePython,.py</string>
-  <string>C,Material,LanguageCsharp,.cs</string>
-  <string>JavaScript,Material,LanguageJavascript,.js</string>
-  <string>PLSQL,Text,PL/SQL,.json</string>
-  <string>Meta Language,Text,META,.ml</string>
-  <string>Pascal,Text,Pa,.pas</string>
-  <string>Ada,Text,ADA,.ada</string>
-  <string>Lisp,Text,LISP,.lisp</string>
-  <string>Scheme,Moss,Scheme,.scm</string>
-  <string>ASCII,Text,ASCII,.asc,.txt</string>
-  <string>VHDL,Material,Chip,.vhdl</string>
-  <string>Perl,Moss,Perl,.perl,.pl</string>
-  <string>Matlab,Moss,Matlab,.matlab</string>
-  <string>MIPS,Text,MIPS,.s,.asm</string>
-  <string>Spice,Text,SPICE,.sp</string>
-  <string>VisualBasic,Text,VB,.vb</string>
-  <string>Modula2,Text,2%,.mod</string>
-  <string>A8086,Text,ASMBLY,.asm</string>
+  <string>C,C,c,Material,LanguageC,.c,.h</string>
+  <string>C++,f,cc,Material,LanguageCpp,.cpp,.h,.hpp,.cc</string>
+  <string>Java,J,java,Material,LanguageJava,.java</string>
+  <string>Haskell,H,haskell,Material,LanguageHaskell,.hs</string>
+  <string>Fortran,s,fortran,Material,LanguageFortran,.f90,.f95,.f03</string>
+  <string>Python,q,python,Material,LanguagePython,.py</string>
+  <string>C#,r,csharp,Material,LanguageCsharp,.cs</string>
+  <string>JavaScript,j,javascript,Material,LanguageJavascript,.js</string>
+  <string>PL/SQL,y,plsql,TextPL/SQL,.json</string>
+  <string>Meta Language,M,ml,Text,META,.ml</string>
+  <string>Pascal,p,pascal,Moss,Pascal,.pas</string>
+  <string>Ada,A,ada,Moss,Ada,.ada</string>
+  <string>Lisp,l,lisp,Moss,Lisp,.lisp</string>
+  <string>Scheme,B,scheme,Moss,Scheme,.scm</string>
+  <string>ASCII,a,ascii,Moss,Ascii,.asc,.txt</string>
+  <string>VHDL,c,vhdl,Material,Chip,.vhdl</string>
+  <string>Perl,P,perl,Moss,Perl,.perl,.pl</string>
+  <string>Matlab,m,matlab,Moss,Matlab,.matlab</string>
+  <string>MIPS,N,mips,Text,MIPS,.s,.asm</string>
+  <string>Spice,w,spice,Text,SPICE,.sp</string>
+  <string>VisualBasic,v,vb,Text,VB,.vb</string>
+  <string>Modula2,O,modula2,Text,2%,.mod</string>
+  <string>A8086,x,a8086,Text,ASMBLY,.asm</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection Languages {
             get {

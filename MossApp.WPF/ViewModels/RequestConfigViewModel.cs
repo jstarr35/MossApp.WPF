@@ -1,20 +1,22 @@
-﻿using MossApp.Utilities;
-using MossApp.Utilities.Wrapper;
-using System;
-using System.Windows;
+﻿using HtmlAgilityPack;
 using MahApps.Metro.Controls;
-using MossApp.WPF.Views.Windows;
-using System.Collections.Generic;
-using MossApp.Request;
-using System.ComponentModel.DataAnnotations;
-using MossApp.WPF.Views.Dialogs;
 using MaterialDesignThemes.Wpf;
-using System.Diagnostics;
-using System.Collections.ObjectModel;
+using MossApp.Request;
+using MossApp.Utilities;
 using MossApp.Utilities.Extensions;
+using MossApp.Utilities.Wrapper;
+using MossApp.WPF.Views.Dialogs;
+using MossApp.WPF.Views.Windows;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Windows;
 using System.Windows.Media;
-
 
 namespace MossApp.WPF.ViewModels
 {
@@ -89,7 +91,7 @@ namespace MossApp.WPF.ViewModels
             set
             {
                 SetProperty(ref _numberOfResultsToShow, value);
-                _mossRequest.NumberOfResultsToShow = _numberOfResultsToShow;
+                //_mossRequest.NumberOfResultsToShow = _numberOfResultsToShow;
             }
         }
 
@@ -111,6 +113,16 @@ namespace MossApp.WPF.ViewModels
             get => _isBetaRequest;
             set => SetProperty(ref _isBetaRequest, value);
         }
+
+
+        private bool _isDirectoryMode;
+
+        public bool IsDirectoryMode
+        {
+            get => _isDirectoryMode;
+            set => SetProperty(ref _isDirectoryMode, value);
+        }
+
 
         /// <summary>
         /// Gets or sets the server.
@@ -266,7 +278,9 @@ namespace MossApp.WPF.ViewModels
 
         public void AddFile(object param)
         {
-            List<string> list = (List<string>)param;
+
+            List<FileInfo> infoList = (List<FileInfo>)param;
+            List<string> list = infoList.Select(x => x.Name).ToList();
             if (_isBaseSelection)
             {
                 list.ForEach(i => BaseFiles.Add(i));
@@ -284,6 +298,7 @@ namespace MossApp.WPF.ViewModels
         public RelayCommand ShowSourceFilesFlyoutCommand { get; }
         public RelayCommand ShowBaseFileFlyoutCommand { get; }
         public RelayCommand OpenUserIdDialogCommand { get; set; }
+      
         private ResourceDictionary DialogDictionary = new ResourceDictionary() { Source = new Uri("pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Dialogs.xaml") };
         private int _sourceButtonZIndex = 1;
         public int SourceButtonZIndex
@@ -305,22 +320,30 @@ namespace MossApp.WPF.ViewModels
 
 
         // private readonly IOpenMultipleFilesControlViewModel _filesControlViewModel;
-        
+        private CancellationTokenSource cts;
       
         private IMossRequest _mossRequest;
-        public RequestConfigViewModel(IMossRequest mossRequest)
+        public RequestConfigViewModel()
         {
-            _mossRequest = mossRequest;
+           // _mossRequest = mossRequest;
          
             AddFileCommand = new RelayCommand(AddFile);
             ShowOptionsFlyoutCommand = new RelayCommand(_ => ShowOptionsFlyout());
             ShowSourceFilesFlyoutCommand = new RelayCommand(_ => ShowSourceFilesFlyout());
             ShowBaseFileFlyoutCommand = new RelayCommand(_ => ShowBaseFileFlyout());
             OpenUserIdDialogCommand = new RelayCommand(_ => OpenUserIdDialog());
-          
-           // _ea.GetEvent<LanguageSetEvent>().Subscribe(ReceiveLanguageSet);
+            Files = new ObservableCollection<string>()
+            {
+                "F:\\repos\\demos\\c89\\C89Demo\\C89Demo\\C89Demo.cpp",
+                "F:\\repos\\demos\\c89\\C89_Copy\\C89_Copy\\C89_Copy.cpp"
+            };
+            BaseFiles = new ObservableCollection<string>();
+            SendRequestCommand = new RelayCommand(SendRequestAsync);
+            // _ea.GetEvent<LanguageSetEvent>().Subscribe(ReceiveLanguageSet);
             ParseLanguageSettings();
             InitializeRequest();
+            cts = new CancellationTokenSource();
+          
             //_filesControlViewModel = openMultipleFilesControlViewModel;
         }
 
@@ -413,11 +436,7 @@ namespace MossApp.WPF.ViewModels
         public long UserId
         {
             get => _userId;
-            set
-            {
-                SetProperty(ref _userId, value);
-                _mossRequest.UserId = _userId;
-            }
+            set => SetProperty(ref _userId, value);
         }
 
 
@@ -428,13 +447,114 @@ namespace MossApp.WPF.ViewModels
         public string Comments
         {
             get => _comments;
-            set
-            {
-                SetProperty(ref _comments, value ?? string.Empty);
-                _mossRequest.Comments = _comments;
-            }
+            set => SetProperty(ref _comments, value ?? string.Empty);
         }
 
+        private string _response;
+
+        public string Response
+        {
+            get => _response;
+            set => SetProperty(ref _response, value);
+        }
+
+        private bool SetResponse(string response)
+        {
+            Response = response;
+            return true;
+        }
+
+  
+
+        private bool _isWaiting;
+
+        public bool IsWaiting
+        {
+            get => _isWaiting;
+            set => SetProperty(ref _isWaiting, value);
+        }
+
+
+        private async void SendRequestAsync(object param)
+        {
+            var token = cts.Token;
+            Func<string,bool> responseSetter = (string x) => { return SetResponse(x); };
+            //TODO: Check User Id, selected language, etc before sending request
+
+            //this.ErrorLabel.Text = string.Empty;
+            Default.UserId = Convert.ToInt32(UserId) == 0 ? 337859480 : Convert.ToInt32(UserId);
+            Default.OptionM = Convert.ToInt32(MaxMatches);
+            Default.OptionN = Convert.ToInt32(NumberOfResultsToShow);
+            Default.OptionC = Comments;
+            Default.Save();
+
+            var request = new MossRequest
+            {
+                UserId = Convert.ToInt32(UserId),
+                //IsDirectoryMode = IsDirectoryMode,
+                IsBetaRequest = IsBetaRequest,
+                Comments = Comments,
+                Language = SelectedLanguage.Name,
+                NumberOfResultsToShow = Convert.ToInt32(NumberOfResultsToShow),
+                MaxMatches = Convert.ToInt32(MaxMatches)
+            };
+            
+            request.BaseFile.AddRange(BaseFiles);
+            request.Files.AddRange(Files);
+            //Mediator.GetInstance().OnRequestSent(this, request.SendRequest(out var response));
+            //   RequestProgressBar.Visible = true;
+            IsWaiting = true;
+            string response = "";
+            bool success = false;
+            var requestTask = await request.SendRequestAsync(token, responseSetter);
+            IsWaiting = false;
+            //await Task.Run(() =>
+            //{
+            //    success = request.SendRequest(out response);
+
+            //});
+           // RequestProgressBar.Visible = false;
+            if (requestTask)
+            {
+                
+                HtmlWeb web = new HtmlWeb();
+                List<string> links = new List<string>();
+                var htmlDoc = web.Load(Response);
+
+                var node = htmlDoc.DocumentNode.SelectSingleNode("//body");
+
+                foreach (var nNode in node.Descendants("a"))
+                {
+                    if (nNode.NodeType == HtmlNodeType.Element)
+                    {
+
+                        Console.WriteLine("Node Name: " + nNode.Name + "\n" + nNode.OuterHtml);
+                    }
+                }
+
+              //  this.WebBrowser.Navigate(new Uri(response));
+            }
+            else
+            {
+                //MessageBox.Show(
+                //    response,
+                //    Resources.Request_Error_Caption,
+                //    MessageBoxButtons.OK,
+                //    MessageBoxIcon.Error);
+            }
+            //MossRequest request = new MossRequest();
+            //request.BaseFile.AddRange(BaseFiles);
+            //request.Files.AddRange(Files);
+            //request.Language = SelectedLanguage.Name;
+            //request.IsBetaRequest = IsBetaRequest;
+            ////request.IsDirectoryMode = IsDirectoryMode;
+            //request.MaxMatches = MaxMatches;
+            //request.NumberOfResultsToShow = NumberOfResultsToShow;
+            //request.Port = Port;
+            //request.Server = Server;
+            //request.Comments = Comments;
+
+        }
 
         /// <summary>
         /// Gets the restricted file types as a list.
@@ -464,11 +584,19 @@ namespace MossApp.WPF.ViewModels
 
                 if (tokens?.Length > 0)
                 {
-                    temp.Name = tokens[0];
+                    temp.DisplayName = tokens[0];
                 }
                 if (tokens?.Length > 1)
                 {
-                    var iconStatus = tokens[1];
+                    temp.Mapping = tokens[1];
+                }
+                if (tokens?.Length > 2)
+                {
+                    temp.Name = tokens[2];
+                }
+                if (tokens?.Length > 3)
+                {
+                    var iconStatus = tokens[3];
                     if (iconStatus == "Text")
                         temp.IconType = IconType.Text;
                     else if (iconStatus == "Moss")
@@ -477,13 +605,13 @@ namespace MossApp.WPF.ViewModels
                         temp.IconType = IconType.Material;
                 }
 
-                if (tokens?.Length > 2)
+                if (tokens?.Length > 4)
                 {
-                    temp.Icon = tokens[2];
+                    temp.Icon = tokens[4];
                 }
 
                 
-                for (int index = 3; index < tokens?.Length; index++)
+                for (int index = 4; index < tokens?.Length; index++)
                 {
                     temp.Extensions = temp.Extensions + ", " + tokens?[index];
                 }
@@ -495,7 +623,17 @@ namespace MossApp.WPF.ViewModels
             }
         }
 
-       
+        private void OpenLink(string url)
+        {
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            };
+
+            Process.Start(psi);
+        }
+
 
     }
   

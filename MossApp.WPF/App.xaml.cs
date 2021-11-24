@@ -56,7 +56,7 @@ namespace MossApp.WPF
                 .WriteTo.Console()
                 .CreateLogger();
 
-            containerRegistry.Register<IMossRequest, MossRequest>();
+            containerRegistry.Register<MossRequest>();
          
             //  containerRegistry.Register
 

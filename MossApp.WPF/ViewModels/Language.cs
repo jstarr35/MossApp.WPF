@@ -6,8 +6,10 @@ namespace MossApp.WPF.ViewModels
     public class Language : BindableBase
     {
         private string _name;
+        private string _displayName;
         private string _extensions;
         private string _icon;
+        private string _mapping;
         private bool _isSelected;
         private bool _isMossIcon;
         private bool _isMaterialIcon;
@@ -55,6 +57,18 @@ namespace MossApp.WPF.ViewModels
         {
             get => _name;
             set => SetProperty(ref _name, value);
+        }
+
+        public string Mapping
+        {
+            get => _mapping;
+            set => SetProperty(ref _mapping, value);
+        }
+
+        public string DisplayName
+        {
+            get => _displayName;
+            set => SetProperty(ref _displayName, value);
         }
 
         public IconType IconType

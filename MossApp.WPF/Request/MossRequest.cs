@@ -9,6 +9,7 @@ namespace MossApp.Request
     using System.Net;
     using System.Net.Sockets;
     using System.Text;
+    using System.Threading;
     using System.Threading.Tasks;
     using MossApp.WPF.Properties;
     using Prism.Mvvm;
@@ -22,7 +23,7 @@ namespace MossApp.Request
     /// The comments regarding the options for the request are copied directly from the 
     /// MOSS documentation (http://moss.stanford.edu/general/scripts/mossnet) denoted by ++
     /// </remarks>
-    public sealed class MossRequest : BindableBase, IMossRequest
+    public sealed class MossRequest : BindableBase
     {
         //private string _status;
 
@@ -312,7 +313,7 @@ namespace MossApp.Request
         /// <remarks>
         /// If the request is successful, <code>true</code> is returned, then response is a valid <see cref="System.Uri"/>
         /// </remarks>
-        public async Task<bool> SendRequestAsync()
+        public async Task<bool> SendRequestAsync(CancellationToken token, Func<string, bool> responseSetter)
         {
             try
             {
@@ -364,21 +365,29 @@ namespace MossApp.Request
                     SendOption("query 0", Comments, socket);
 
                     var bytes = new byte[ReplySize];
-                    socket.Receive(bytes);
+                    if (socket.Connected)
+                    {
+                       // socket.Receive(bytes);
+                        await socket.ReceiveAsync(bytes, SocketFlags.None, token);
+                    }
+                    
+                   // socket.Receive(bytes);
 
                     result = Encoding.UTF8.GetString(bytes);
+                    _ = responseSetter(result);
                     SendOption(Settings.Default.EndOption, string.Empty, socket);
                 }
 
                 if (Uri.TryCreate(result, UriKind.Absolute, out var url))
                 {
-                    Response = url?.ToString().IndexOf("\n", System.StringComparison.Ordinal) > 0
+
+                    responseSetter(url?.ToString().IndexOf("\n", System.StringComparison.Ordinal) > 0
                                     ? url.ToString().Split('\n')[0]
-                                    : url?.ToString();
+                                    : url?.ToString());
                     return true;
                 } // else, not a valid URL, DoNothing();
 
-                Response = Resources.Moss_Request_URI_Error;
+                responseSetter(Resources.Moss_Request_URI_Error);
                 return false;
             }
             catch (Exception ex)
