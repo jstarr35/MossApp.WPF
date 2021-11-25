@@ -20,7 +20,7 @@ namespace MossApp.Utilities.Regions.Adapters
                 {
                     foreach (FrameworkElement element in e.NewItems)
                     {
-                        regionTarget.Children.Add(element);
+                        _ = regionTarget.Children.Add(element);
                     }
                 }
 

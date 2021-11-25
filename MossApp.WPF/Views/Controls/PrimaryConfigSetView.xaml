@@ -110,8 +110,8 @@
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         Text="{Binding Port}" />
                     <CheckBox
-                        Grid.Column="3"
-                        Margin="8,0,8,0"
+                       
+                        Margin="0,8,8,0"
                         Content="BETA REQUEST"
                         FontFamily="Roboto"
                         FontSize="10"
@@ -161,7 +161,7 @@
                         Grid.ColumnSpan="2"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Margin="0,0,0,-8"
+                        Margin="0,0,0,0"
                         Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
                         CommandParameter="{x:Static Dock.Right}"
                         Style="{DynamicResource MaterialDesignFlatButton}">
@@ -257,7 +257,7 @@
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="2"
-                    
+                    Text="{Binding SelectedLanguage.Extensions}"
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="Restricted File Types"
                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}"

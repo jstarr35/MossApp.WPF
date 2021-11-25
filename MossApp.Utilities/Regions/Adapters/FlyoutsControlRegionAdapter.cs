@@ -8,7 +8,7 @@ namespace MossApp.Utilities.Regions.Adapters
 
     public class FlyoutsControlRegionAdapter : RegionAdapterBase<FlyoutsControl>
     {
-       
+
         public FlyoutsControlRegionAdapter(IRegionBehaviorFactory factory)
             : base(factory)
         {
@@ -25,7 +25,7 @@ namespace MossApp.Utilities.Regions.Adapters
                         Flyout flyout = new Flyout();
                         flyout.Content = element;
                         flyout.DataContext = element.DataContext;
-                        regionTarget.Items.Add(flyout);
+                        _ = regionTarget.Items.Add(flyout);
                     }
                 }
             };

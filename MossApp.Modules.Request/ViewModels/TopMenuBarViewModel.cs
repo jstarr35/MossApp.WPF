@@ -17,13 +17,13 @@ namespace MossApp.Modules.Request.ViewModels
         private async void ExecuteSaveDialog(object o)
         {
             //let's set up a little MVVM, cos that's what the cool kids are doing:
-            var view = new SaveDialog()
+            SaveDialog view = new SaveDialog()
             {
                 DataContext = new SaveDialog()
             };
 
             //show the dialog
-            var result = await DialogHost.Show(view, "RootDialog", ExtendedOpenedEventHandler, ExtendedClosingEventHandler);
+            object result = await DialogHost.Show(view, "RootDialog", ExtendedOpenedEventHandler, ExtendedClosingEventHandler);
 
             //check the result...
             Debug.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
@@ -45,7 +45,7 @@ namespace MossApp.Modules.Request.ViewModels
             //note, you can also grab the session when the dialog opens via the DialogOpenedEventHandler
 
             //lets run a fake operation for 3 seconds then close this baby.
-            Task.Delay(TimeSpan.FromSeconds(3))
+            _ = Task.Delay(TimeSpan.FromSeconds(3))
                 .ContinueWith((t, _) => eventArgs.Session.Close(false), null,
                     TaskScheduler.FromCurrentSynchronizationContext());
         }

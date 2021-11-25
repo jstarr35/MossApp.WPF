@@ -95,10 +95,10 @@ namespace MossApp.WPF.ViewModels
                     _ = SetProperty(ref _isMossIcon, false);
                     _ = SetProperty(ref _isMaterialIcon, false);
                 }
-              
+
 
             }
-               
+
         }
     }
 
@@ -108,5 +108,5 @@ namespace MossApp.WPF.ViewModels
         Moss,
         Text
     }
-  
+
 }

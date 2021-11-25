@@ -11,53 +11,53 @@ namespace MossApp.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=MossDB;");
+            _ = options.UseSqlServer(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=MossDB;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Results>(entity =>
-            {
-                entity.HasData(new Models.Results
-                {
-                    Id = 1,
-                    DateSubmitted = DateTime.Now,
-                    Options = "example options"
-                });
-                entity.HasKey(e => e.Id);
+            _ = modelBuilder.Entity<Results>(entity =>
+              {
+                  _ = entity.HasData(new Models.Results
+                  {
+                      Id = 1,
+                      DateSubmitted = DateTime.Now,
+                      Options = "example options"
+                  });
+                  _ = entity.HasKey(e => e.Id);
 
-                entity.Property(e => e.Options).HasMaxLength(25);
-            });
-
-
+                  _ = entity.Property(e => e.Options).HasMaxLength(25);
+              });
 
 
-            modelBuilder.Entity<MatchPair>(entity =>
-            {
-                entity.HasIndex(e => e.Id, "IX_MatchPairs_ResultId");
 
-                entity.Property(e => e.AlphaFileName).HasMaxLength(50);
 
-                entity.Property(e => e.AlphaLines).HasMaxLength(15);
+            _ = modelBuilder.Entity<MatchPair>(entity =>
+              {
+                  _ = entity.HasIndex(e => e.Id, "IX_MatchPairs_ResultId");
+
+                  _ = entity.Property(e => e.AlphaFileName).HasMaxLength(50);
+
+                  _ = entity.Property(e => e.AlphaLines).HasMaxLength(15);
 
                 //entity.Property(e => e.AlphaScore).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.BetaFileName).HasMaxLength(50);
+                _ = entity.Property(e => e.BetaFileName).HasMaxLength(50);
 
-                entity.Property(e => e.BetaLines).HasMaxLength(15);
+                  _ = entity.Property(e => e.BetaLines).HasMaxLength(15);
 
                 //entity.Property(e => e.BetaScore).HasColumnType("decimal(18, 2)");
 
 
 
-                entity.HasOne(d => d.Results)
-                    .WithMany(p => p.MatchPairs);
-            });
-            modelBuilder.Entity<MatchPair>().Property<int>("ResultsId");
+                _ = entity.HasOne(d => d.Results)
+                      .WithMany(p => p.MatchPairs);
+              });
+            _ = modelBuilder.Entity<MatchPair>().Property<int>("ResultsId");
 
-            modelBuilder.Entity<MatchPair>().HasData(new
+            _ = modelBuilder.Entity<MatchPair>().HasData(new
             {
                 Id = 1,
                 ResultsId = 1,

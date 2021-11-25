@@ -41,7 +41,8 @@
                         Style="{StaticResource MahApps.Styles.TextBlock}"
                         Text="Base File(s)" />
                 </Expander.Header>
-                <ListBox ItemsSource="{Binding BaseFiles}">
+                <ListBox ItemsSource="{Binding BaseFiles}"
+                          Margin="25,0,0,0">
                     <!--<ListBoxItem Content="F:\repos\demos\projects\samplefile.cs"/>-->
                 </ListBox>
             </Expander>

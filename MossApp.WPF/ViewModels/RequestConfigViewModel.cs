@@ -17,11 +17,10 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Media;
+using static MossApp.WPF.Properties.Settings;
 
 namespace MossApp.WPF.ViewModels
 {
-    using static Properties.Settings;
-
     public class RequestConfigViewModel : BindableBase
     {
 
@@ -88,11 +87,7 @@ namespace MossApp.WPF.ViewModels
         public int NumberOfResultsToShow
         {
             get => _numberOfResultsToShow;
-            set
-            {
-                SetProperty(ref _numberOfResultsToShow, value);
-                //_mossRequest.NumberOfResultsToShow = _numberOfResultsToShow;
-            }
+            set => SetProperty(ref _numberOfResultsToShow, value);//_mossRequest.NumberOfResultsToShow = _numberOfResultsToShow;
         }
 
         /// <summary>
@@ -179,7 +174,7 @@ namespace MossApp.WPF.ViewModels
         }
 
 
-      
+
         private Language _selectedLanguage;
 
         public Language SelectedLanguage
@@ -208,20 +203,7 @@ namespace MossApp.WPF.ViewModels
         public bool RestrictFileTypes
         {
             get => _restrictFileTypes;
-            set
-            {
-
-                SetProperty(ref _restrictFileTypes, value);
-                if (value)
-                {
-                    //SetFilters(true);
-                }
-                else
-                {
-                    // SetFilters(false);
-                }
-
-            }
+            set => SetProperty(ref _restrictFileTypes, value);
         }
         #endregion PrimaryConfigSet
 
@@ -283,12 +265,25 @@ namespace MossApp.WPF.ViewModels
             List<string> list = infoList.Select(x => x.Name).ToList();
             if (_isBaseSelection)
             {
-                list.ForEach(i => BaseFiles.Add(i));
+                list.ForEach(i =>
+                {
+                    if (!Files.Contains(i))
+                        BaseFiles.Add(i);
+                });
             }
             else
             {
-                list.ForEach(i => Files.Add(i));
+                list.ForEach(i =>
+                {
+                    if (!BaseFiles.Contains(i))
+                        Files.Add(i);
+                });
             }
+        }
+
+        public void CancelSelect(object param)
+        {
+
         }
 
         public RelayCommand AddFileCommand { get; private set; }
@@ -298,7 +293,7 @@ namespace MossApp.WPF.ViewModels
         public RelayCommand ShowSourceFilesFlyoutCommand { get; }
         public RelayCommand ShowBaseFileFlyoutCommand { get; }
         public RelayCommand OpenUserIdDialogCommand { get; set; }
-      
+
         private ResourceDictionary DialogDictionary = new ResourceDictionary() { Source = new Uri("pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Dialogs.xaml") };
         private int _sourceButtonZIndex = 1;
         public int SourceButtonZIndex
@@ -321,12 +316,13 @@ namespace MossApp.WPF.ViewModels
 
         // private readonly IOpenMultipleFilesControlViewModel _filesControlViewModel;
         private CancellationTokenSource cts;
-      
+
         private IMossRequest _mossRequest;
         public RequestConfigViewModel()
         {
-           // _mossRequest = mossRequest;
-         
+            // _mossRequest = mossRequest;
+
+            CurrentDirectory = "F:\\repos";
             AddFileCommand = new RelayCommand(AddFile);
             ShowOptionsFlyoutCommand = new RelayCommand(_ => ShowOptionsFlyout());
             ShowSourceFilesFlyoutCommand = new RelayCommand(_ => ShowSourceFilesFlyout());
@@ -343,7 +339,7 @@ namespace MossApp.WPF.ViewModels
             ParseLanguageSettings();
             InitializeRequest();
             cts = new CancellationTokenSource();
-          
+
             //_filesControlViewModel = openMultipleFilesControlViewModel;
         }
 
@@ -361,7 +357,7 @@ namespace MossApp.WPF.ViewModels
             Comments = Default.OptionC;
         }
 
-        
+
 
 
         public Flyout? OptionsFlyout { get; set; }
@@ -369,7 +365,7 @@ namespace MossApp.WPF.ViewModels
 
         private void ToggleFlyout(object param)
         {
-            var side = param as string;
+            string side = param as string;
             switch (side)
             {
                 case "Bottom":
@@ -408,13 +404,13 @@ namespace MossApp.WPF.ViewModels
         private async void OpenUserIdDialog()
         {
             //let's set up a little MVVM, cos that's what the cool kids are doing:
-            var view = new SingleFieldDialog
+            SingleFieldDialog view = new SingleFieldDialog
             {
 
             };
 
             //show the dialog
-            var result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
+            object result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
 
             //check the result...
             Debug.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
@@ -464,7 +460,7 @@ namespace MossApp.WPF.ViewModels
             return true;
         }
 
-  
+
 
         private bool _isWaiting;
 
@@ -477,8 +473,8 @@ namespace MossApp.WPF.ViewModels
 
         private async void SendRequestAsync(object param)
         {
-            var token = cts.Token;
-            Func<string,bool> responseSetter = (string x) => { return SetResponse(x); };
+            CancellationToken token = cts.Token;
+            Func<string, bool> responseSetter = (string x) => { return SetResponse(x); };
             //TODO: Check User Id, selected language, etc before sending request
 
             //this.ErrorLabel.Text = string.Empty;
@@ -488,7 +484,7 @@ namespace MossApp.WPF.ViewModels
             Default.OptionC = Comments;
             Default.Save();
 
-            var request = new MossRequest
+            MossRequest request = new MossRequest
             {
                 UserId = Convert.ToInt32(UserId),
                 //IsDirectoryMode = IsDirectoryMode,
@@ -498,7 +494,7 @@ namespace MossApp.WPF.ViewModels
                 NumberOfResultsToShow = Convert.ToInt32(NumberOfResultsToShow),
                 MaxMatches = Convert.ToInt32(MaxMatches)
             };
-            
+
             request.BaseFile.AddRange(BaseFiles);
             request.Files.AddRange(Files);
             //Mediator.GetInstance().OnRequestSent(this, request.SendRequest(out var response));
@@ -506,24 +502,24 @@ namespace MossApp.WPF.ViewModels
             IsWaiting = true;
             string response = "";
             bool success = false;
-            var requestTask = await request.SendRequestAsync(token, responseSetter);
+            bool requestTask = await request.SendRequestAsync(token, responseSetter);
             IsWaiting = false;
             //await Task.Run(() =>
             //{
             //    success = request.SendRequest(out response);
 
             //});
-           // RequestProgressBar.Visible = false;
+            // RequestProgressBar.Visible = false;
             if (requestTask)
             {
-                
+
                 HtmlWeb web = new HtmlWeb();
                 List<string> links = new List<string>();
-                var htmlDoc = web.Load(Response);
+                HtmlDocument htmlDoc = web.Load(Response);
 
-                var node = htmlDoc.DocumentNode.SelectSingleNode("//body");
+                HtmlNode node = htmlDoc.DocumentNode.SelectSingleNode("//body");
 
-                foreach (var nNode in node.Descendants("a"))
+                foreach (HtmlNode nNode in node.Descendants("a"))
                 {
                     if (nNode.NodeType == HtmlNodeType.Element)
                     {
@@ -532,7 +528,7 @@ namespace MossApp.WPF.ViewModels
                     }
                 }
 
-              //  this.WebBrowser.Navigate(new Uri(response));
+                //  this.WebBrowser.Navigate(new Uri(response));
             }
             else
             {
@@ -596,7 +592,7 @@ namespace MossApp.WPF.ViewModels
                 }
                 if (tokens?.Length > 3)
                 {
-                    var iconStatus = tokens[3];
+                    string iconStatus = tokens[3];
                     if (iconStatus == "Text")
                         temp.IconType = IconType.Text;
                     else if (iconStatus == "Moss")
@@ -610,11 +606,12 @@ namespace MossApp.WPF.ViewModels
                     temp.Icon = tokens[4];
                 }
 
-                
-                for (int index = 4; index < tokens?.Length; index++)
+                List<string> extensions = new List<string>();
+                for (int index = 5; index < tokens?.Length; index++)
                 {
-                    temp.Extensions = temp.Extensions + ", " + tokens?[index];
+                    extensions.Add(tokens[index]);
                 }
+                temp.Extensions = String.Join(", ", extensions);
 
                 Languages.Add(temp);
                 // because this setting is created with a specific format, this 
@@ -631,10 +628,10 @@ namespace MossApp.WPF.ViewModels
                 UseShellExecute = true
             };
 
-            Process.Start(psi);
+            _ = Process.Start(psi);
         }
 
 
     }
-  
+
 }

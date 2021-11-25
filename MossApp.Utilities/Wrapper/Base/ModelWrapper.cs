@@ -105,7 +105,7 @@ namespace MossApp.Utilities.Wrapper
 
             List<ValidationResult> results = new();
             ValidationContext context = new(this);
-            Validator.TryValidateObject(this, context, results, true);
+            _ = Validator.TryValidateObject(this, context, results, true);
 
             if (results.Any())
             {
@@ -135,7 +135,7 @@ namespace MossApp.Utilities.Wrapper
             {
                 if (Equals(_originalValues[propertyName], newValue))
                 {
-                    _originalValues.Remove(propertyName);
+                    _ = _originalValues.Remove(propertyName);
                     OnPropertyChanged(nameof(IsChanged));
                 }
             }

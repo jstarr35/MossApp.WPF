@@ -18,7 +18,7 @@ namespace MossApp.Data.Services
 
         public void AddResults(Results result)
         {
-            _context.Results.Add(result);
+            _ = _context.Results.Add(result);
         }
 
         public async Task<Results> GetResultsAsync(int id)

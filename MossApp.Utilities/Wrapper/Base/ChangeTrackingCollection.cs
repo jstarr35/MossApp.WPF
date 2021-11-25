@@ -57,7 +57,7 @@ namespace MossApp.Utilities.Wrapper
         {
             foreach (T addedItem in _addedItems.ToList())
             {
-                Remove(addedItem);
+                _ = Remove(addedItem);
             }
             foreach (T removedItem in _removedItems.ToList())
             {
@@ -115,7 +115,7 @@ namespace MossApp.Utilities.Wrapper
                 {
                     if (_modifiedItems.Contains(item))
                     {
-                        _modifiedItems.Remove(item);
+                        _ = _modifiedItems.Remove(item);
                     }
                 }
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));

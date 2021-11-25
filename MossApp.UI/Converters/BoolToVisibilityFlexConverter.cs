@@ -28,7 +28,7 @@ namespace MossApp.UI.Converters
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            var convertValue = false;
+            bool convertValue = false;
 
             if (value != null)
             {

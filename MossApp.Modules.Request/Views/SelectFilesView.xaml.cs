@@ -22,7 +22,7 @@ namespace MossApp.Modules.Request.Views
             {
                 StringBuilder sb = new StringBuilder("Selected files: ");
                 eventArgs.Files.ForEach(file => sb.Append($"{file}; "));
-                foreach (var f in eventArgs.Files)
+                foreach (string f in eventArgs.Files)
                 {
                     viewModel.SelectedAction = f;
                     //viewModel.SendFile();

@@ -40,7 +40,7 @@ namespace MossApp.WPF.Views.Windows
                 UseShellExecute = true
             };
 
-            Process.Start(psi);
+            _ = Process.Start(psi);
         }
 
         private void OnCopy(object sender, ExecutedRoutedEventArgs e)

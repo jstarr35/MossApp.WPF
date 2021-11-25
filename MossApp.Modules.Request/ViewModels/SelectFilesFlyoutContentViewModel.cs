@@ -16,7 +16,7 @@ namespace MossApp.Modules.Request.ViewModels
             _ea = ea;
             //  _logger = logger;
             //SendFileCommand = new DelegateCommand(SendFile);
-           // _ea.GetEvent<FilterSetEvent>().Subscribe(SetFilter, true);
+            // _ea.GetEvent<FilterSetEvent>().Subscribe(SetFilter, true);
 
             //PublishFileCommand = new RelayCommand(PublishFile);
             ControlLoadedCommand = new DelegateCommand(ControlLoaded);

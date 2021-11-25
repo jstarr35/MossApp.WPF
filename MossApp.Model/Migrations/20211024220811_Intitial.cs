@@ -7,7 +7,7 @@ namespace MossApp.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Results",
                 columns: table => new
                 {
@@ -18,10 +18,10 @@ namespace MossApp.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Results", x => x.Id);
+                    _ = table.PrimaryKey("PK_Results", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "MatchPairs",
                 columns: table => new
                 {
@@ -40,8 +40,8 @@ namespace MossApp.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MatchPairs", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_MatchPairs", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_MatchPairs_Results_ResultsId",
                         column: x => x.ResultsId,
                         principalTable: "Results",
@@ -49,22 +49,22 @@ namespace MossApp.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
+            _ = migrationBuilder.InsertData(
                 table: "Results",
                 columns: new[] { "Id", "DateSubmitted", "Options" },
                 values: new object[] { 1, new DateTime(2021, 10, 24, 17, 8, 10, 670, DateTimeKind.Local).AddTicks(1193), "example options" });
 
-            migrationBuilder.InsertData(
+            _ = migrationBuilder.InsertData(
                 table: "MatchPairs",
                 columns: new[] { "Id", "AlphaFileName", "AlphaLines", "AlphaPassage", "AlphaScore", "BetaFileName", "BetaLines", "BetaPassage", "BetaScore", "LinesMatched", "ResultsId" },
                 values: new object[] { 1, "AlphaFile", null, null, 66.6m, "BetaFile", "43 - 51", null, 33.3m, 45, 1 });
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_MatchPairs_ResultId",
                 table: "MatchPairs",
                 column: "Id");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_MatchPairs_ResultsId",
                 table: "MatchPairs",
                 column: "ResultsId");
@@ -72,10 +72,10 @@ namespace MossApp.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "MatchPairs");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Results");
         }
     }

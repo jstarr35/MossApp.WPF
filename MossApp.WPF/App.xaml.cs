@@ -56,8 +56,8 @@ namespace MossApp.WPF
                 .WriteTo.Console()
                 .CreateLogger();
 
-            containerRegistry.Register<MossRequest>();
-         
+            _ = containerRegistry.Register<MossRequest>();
+
             //  containerRegistry.Register
 
 
@@ -66,7 +66,7 @@ namespace MossApp.WPF
         protected override IContainerExtension CreateContainerExtension()
         {
             ServiceCollection serviceCollection = new ServiceCollection();
-            serviceCollection.AddLogging(l => l.AddSerilog(dispose: true));
+            _ = serviceCollection.AddLogging(l => l.AddSerilog(dispose: true));
             Unity.UnityContainer container = new();
             _ = container.BuildServiceProvider(serviceCollection);
 
@@ -91,9 +91,9 @@ namespace MossApp.WPF
 
             ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver((viewType) =>
             {
-                var viewName = viewType.FullName;
-                var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
-                var viewModelName = $"{viewName}ViewModel, {viewAssemblyName}";
+                string viewName = viewType.FullName;
+                string viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
+                string viewModelName = $"{viewName}ViewModel, {viewAssemblyName}";
                 return Type.GetType(viewModelName);
             });
 
@@ -105,7 +105,7 @@ namespace MossApp.WPF
         }
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            moduleCatalog.AddModule<Modules.Request.RequestModule>();
+            _ = moduleCatalog.AddModule<Modules.Request.RequestModule>();
             //moduleCatalog.AddModule<Modules.SourceFileList.SourceFileListModule>();
         }
 

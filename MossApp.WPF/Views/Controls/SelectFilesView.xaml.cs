@@ -1,5 +1,5 @@
 ﻿using MaterialDesignExtensions.Controls;
-using MossApp.Modules.Request.ViewModels;
+using MossApp.WPF.ViewModels;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,13 +16,13 @@ namespace MossApp.WPF.Views.Controls
             InitializeComponent();
         }
 
-        private void OpenMultipleFilesControl_DirectoriesSelected(object sender, RoutedEventArgs args)
+        private void OpenMultipleFilesControl_FilesSelected(object sender, RoutedEventArgs args)
         {
-            if (args is FilesSelectedEventArgs eventArgs && DataContext is SelectFilesFlyoutContentViewModel viewModel)
+            if (args is FilesSelectedEventArgs eventArgs && DataContext is RequestConfigViewModel viewModel)
             {
                 StringBuilder sb = new StringBuilder("Selected files: ");
                 eventArgs.Files.ForEach(file => sb.Append($"{file}; "));
-                foreach (var f in eventArgs.Files)
+                foreach (string f in eventArgs.Files)
                 {
                     viewModel.SelectedAction = f;
                     //viewModel.SendFile();
@@ -36,7 +36,7 @@ namespace MossApp.WPF.Views.Controls
 
         private void OpenMultipleFilesControl_Cancel(object sender, RoutedEventArgs args)
         {
-            if (DataContext is SelectFilesFlyoutContentViewModel viewModel)
+            if (DataContext is RequestConfigViewModel viewModel)
             {
                 viewModel.SelectedAction = "Cancel open files";
             }
@@ -45,9 +45,9 @@ namespace MossApp.WPF.Views.Controls
 
         private void OpenMultipleFilesControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (DataContext is SelectFilesFlyoutContentViewModel viewModel)
+            if (DataContext is RequestConfigViewModel viewModel)
             {
-                viewModel.ControlLoaded();
+                //viewModel.ControlLoaded();
             }
         }
     }

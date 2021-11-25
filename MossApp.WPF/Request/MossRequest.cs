@@ -1,21 +1,18 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using MossApp.WPF.Properties;
+using Prism.Mvvm;
+
 
 namespace MossApp.Request
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Net;
-    using System.Net.Sockets;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using MossApp.WPF.Properties;
-    using Prism.Mvvm;
-
-
-
     /// <summary>
     /// Models a Moss (for a Measure Of Software Similarity) Request. 
     /// </summary>
@@ -317,12 +314,12 @@ namespace MossApp.Request
         {
             try
             {
-                var hostEntry = Dns.GetHostEntry(Server);
+                IPHostEntry hostEntry = Dns.GetHostEntry(Server);
 
-                var address = hostEntry.AddressList[0];
-                var ipe = new IPEndPoint(address, Port);
+                IPAddress address = hostEntry.AddressList[0];
+                IPEndPoint ipe = new IPEndPoint(address, Port);
                 string result;
-                using (var socket = new Socket(ipe.AddressFamily, SocketType.Stream, ProtocolType.Tcp))
+                using (Socket socket = new Socket(ipe.AddressFamily, SocketType.Stream, ProtocolType.Tcp))
                 {
 
                     await socket.ConnectAsync(ipe);
@@ -345,7 +342,7 @@ namespace MossApp.Request
                     if (BaseFile.Count != 0)
                     {
                         int counter = 1;
-                        foreach (var file in BaseFile)
+                        foreach (string file in BaseFile)
                         {
                             //  Status.Status = $"Sending file {counter} of {BaseFile.Count}";
                             SendFile(file, socket, 0);
@@ -356,7 +353,7 @@ namespace MossApp.Request
                     if (Files.Count != 0)
                     {
                         int fileCount = 1;
-                        foreach (var file in Files)
+                        foreach (string file in Files)
                         {
                             SendFile(file, socket, fileCount++);
                         }
@@ -364,30 +361,30 @@ namespace MossApp.Request
 
                     SendOption("query 0", Comments, socket);
 
-                    var bytes = new byte[ReplySize];
+                    byte[] bytes = new byte[ReplySize];
                     if (socket.Connected)
                     {
-                       // socket.Receive(bytes);
-                        await socket.ReceiveAsync(bytes, SocketFlags.None, token);
+                        // socket.Receive(bytes);
+                        _ = await socket.ReceiveAsync(bytes, SocketFlags.None, token);
                     }
-                    
-                   // socket.Receive(bytes);
+
+                    // socket.Receive(bytes);
 
                     result = Encoding.UTF8.GetString(bytes);
                     _ = responseSetter(result);
                     SendOption(Settings.Default.EndOption, string.Empty, socket);
                 }
 
-                if (Uri.TryCreate(result, UriKind.Absolute, out var url))
+                if (Uri.TryCreate(result, UriKind.Absolute, out Uri url))
                 {
 
-                    responseSetter(url?.ToString().IndexOf("\n", System.StringComparison.Ordinal) > 0
+                    _ = responseSetter(url?.ToString().IndexOf("\n", System.StringComparison.Ordinal) > 0
                                     ? url.ToString().Split('\n')[0]
                                     : url?.ToString());
                     return true;
                 } // else, not a valid URL, DoNothing();
 
-                responseSetter(Resources.Moss_Request_URI_Error);
+                _ = responseSetter(Resources.Moss_Request_URI_Error);
                 return false;
             }
             catch (Exception ex)
@@ -420,7 +417,7 @@ namespace MossApp.Request
         private void SendOption(string option, string value, Socket socket)
         {
             if (SocketConnected(socket))
-                socket.Send(Encoding.UTF8.GetBytes($"{option} {value}\n"));
+                _ = socket.Send(Encoding.UTF8.GetBytes($"{option} {value}\n"));
             else
                 Console.WriteLine($"{socket.Poll(500, SelectMode.SelectError)}");
         }
@@ -436,8 +433,8 @@ namespace MossApp.Request
         /// </remarks>
         private void SendFile(string file, Socket socket, int number)
         {
-            var fileInfo = new FileInfo(file);
-            socket.Send(
+            FileInfo fileInfo = new FileInfo(file);
+            _ = socket.Send(
                 IsDirectoryMode
                     ? Encoding.UTF8.GetBytes(
                         string.Format(
@@ -454,7 +451,7 @@ namespace MossApp.Request
                             fileInfo.Length,
                             fileInfo.Name.Replace(" ", string.Empty))));
             Console.WriteLine(fileInfo.FullName.Replace("\\", "/").Replace(" ", string.Empty));
-            socket.BeginSendFile(file, FileSendCallback, socket);
+            _ = socket.BeginSendFile(file, FileSendCallback, socket);
         }
         private static async Task<string> SendRequestAsync(string server, int port, string method, string data)
         {
@@ -493,7 +490,7 @@ namespace MossApp.Request
         }
         private static void FileSendCallback(IAsyncResult result)
         {
-            var client = result.AsyncState as Socket;
+            Socket client = result.AsyncState as Socket;
             client?.EndSendFile(result);
         }
     }

@@ -38,7 +38,7 @@ namespace MossApp.Modules.Request.ViewModels
             get => _selectedLanguage;
             set
             {
-                SetProperty(ref _selectedLanguage, value);
+                _ = SetProperty(ref _selectedLanguage, value);
                 RestrictedFileTypesInput = value.Extensions.ToExtensionString();
             }
         }
@@ -58,12 +58,12 @@ namespace MossApp.Modules.Request.ViewModels
             get => _restrictFileTypes;
             set
             {
-                SetProperty(ref _restrictFileTypes, value);
+                _ = SetProperty(ref _restrictFileTypes, value);
                 if (value && SelectedLanguage != null && SelectedLanguage.Extensions.Count > 0)
                 {
                     if (Files.Count > 0)
                     {
-                        var temp = Files.Where(f => SelectedLanguage.Extensions.Any(f.EndsWith)).ToList();
+                        List<string> temp = Files.Where(f => SelectedLanguage.Extensions.Any(f.EndsWith)).ToList();
                         Files = new ObservableCollection<string>(temp);
                     }
 
@@ -118,7 +118,7 @@ namespace MossApp.Modules.Request.ViewModels
             {
                 if (Files.Count > 0)
                 {
-                    var temp = Files.Where(f => SelectedLanguage.Extensions.Any(f.EndsWith)).ToList();
+                    List<string> temp = Files.Where(f => SelectedLanguage.Extensions.Any(f.EndsWith)).ToList();
                     Files = new ObservableCollection<string>(temp);
                 }
                 SelectedLanguage.Extensions.ForEach(e => sb.Append("| *").Append(e));
@@ -126,7 +126,7 @@ namespace MossApp.Modules.Request.ViewModels
             }
             else
             {
-                sb.Append("All files | *.*");
+                _ = sb.Append("All files | *.*");
             }
             //_ea.GetEvent<FilterSetEvent>().Publish(sb.ToString());
         }

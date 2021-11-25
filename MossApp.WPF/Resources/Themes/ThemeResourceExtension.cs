@@ -9,7 +9,7 @@ namespace MossApp.WPF.Resources.Themes
         {
             get
             {
-                Enum.TryParse(base.ResourceKey.ToString(), out ThemeResourceKey resourceKey);
+                _ = Enum.TryParse(base.ResourceKey.ToString(), out ThemeResourceKey resourceKey);
                 return resourceKey;
             }
             set => base.ResourceKey = value.ToString();
