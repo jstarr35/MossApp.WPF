@@ -1,8 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.DependencyInjection;
-
-
+using MossApp.Data.Services;
 using MossApp.Request;
 using MossApp.Utilities.Regions.Adapters;
 using MossApp.WPF.ViewModels;
@@ -57,6 +56,7 @@ namespace MossApp.WPF
                 .CreateLogger();
 
             _ = containerRegistry.Register<MossRequest>();
+            _ = containerRegistry.Register<IMossResultsRepository, MossResultsRepository>();
 
             //  containerRegistry.Register
 

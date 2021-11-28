@@ -312,5 +312,15 @@ namespace MossApp.WPF.Properties {
                 return ResourceManager.GetString("UserId_Error", resourceCulture);
             }
         }
+
+        internal static string SendRequestText
+        {
+            get => ResourceManager.GetString("SendRequestText", resourceCulture);
+        }
+
+        internal static string CancelRequestText
+        {
+            get => ResourceManager.GetString("CancelRequestText", resourceCulture);
+        }
     }
 }

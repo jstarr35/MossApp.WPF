@@ -86,6 +86,19 @@ namespace MossApp.Request
 
         }
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            _ = sb.Append(language).Append(",").Append(MaxMatches).Append(",")
+                .Append(NumberOfResultsToShow).Append(",")
+                .Append(IsDirectoryMode).Append(",")
+                .Append(IsBetaRequest);
+
+            return sb.ToString();
+        }
+
+
+
         /// <summary>
         /// Gets or sets the maximum matches.
         /// </summary>
@@ -314,78 +327,85 @@ namespace MossApp.Request
         {
             try
             {
-                IPHostEntry hostEntry = Dns.GetHostEntry(Server);
-
-                IPAddress address = hostEntry.AddressList[0];
-                IPEndPoint ipe = new IPEndPoint(address, Port);
-                string result;
-                using (Socket socket = new Socket(ipe.AddressFamily, SocketType.Stream, ProtocolType.Tcp))
+                while(!token.IsCancellationRequested)
                 {
+                    IPHostEntry hostEntry = Dns.GetHostEntry(Server);
 
-                    await socket.ConnectAsync(ipe);
-                    // Status.Status = $"Sending Moss option: {Settings.Default.MossOption} with UserID: {UserId}";
-                    SendOption(
-                        Settings.Default.MossOption,
-                        UserId.ToString(CultureInfo.InvariantCulture),
-                        socket);
-                    SendOption(Settings.Default.DirectoryOption, IsDirectoryMode ? "1" : "0", socket);
-                    SendOption(Settings.Default.ExperimentalOption, IsBetaRequest ? "1" : "0", socket);
-                    SendOption(
-                        Settings.Default.MaxMatchesOption,
-                        MaxMatches.ToString(CultureInfo.InvariantCulture),
-                        socket);
-                    SendOption(
-                        Settings.Default.ShowOption,
-                        NumberOfResultsToShow.ToString(CultureInfo.InvariantCulture),
-                        socket);
-
-                    if (BaseFile.Count != 0)
+                    IPAddress address = hostEntry.AddressList[0];
+                    IPEndPoint ipe = new IPEndPoint(address, Port);
+                    string result;
+                    using (Socket socket = new Socket(ipe.AddressFamily, SocketType.Stream, ProtocolType.Tcp))
                     {
-                        int counter = 1;
-                        foreach (string file in BaseFile)
+
+                        await socket.ConnectAsync(ipe);
+                        // Status.Status = $"Sending Moss option: {Settings.Default.MossOption} with UserID: {UserId}";
+                        SendOption(
+                            Settings.Default.MossOption,
+                            UserId.ToString(CultureInfo.InvariantCulture),
+                            socket);
+                        SendOption(Settings.Default.DirectoryOption, IsDirectoryMode ? "1" : "0", socket);
+                        SendOption(Settings.Default.ExperimentalOption, IsBetaRequest ? "1" : "0", socket);
+                        SendOption(
+                            Settings.Default.MaxMatchesOption,
+                            MaxMatches.ToString(CultureInfo.InvariantCulture),
+                            socket);
+                        SendOption(
+                            Settings.Default.ShowOption,
+                            NumberOfResultsToShow.ToString(CultureInfo.InvariantCulture),
+                            socket);
+
+                        if (BaseFile.Count != 0)
                         {
-                            //  Status.Status = $"Sending file {counter} of {BaseFile.Count}";
-                            SendFile(file, socket, 0);
-                            counter++;
-                        }
-                    } // else, no base files to send DoNothing();
+                            int counter = 1;
+                            foreach (string file in BaseFile)
+                            {
+                                //  Status.Status = $"Sending file {counter} of {BaseFile.Count}";
+                                SendFile(file, socket, 0);
+                                counter++;
+                            }
+                        } // else, no base files to send DoNothing();
 
-                    if (Files.Count != 0)
-                    {
-                        int fileCount = 1;
-                        foreach (string file in Files)
+                        if (Files.Count != 0)
                         {
-                            SendFile(file, socket, fileCount++);
+                            int fileCount = 1;
+                            foreach (string file in Files)
+                            {
+                                SendFile(file, socket, fileCount++);
+                            }
+                        } // else, no files to send DoNothing();
+
+                        SendOption("query 0", Comments, socket);
+                        await Task.Delay(10000);
+                        byte[] bytes = new byte[ReplySize];
+                        if (socket.Connected)
+                        {
+                            // socket.Receive(bytes);
+                            _ = await socket.ReceiveAsync(bytes, SocketFlags.None, token);
+
                         }
-                    } // else, no files to send DoNothing();
-
-                    SendOption("query 0", Comments, socket);
-
-                    byte[] bytes = new byte[ReplySize];
-                    if (socket.Connected)
-                    {
+                       
                         // socket.Receive(bytes);
-                        _ = await socket.ReceiveAsync(bytes, SocketFlags.None, token);
+
+                        result = Encoding.UTF8.GetString(bytes);
+                        _ = responseSetter(result);
+                        SendOption(Settings.Default.EndOption, string.Empty, socket);
                     }
 
-                    // socket.Receive(bytes);
+                    if (Uri.TryCreate(result, UriKind.Absolute, out Uri url))
+                    {
 
-                    result = Encoding.UTF8.GetString(bytes);
-                    _ = responseSetter(result);
-                    SendOption(Settings.Default.EndOption, string.Empty, socket);
+                        _ = responseSetter(url?.ToString().IndexOf("\n", System.StringComparison.Ordinal) > 0
+                                        ? url.ToString().Split('\n')[0]
+                                        : url?.ToString());
+                        return true;
+                    } // else, not a valid URL, DoNothing();
+                    _ = responseSetter(Resources.Moss_Request_URI_Error);
+                    return false;
+
                 }
-
-                if (Uri.TryCreate(result, UriKind.Absolute, out Uri url))
-                {
-
-                    _ = responseSetter(url?.ToString().IndexOf("\n", System.StringComparison.Ordinal) > 0
-                                    ? url.ToString().Split('\n')[0]
-                                    : url?.ToString());
-                    return true;
-                } // else, not a valid URL, DoNothing();
-
-                _ = responseSetter(Resources.Moss_Request_URI_Error);
+                _ = responseSetter("Request Cancelled");
                 return false;
+
             }
             catch (Exception ex)
             {

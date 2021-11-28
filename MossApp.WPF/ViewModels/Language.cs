@@ -1,4 +1,6 @@
 ﻿using Prism.Mvvm;
+using System;
+using System.Collections.Generic;
 
 namespace MossApp.WPF.ViewModels
 {
@@ -7,43 +9,22 @@ namespace MossApp.WPF.ViewModels
     {
         private string _name;
         private string _displayName;
-        private string _extensions;
+        private string _extensionString;
+        public List<string> Extensions { get; set; } = new List<string>();
         private string _icon;
         private string _mapping;
-        private bool _isSelected;
-        private bool _isMossIcon;
-        private bool _isMaterialIcon;
-        private bool _isTextIcon;
-        private IconType _iconType;
 
-        public bool IsSelected
+
+
+        public string Mapping
         {
-            get => _isSelected;
-            set => SetProperty(ref _isSelected, value);
+            get => _mapping;
+            set => SetProperty(ref _mapping, value);
         }
-
-        public bool IsMossIcon
+        public string ExtensionString
         {
-            get => _isMossIcon;
-            set => SetProperty(ref _isMossIcon, value);
-        }
-
-        public bool IsMaterialIcon
-        {
-            get => _isMaterialIcon;
-            set => SetProperty(ref _isMaterialIcon, value);
-        }
-
-        public bool IsTextIcon
-        {
-            get => _isTextIcon;
-            set => SetProperty(ref _isTextIcon, value);
-        }
-
-        public string Extensions
-        {
-            get => _extensions;
-            set => SetProperty(ref _extensions, value);
+            get => _extensionString;
+            set => SetProperty(ref _extensionString, value);
         }
 
         public string Icon
@@ -59,11 +40,7 @@ namespace MossApp.WPF.ViewModels
             set => SetProperty(ref _name, value);
         }
 
-        public string Mapping
-        {
-            get => _mapping;
-            set => SetProperty(ref _mapping, value);
-        }
+
 
         public string DisplayName
         {
@@ -71,42 +48,36 @@ namespace MossApp.WPF.ViewModels
             set => SetProperty(ref _displayName, value);
         }
 
-        public IconType IconType
+        public Language(string rawValues)
         {
-            get => _iconType;
-            set
+            string[]? tokens = rawValues?.Split(',');
+
+            if (tokens?.Length > 0)
             {
-                _ = SetProperty(ref _iconType, value);
-                if (value == IconType.Material)
-                {
-                    _ = SetProperty(ref _isTextIcon, false);
-                    _ = SetProperty(ref _isMossIcon, false);
-                    _ = SetProperty(ref _isMaterialIcon, true);
-                }
-                else if (value == IconType.Moss)
-                {
-                    _ = SetProperty(ref _isTextIcon, false);
-                    _ = SetProperty(ref _isMossIcon, true);
-                    _ = SetProperty(ref _isMaterialIcon, false);
-                }
-                else if (value == IconType.Text)
-                {
-                    _ = SetProperty(ref _isTextIcon, true);
-                    _ = SetProperty(ref _isMossIcon, false);
-                    _ = SetProperty(ref _isMaterialIcon, false);
-                }
-
-
+                DisplayName = tokens[0];
             }
-
+            if (tokens?.Length > 1)
+            {
+                Mapping = tokens[1];
+            }
+            if (tokens?.Length > 2)
+            {
+                Name = tokens[2];
+            }
+            if (tokens?.Length > 3)
+            {
+               
+                for (int index = 3; index < tokens?.Length; index++)
+                {
+                    Extensions.Add(tokens[index]);
+                }
+                ExtensionString = string.Join(", ", Extensions);
+            }
         }
+
+
     }
 
-    public enum IconType
-    {
-        Material,
-        Moss,
-        Text
-    }
+
 
 }

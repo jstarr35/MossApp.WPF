@@ -42,18 +42,18 @@ namespace MossApp.Data
 
                   _ = entity.Property(e => e.AlphaLines).HasMaxLength(15);
 
-                //entity.Property(e => e.AlphaScore).HasColumnType("decimal(18, 2)");
+                  //entity.Property(e => e.AlphaScore).HasColumnType("decimal(18, 2)");
 
-                _ = entity.Property(e => e.BetaFileName).HasMaxLength(50);
+                  _ = entity.Property(e => e.BetaFileName).HasMaxLength(50);
 
                   _ = entity.Property(e => e.BetaLines).HasMaxLength(15);
 
-                //entity.Property(e => e.BetaScore).HasColumnType("decimal(18, 2)");
+                  //entity.Property(e => e.BetaScore).HasColumnType("decimal(18, 2)");
 
 
 
-                _ = entity.HasOne(d => d.Results)
-                      .WithMany(p => p.MatchPairs);
+                  _ = entity.HasOne(d => d.Results)
+                        .WithMany(p => p.MatchPairs);
               });
             _ = modelBuilder.Entity<MatchPair>().Property<int>("ResultsId");
 

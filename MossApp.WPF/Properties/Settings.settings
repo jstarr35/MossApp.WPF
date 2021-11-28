@@ -47,29 +47,29 @@
     <Setting Name="Languages" Type="System.Collections.Specialized.StringCollection" Scope="Application">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;string&gt;C,C,c,Material,LanguageC,.c,.h&lt;/string&gt;
-  &lt;string&gt;C++,f,cc,Material,LanguageCpp,.cpp,.h,.hpp,.cc&lt;/string&gt;
-  &lt;string&gt;Java,J,java,Material,LanguageJava,.java&lt;/string&gt;
-  &lt;string&gt;Haskell,H,haskell,Material,LanguageHaskell,.hs&lt;/string&gt;
-  &lt;string&gt;Fortran,s,fortran,Material,LanguageFortran,.f90,.f95,.f03&lt;/string&gt;
-  &lt;string&gt;Python,q,python,Material,LanguagePython,.py&lt;/string&gt;
-  &lt;string&gt;C#,r,csharp,Material,LanguageCsharp,.cs&lt;/string&gt;
-  &lt;string&gt;JavaScript,j,javascript,Material,LanguageJavascript,.js&lt;/string&gt;
-  &lt;string&gt;PL/SQL,y,plsql,TextPL/SQL,.json&lt;/string&gt;
-  &lt;string&gt;Meta Language,M,ml,Text,META,.ml&lt;/string&gt;
-  &lt;string&gt;Pascal,p,pascal,Moss,Pascal,.pas&lt;/string&gt;
-  &lt;string&gt;Ada,A,ada,Moss,Ada,.ada&lt;/string&gt;
-  &lt;string&gt;Lisp,l,lisp,Moss,Lisp,.lisp&lt;/string&gt;
-  &lt;string&gt;Scheme,B,scheme,Moss,Scheme,.scm&lt;/string&gt;
-  &lt;string&gt;ASCII,a,ascii,Moss,Ascii,.asc,.txt&lt;/string&gt;
-  &lt;string&gt;VHDL,c,vhdl,Material,Chip,.vhdl&lt;/string&gt;
-  &lt;string&gt;Perl,P,perl,Moss,Perl,.perl,.pl&lt;/string&gt;
-  &lt;string&gt;Matlab,m,matlab,Moss,Matlab,.matlab&lt;/string&gt;
-  &lt;string&gt;MIPS,N,mips,Text,MIPS,.s,.asm&lt;/string&gt;
-  &lt;string&gt;Spice,w,spice,Text,SPICE,.sp&lt;/string&gt;
-  &lt;string&gt;VisualBasic,v,vb,Text,VB,.vb&lt;/string&gt;
-  &lt;string&gt;Modula2,O,modula2,Text,2%,.mod&lt;/string&gt;
-  &lt;string&gt;A8086,x,a8086,Text,ASMBLY,.asm&lt;/string&gt;
+  &lt;string&gt;C,C,c,.c,.h&lt;/string&gt;
+  &lt;string&gt;C++,f,cc,.cpp,.h,.hpp,.cc&lt;/string&gt;
+  &lt;string&gt;Java,J,java,.java&lt;/string&gt;
+  &lt;string&gt;Haskell,H,haskell,.hs&lt;/string&gt;
+  &lt;string&gt;Fortran,s,fortran,.f90,.f95,.f03&lt;/string&gt;
+  &lt;string&gt;Python,q,python,.py&lt;/string&gt;
+  &lt;string&gt;C#,r,csharp,.cs&lt;/string&gt;
+  &lt;string&gt;JavaScript,j,javascript,.js&lt;/string&gt;
+  &lt;string&gt;PL/SQL,y,plsql,.json&lt;/string&gt;
+  &lt;string&gt;Meta Language,M,ml,.ml&lt;/string&gt;
+  &lt;string&gt;Pascal,p,pascal,.pas&lt;/string&gt;
+  &lt;string&gt;Ada,A,ada,.ada&lt;/string&gt;
+  &lt;string&gt;Lisp,l,lisp,.lisp&lt;/string&gt;
+  &lt;string&gt;Scheme,B,scheme,.scm&lt;/string&gt;
+  &lt;string&gt;ASCII,a,ascii,.asc,.txt&lt;/string&gt;
+  &lt;string&gt;VHDL,c,vhdl,.vhdl&lt;/string&gt;
+  &lt;string&gt;Perl,P,perl,.perl,.pl&lt;/string&gt;
+  &lt;string&gt;Matlab,m,matlab,.matlab&lt;/string&gt;
+  &lt;string&gt;MIPS,N,mips,.s,.asm&lt;/string&gt;
+  &lt;string&gt;Spice,w,spice,.sp&lt;/string&gt;
+  &lt;string&gt;VisualBasic,v,vb,.vb&lt;/string&gt;
+  &lt;string&gt;Modula2,O,modula2,.mod&lt;/string&gt;
+  &lt;string&gt;A8086,x,a8086,.asm&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
   </Settings>

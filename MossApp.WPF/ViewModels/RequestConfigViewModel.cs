@@ -1,6 +1,8 @@
 ﻿using HtmlAgilityPack;
 using MahApps.Metro.Controls;
 using MaterialDesignThemes.Wpf;
+using MossApp.Data.Models;
+using MossApp.Data.Services;
 using MossApp.Request;
 using MossApp.Utilities;
 using MossApp.Utilities.Extensions;
@@ -45,6 +47,15 @@ namespace MossApp.WPF.ViewModels
             get => _isLoading;
             set => SetProperty(ref _isLoading, value);
         }
+
+        private string _sendButtonText;
+
+        public string SendButtonText
+        {
+            get => String.IsNullOrWhiteSpace(_sendButtonText) ? Properties.Resources.SendRequestText : _sendButtonText;
+            set => SetProperty(ref _sendButtonText, value);
+        }
+
 
         public RelayCommand SendRequestCommand { get; set; }
 
@@ -183,8 +194,8 @@ namespace MossApp.WPF.ViewModels
             set
             {
                 SetProperty(ref _selectedLanguage, value);
-                if (value?.Extensions != null)
-                    RestrictedFileTypesInput = value.Extensions.Split(",").ToList().ToExtensionString();
+                if (value?.Extensions.Count > 0 && !string.IsNullOrWhiteSpace(value?.ExtensionString))
+                    RestrictedFileTypesInput = value?.ExtensionString;
 
             }
         }
@@ -203,7 +214,12 @@ namespace MossApp.WPF.ViewModels
         public bool RestrictFileTypes
         {
             get => _restrictFileTypes;
-            set => SetProperty(ref _restrictFileTypes, value);
+            set
+            {
+                SetProperty(ref _restrictFileTypes, value);
+                if (value)
+                    RestrictFileList();
+            }
         }
         #endregion PrimaryConfigSet
 
@@ -317,11 +333,11 @@ namespace MossApp.WPF.ViewModels
         // private readonly IOpenMultipleFilesControlViewModel _filesControlViewModel;
         private CancellationTokenSource cts;
 
-        private IMossRequest _mossRequest;
-        public RequestConfigViewModel()
+        private IMossResultsRepository _repo;
+        public RequestConfigViewModel(IMossResultsRepository repo)
         {
             // _mossRequest = mossRequest;
-
+            _repo = repo;
             CurrentDirectory = "F:\\repos";
             AddFileCommand = new RelayCommand(AddFile);
             ShowOptionsFlyoutCommand = new RelayCommand(_ => ShowOptionsFlyout());
@@ -462,13 +478,7 @@ namespace MossApp.WPF.ViewModels
 
 
 
-        private bool _isWaiting;
 
-        public bool IsWaiting
-        {
-            get => _isWaiting;
-            set => SetProperty(ref _isWaiting, value);
-        }
 
 
         private async void SendRequestAsync(object param)
@@ -476,6 +486,8 @@ namespace MossApp.WPF.ViewModels
             CancellationToken token = cts.Token;
             Func<string, bool> responseSetter = (string x) => { return SetResponse(x); };
             //TODO: Check User Id, selected language, etc before sending request
+            if (IsLoading)
+                cts.Cancel();
 
             //this.ErrorLabel.Text = string.Empty;
             Default.UserId = Convert.ToInt32(UserId) == 0 ? 337859480 : Convert.ToInt32(UserId);
@@ -499,11 +511,13 @@ namespace MossApp.WPF.ViewModels
             request.Files.AddRange(Files);
             //Mediator.GetInstance().OnRequestSent(this, request.SendRequest(out var response));
             //   RequestProgressBar.Visible = true;
-            IsWaiting = true;
+            SendButtonText = Properties.Resources.CancelRequestText;
+            IsLoading = true;
             string response = "";
             bool success = false;
             bool requestTask = await request.SendRequestAsync(token, responseSetter);
-            IsWaiting = false;
+            IsLoading = false;
+            SendButtonText = Properties.Resources.SendRequestText;
             //await Task.Run(() =>
             //{
             //    success = request.SendRequest(out response);
@@ -512,6 +526,10 @@ namespace MossApp.WPF.ViewModels
             // RequestProgressBar.Visible = false;
             if (requestTask)
             {
+                Results results = new Results();
+                results.Options = request.ToString();
+                results.DateSubmitted = DateTime.Now;
+
 
                 HtmlWeb web = new HtmlWeb();
                 List<string> links = new List<string>();
@@ -528,6 +546,11 @@ namespace MossApp.WPF.ViewModels
                     }
                 }
 
+                // Once we have MatchPair, try adding MatchPair to results.MatchPairs Property
+                // EX: results.MatchPairs.Add(matchPair);
+
+
+                _repo.AddResults(results);
                 //  this.WebBrowser.Navigate(new Uri(response));
             }
             else
@@ -570,53 +593,9 @@ namespace MossApp.WPF.ViewModels
         /// </summary>
         private void ParseLanguageSettings()
         {
-
-            System.Collections.Specialized.StringCollection? languageList = Default.Languages;
-            foreach (string? language in languageList)
+            foreach (string language in Default.Languages)
             {
-                Language temp = new Language();
-
-                string[]? tokens = language?.Split(',');
-
-                if (tokens?.Length > 0)
-                {
-                    temp.DisplayName = tokens[0];
-                }
-                if (tokens?.Length > 1)
-                {
-                    temp.Mapping = tokens[1];
-                }
-                if (tokens?.Length > 2)
-                {
-                    temp.Name = tokens[2];
-                }
-                if (tokens?.Length > 3)
-                {
-                    string iconStatus = tokens[3];
-                    if (iconStatus == "Text")
-                        temp.IconType = IconType.Text;
-                    else if (iconStatus == "Moss")
-                        temp.IconType = IconType.Moss;
-                    else if (iconStatus == "Material")
-                        temp.IconType = IconType.Material;
-                }
-
-                if (tokens?.Length > 4)
-                {
-                    temp.Icon = tokens[4];
-                }
-
-                List<string> extensions = new List<string>();
-                for (int index = 5; index < tokens?.Length; index++)
-                {
-                    extensions.Add(tokens[index]);
-                }
-                temp.Extensions = String.Join(", ", extensions);
-
-                Languages.Add(temp);
-                // because this setting is created with a specific format, this 
-                // should never fail. If it does, the underlying data source needs to be 
-                // fixed. 
+                Languages.Add(new Language(language));
             }
         }
 
@@ -632,6 +611,96 @@ namespace MossApp.WPF.ViewModels
         }
 
 
+
+        /// <summary>
+        /// Determines whether the form is valid.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if the form is valid; otherwise, <c>false</c>.
+        /// </returns>
+        private bool IsValidForm()
+        {
+            //if (UserId <= 0)
+            //{
+            //    ExecuteRunDialog
+            //    return false;
+            //} // else this field is valid DoNothing();
+
+            //if (!this.IsValidPositiveInteger(this.OptionMTextBox))
+            //{
+            //    this.ErrorLabel.Text = Resources.OptionM_Error;
+            //    return false;
+            //} // else this field is valid DoNothing();
+
+            //if (!this.IsValidPositiveInteger(this.OptionNTextBox))
+            //{
+            //    this.ErrorLabel.Text = Resources.OptionN_Error;
+            //    return false;
+            //} // else this field is valid DoNothing();
+
+            //if (this.SourceFileList.Count == 0)
+            //{
+            //    this.ErrorLabel.Text = Resources.File_List_Empty_Error;
+            //    return false;
+            //}
+
+            return true;
+        }
+        public RelayCommand RunDialogCommand => new RelayCommand(ExecuteRunDialog);
+
+
+
+        private async void ExecuteRunDialog(object o)
+        {
+            //let's set up a little MVVM, cos that's what the cool kids are doing:
+            //var view = new MessageDialog
+            //{
+            //    DataContext = new SampleDialogViewModel()
+            //};
+
+            ////show the dialog
+            //var result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
+
+            //check the result...
+
+        }
+
+
+
+        /// <summary>
+        /// Determines whether the text box contains is a valid positive integer value.
+        /// </summary>
+        /// <param name="textBox">The text box.</param>
+        /// <returns>
+        ///   <c>true</c> if the text box contains is a valid positive integer value; otherwise, <c>false</c>.
+        /// </returns>
+        private static bool IsValidPositiveInteger(string text)
+        {
+            return int.TryParse(text, out var value) && value >= 0;
+        }
+
+      
+
+        private void RestrictFileList()
+        {
+            var extensions = GetRestrictedFileTypes();
+            if (extensions.Count > 0)
+            {
+                if (Files.Count > 0)
+                {
+                    List<string> list = Files.Where(file => extensions.Any(file.EndsWith)).ToList();
+                    list.ForEach(f => Files.Add(f));
+                } // else, no source files to filter, DoNothing();
+
+                if (BaseFiles.Count > 0)
+                {
+                    List<string> list = BaseFiles.Where(file => extensions.Any(file.EndsWith)).ToList();
+                    list.ForEach(b => BaseFiles.Add(b));
+                } // else, no base files to filter, DoNothing();
+
+
+            } // else, no extensions, DoNothing();
+        }
     }
 
 }

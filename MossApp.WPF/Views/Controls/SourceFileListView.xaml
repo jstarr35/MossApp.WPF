@@ -1,9 +1,11 @@
-﻿<UserControl x:Class="MossApp.WPF.Views.Controls.SourceFileListView"
+﻿<UserControl
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:utils="clr-namespace:MossApp.Utilities.Converters;assembly=MossApp.Utilities"
     xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" xmlns:viewmodels="clr-namespace:MossApp.WPF.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:RequestConfigViewModel}" x:Class="MossApp.WPF.Views.Controls.SourceFileListView"
     d:DesignHeight="600"
     d:DesignWidth="500"
     mc:Ignorable="d">
@@ -46,21 +48,22 @@
                     <!--<ListBoxItem Content="F:\repos\demos\projects\samplefile.cs"/>-->
                 </ListBox>
             </Expander>
+
         </StackPanel>
 
-
+        <mah:ProgressRing Visibility="{Binding IsLoading, Converter={utils:BooleanToVisibilityConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="88" Height="88" Foreground="{DynamicResource PrimaryColorBrush}" Panel.ZIndex="3"/>
         <Button
             Grid.Row="1"
             Padding="16,4,16,4"
             HorizontalAlignment="Center"
             materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-            materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsWaiting}"
+            materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsLoading}"
             materialDesign:ButtonProgressAssist.Value="-1"
             Command="{Binding SendRequestCommand}"
             Style="{StaticResource MaterialDesignRaisedButton}">
             <TextBlock
                 Style="{StaticResource MaterialDesignTextBlock}"
-                Text="SEND REQUEST" />
+                Text="{Binding SendButtonText}" />
         </Button>
 
 
