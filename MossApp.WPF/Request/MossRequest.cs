@@ -88,7 +88,7 @@ namespace MossApp.Request
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             _ = sb.Append(language).Append(",").Append(MaxMatches).Append(",")
                 .Append(NumberOfResultsToShow).Append(",")
                 .Append(IsDirectoryMode).Append(",")
@@ -332,9 +332,9 @@ namespace MossApp.Request
                     IPHostEntry hostEntry = Dns.GetHostEntry(Server);
 
                     IPAddress address = hostEntry.AddressList[0];
-                    IPEndPoint ipe = new IPEndPoint(address, Port);
+                    IPEndPoint ipe = new(address, Port);
                     string result;
-                    using (Socket socket = new Socket(ipe.AddressFamily, SocketType.Stream, ProtocolType.Tcp))
+                    using (Socket socket = new(ipe.AddressFamily, SocketType.Stream, ProtocolType.Tcp))
                     {
 
                         await socket.ConnectAsync(ipe);
@@ -453,7 +453,7 @@ namespace MossApp.Request
         /// </remarks>
         private void SendFile(string file, Socket socket, int number)
         {
-            FileInfo fileInfo = new FileInfo(file);
+            FileInfo fileInfo = new(file);
             _ = socket.Send(
                 IsDirectoryMode
                     ? Encoding.UTF8.GetBytes(
@@ -490,11 +490,11 @@ namespace MossApp.Request
                 }
                 if (ipAddress == null)
                     throw new Exception("No IPv4 address for server");
-                TcpClient client = new TcpClient();
+                TcpClient client = new();
                 await client.ConnectAsync(ipAddress, port); // Connect
                 NetworkStream networkStream = client.GetStream();
-                StreamWriter writer = new StreamWriter(networkStream);
-                StreamReader reader = new StreamReader(networkStream);
+                StreamWriter writer = new(networkStream);
+                StreamReader reader = new(networkStream);
                 writer.AutoFlush = true;
                 string requestData = "method=" + method + "&" + "data=" +
                   data + "&eor"; // 'End-of-request'

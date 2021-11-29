@@ -35,17 +35,17 @@ namespace MossApp.WPF
 
             Style previousStyle = image.Style;
 
-            Style newStyle = new Style(image.GetType(), previousStyle);
+            Style newStyle = new(image.GetType(), previousStyle);
 
             // this will override any existing render transform + origin on the button, hope they didn't already have one (and I'm too lazy to check)
             newStyle.Setters.Add(new Setter(Image.RenderTransformProperty, new RotateTransform(0)));
             newStyle.Setters.Add(new Setter(Image.RenderTransformOriginProperty, new Point(0.5, 0.5)));
 
-            DataTrigger trigger = new DataTrigger();
+            DataTrigger trigger = new();
 
-            Binding binding = new Binding();
+            Binding binding = new();
 
-            RelativeSource relativeSource = new RelativeSource();
+            RelativeSource relativeSource = new();
             relativeSource.Mode = RelativeSourceMode.FindAncestor;
             relativeSource.AncestorType = typeof(Button);
 
@@ -55,9 +55,9 @@ namespace MossApp.WPF
             trigger.Binding = binding;
             trigger.Value = Visibility.Visible;
 
-            Storyboard storyboard = new Storyboard();
+            Storyboard storyboard = new();
 
-            DoubleAnimationUsingKeyFrames animation = new DoubleAnimationUsingKeyFrames();
+            DoubleAnimationUsingKeyFrames animation = new();
             animation.SetValue(Storyboard.TargetPropertyProperty, new PropertyPath("(0).(1)", Image.RenderTransformProperty, RotateTransform.AngleProperty));
             animation.Duration = new Duration(TimeSpan.FromSeconds(5)); // spec said 30, but i wanted to actually see it happen!
             _ = animation.KeyFrames.Add(new LinearDoubleKeyFrame(-12, KeyTime.FromTimeSpan(TimeSpan.FromSeconds(0.2))));
@@ -67,13 +67,13 @@ namespace MossApp.WPF
             storyboard.Children.Add(animation);
             storyboard.RepeatBehavior = RepeatBehavior.Forever;
 
-            BeginStoryboard beginStoryboard = new BeginStoryboard();
+            BeginStoryboard beginStoryboard = new();
             beginStoryboard.Storyboard = storyboard;
             beginStoryboard.Name = "its_wobble_time"; // it is
 
             trigger.EnterActions.Add(beginStoryboard);
 
-            RemoveStoryboard removeStoryboard = new RemoveStoryboard();
+            RemoveStoryboard removeStoryboard = new();
             removeStoryboard.BeginStoryboardName = beginStoryboard.Name;
 
             trigger.ExitActions.Add(removeStoryboard);

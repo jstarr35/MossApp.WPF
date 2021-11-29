@@ -1,11 +1,13 @@
-﻿<UserControl
+﻿<UserControl x:Class="MossApp.WPF.Views.Controls.SourceFileListView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:utils="clr-namespace:MossApp.Utilities.Converters;assembly=MossApp.Utilities"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" xmlns:viewmodels="clr-namespace:MossApp.WPF.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:RequestConfigViewModel}" x:Class="MossApp.WPF.Views.Controls.SourceFileListView"
+    xmlns:utils="clr-namespace:MossApp.Utilities.Converters;assembly=MossApp.Utilities"
+    xmlns:viewmodels="clr-namespace:MossApp.WPF.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:RequestConfigViewModel}"
     d:DesignHeight="600"
     d:DesignWidth="500"
     mc:Ignorable="d">
@@ -43,15 +45,23 @@
                         Style="{StaticResource MahApps.Styles.TextBlock}"
                         Text="Base File(s)" />
                 </Expander.Header>
-                <ListBox ItemsSource="{Binding BaseFiles}"
-                          Margin="25,0,0,0">
+                <ListBox
+                    Margin="25,0,0,0"
+                    ItemsSource="{Binding BaseFiles}">
                     <!--<ListBoxItem Content="F:\repos\demos\projects\samplefile.cs"/>-->
                 </ListBox>
             </Expander>
 
         </StackPanel>
 
-        <mah:ProgressRing Visibility="{Binding IsLoading, Converter={utils:BooleanToVisibilityConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="88" Height="88" Foreground="{DynamicResource PrimaryColorBrush}" Panel.ZIndex="3"/>
+        <mah:ProgressRing
+            Width="88"
+            Height="88"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Panel.ZIndex="3"
+            Foreground="{DynamicResource PrimaryColorBrush}"
+            Visibility="{Binding IsLoading, Converter={utils:BooleanToVisibilityConverter}}" />
         <Button
             Grid.Row="1"
             Padding="16,4,16,4"

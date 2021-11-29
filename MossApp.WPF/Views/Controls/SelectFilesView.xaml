@@ -5,8 +5,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
     xmlns:prism="http://prismlibrary.com/"
-    xmlns:vm="clr-namespace:MossApp.WPF.ViewModels" d:DataContext="{d:DesignInstance Type=vm:RequestConfigViewModel}"
-             d:DesignHeight="600"
+    xmlns:vm="clr-namespace:MossApp.WPF.ViewModels"
+    d:DataContext="{d:DesignInstance Type=vm:RequestConfigViewModel}"
+    d:DesignHeight="600"
     d:DesignWidth="350"
     prism:ViewModelLocator.AutoWireViewModel="False"
     mc:Ignorable="d">

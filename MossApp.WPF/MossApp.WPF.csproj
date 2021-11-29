@@ -98,6 +98,9 @@
     <Compile Update="Views\Controls\TopMenuBarView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Dialogs\UserIdDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -129,6 +132,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Controls\TopMenuBarView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Dialogs\UserIdDialog.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

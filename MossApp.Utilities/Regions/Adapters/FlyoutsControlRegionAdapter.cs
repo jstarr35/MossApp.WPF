@@ -22,7 +22,7 @@ namespace MossApp.Utilities.Regions.Adapters
                 {
                     foreach (FrameworkElement element in e.NewItems)
                     {
-                        Flyout flyout = new Flyout();
+                        Flyout flyout = new();
                         flyout.Content = element;
                         flyout.DataContext = element.DataContext;
                         _ = regionTarget.Items.Add(flyout);

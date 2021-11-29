@@ -34,7 +34,7 @@ namespace MossApp.WPF.Views.Windows
 
         private void OpenLink(string url)
         {
-            ProcessStartInfo psi = new ProcessStartInfo
+            ProcessStartInfo psi = new()
             {
                 FileName = url,
                 UseShellExecute = true

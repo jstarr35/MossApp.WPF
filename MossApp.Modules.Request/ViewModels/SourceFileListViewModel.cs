@@ -22,7 +22,7 @@ namespace MossApp.Modules.Request.ViewModels
         /// <value>
         /// The languages and their associated file extensions.
         /// </value>
-        private ObservableCollection<Language> _languages = new ObservableCollection<Language>();
+        private ObservableCollection<Language> _languages = new();
 
         public ObservableCollection<Language> Languages
         {
@@ -31,7 +31,7 @@ namespace MossApp.Modules.Request.ViewModels
 
         }
 
-        private Language _selectedLanguage = new Language();
+        private Language _selectedLanguage = new();
 
         public Language SelectedLanguage
         {
@@ -113,7 +113,7 @@ namespace MossApp.Modules.Request.ViewModels
         private void ToggleRestrictFileTypes()
         {
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             if (SelectedLanguage != null && SelectedLanguage.Extensions.Count > 0)
             {
                 if (Files.Count > 0)
@@ -156,7 +156,7 @@ namespace MossApp.Modules.Request.ViewModels
         {
             foreach (string? language in stringCollection)
             {
-                Language temp = new Language();
+                Language temp = new();
 
                 string[]? tokens = language?.Split(',');
 

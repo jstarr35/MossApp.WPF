@@ -8,7 +8,7 @@
     xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
     xmlns:smtxAe="clr-namespace:ShowMeTheXAML.AvalonEdit;assembly=ShowMeTheXAML.AvalonEdit"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
-                        xmlns:ui="clr-namespace:MossApp.UI.Resources.Icons;assembly=MossApp.UI"
+    xmlns:ui="clr-namespace:MossApp.UI.Resources.Icons;assembly=MossApp.UI"
     xmlns:wpf="https://github.com/jstarr35/MossAppWpf">
     <Application.Resources>
         <ResourceDictionary>
@@ -77,11 +77,13 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ui:MossPackIcon}">
                             <Viewbox>
-                                <Canvas Width="24" Height="24">
-                                    <Path Stretch="Fill" Data="{Binding Data, RelativeSource={RelativeSource TemplatedParent}}"                                  
-                              Fill="{StaticResource PrimaryColorBrush}">
-
-                                    </Path>
+                                <Canvas
+                                    Width="24"
+                                    Height="24">
+                                    <Path
+                                        Data="{Binding Data, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Fill="{StaticResource PrimaryColorBrush}"
+                                        Stretch="Fill" />
                                 </Canvas>
                             </Viewbox>
                         </ControlTemplate>

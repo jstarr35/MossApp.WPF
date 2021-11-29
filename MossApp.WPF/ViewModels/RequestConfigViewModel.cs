@@ -8,6 +8,7 @@ using MossApp.Utilities;
 using MossApp.Utilities.Extensions;
 using MossApp.Utilities.Wrapper;
 using MossApp.WPF.Views.Dialogs;
+using MossApp.WPF.Views.Services;
 using MossApp.WPF.Views.Windows;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Media;
@@ -62,6 +64,13 @@ namespace MossApp.WPF.ViewModels
         #endregion FileList
 
         #region PrimaryConfigSet
+
+        private string _comments;
+        public string Comments
+        {
+            get => _comments;
+            set => SetProperty(ref _comments, value ?? string.Empty);
+        }
 
         /// <summary>
         /// Gets or sets the maximum matches.
@@ -305,12 +314,41 @@ namespace MossApp.WPF.ViewModels
         public RelayCommand AddFileCommand { get; private set; }
         #endregion SelectFiles
 
-        public RelayCommand ShowOptionsFlyoutCommand { get; }
-        public RelayCommand ShowSourceFilesFlyoutCommand { get; }
-        public RelayCommand ShowBaseFileFlyoutCommand { get; }
+        #region TopMenuBar
         public RelayCommand OpenUserIdDialogCommand { get; set; }
+        private async void OpenUserIdDialog()
+        {
+            //let's set up a little MVVM, cos that's what the cool kids are doing:
+            UserIdDialog view = new() { };
 
-        private ResourceDictionary DialogDictionary = new ResourceDictionary() { Source = new Uri("pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Dialogs.xaml") };
+            //show the dialog
+            object result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
+
+            //check the result...
+            Debug.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
+        }
+
+        private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
+            => Debug.WriteLine("You can intercept the closing event, and cancel here.");
+
+
+        /// <summary>
+        /// All files command
+        /// </summary>
+        private const string AllFiles = "*.*";
+
+
+
+        private long _userId;
+        [Required]
+        public long UserId
+        {
+            get => _userId;
+            set => SetProperty(ref _userId, value);
+        }
+        #endregion TopMenuBar
+
+        #region Flyouts
         private int _sourceButtonZIndex = 1;
         public int SourceButtonZIndex
         {
@@ -324,58 +362,9 @@ namespace MossApp.WPF.ViewModels
             get => _baseButtonZIndex;
             set => SetProperty(ref _baseButtonZIndex, value);
         }
-
-        private List<string> SourceFileList { get; set; } = new List<string>();
-
-
-
-
-        // private readonly IOpenMultipleFilesControlViewModel _filesControlViewModel;
-        private CancellationTokenSource cts;
-
-        private IMossResultsRepository _repo;
-        public RequestConfigViewModel(IMossResultsRepository repo)
-        {
-            // _mossRequest = mossRequest;
-            _repo = repo;
-            CurrentDirectory = "F:\\repos";
-            AddFileCommand = new RelayCommand(AddFile);
-            ShowOptionsFlyoutCommand = new RelayCommand(_ => ShowOptionsFlyout());
-            ShowSourceFilesFlyoutCommand = new RelayCommand(_ => ShowSourceFilesFlyout());
-            ShowBaseFileFlyoutCommand = new RelayCommand(_ => ShowBaseFileFlyout());
-            OpenUserIdDialogCommand = new RelayCommand(_ => OpenUserIdDialog());
-            Files = new ObservableCollection<string>()
-            {
-                "F:\\repos\\demos\\c89\\C89Demo\\C89Demo\\C89Demo.cpp",
-                "F:\\repos\\demos\\c89\\C89_Copy\\C89_Copy\\C89_Copy.cpp"
-            };
-            BaseFiles = new ObservableCollection<string>();
-            SendRequestCommand = new RelayCommand(SendRequestAsync);
-            // _ea.GetEvent<LanguageSetEvent>().Subscribe(ReceiveLanguageSet);
-            ParseLanguageSettings();
-            InitializeRequest();
-            cts = new CancellationTokenSource();
-
-            //_filesControlViewModel = openMultipleFilesControlViewModel;
-        }
-
-        private void InitializeRequest()
-        {
-            // Read default values from setting file. 
-            long setting = Default.UserId;
-            UserId = setting == 0 ? 0 : setting;
-
-            MaxMatches = Default.OptionM;
-            NumberOfResultsToShow = Default.OptionN;
-            Server = Default.Server;
-            Port = Default.Port;
-
-            Comments = Default.OptionC;
-        }
-
-
-
-
+        public RelayCommand ShowOptionsFlyoutCommand { get; }
+        public RelayCommand ShowSourceFilesFlyoutCommand { get; }
+        public RelayCommand ShowBaseFileFlyoutCommand { get; }
         public Flyout? OptionsFlyout { get; set; }
         public Flyout? SourceFilesFlyout { get; set; }
 
@@ -417,50 +406,58 @@ namespace MossApp.WPF.ViewModels
             }
         }
 
-        private async void OpenUserIdDialog()
+        #endregion Flyouts
+
+
+
+        // private readonly IOpenMultipleFilesControlViewModel _filesControlViewModel;
+        private CancellationTokenSource cts;
+        private IMessageDialogService _messageDialogService;
+        private IMossResultsRepository _repo;
+        public RequestConfigViewModel(IMossResultsRepository repo, IMessageDialogService messageDialogService)
         {
-            //let's set up a little MVVM, cos that's what the cool kids are doing:
-            SingleFieldDialog view = new SingleFieldDialog
+            // _mossRequest = mossRequest;
+            _repo = repo;
+            _messageDialogService = messageDialogService;
+            CurrentDirectory = "F:\\repos";
+            AddFileCommand = new RelayCommand(AddFile);
+            ShowOptionsFlyoutCommand = new RelayCommand(_ => ShowOptionsFlyout());
+            ShowSourceFilesFlyoutCommand = new RelayCommand(_ => ShowSourceFilesFlyout());
+            ShowBaseFileFlyoutCommand = new RelayCommand(_ => ShowBaseFileFlyout());
+            OpenUserIdDialogCommand = new RelayCommand(_ => OpenUserIdDialog());
+            Files = new ObservableCollection<string>()
             {
-
+                "F:\\repos\\demos\\c89\\C89Demo\\C89Demo\\C89Demo.cpp",
+                "F:\\repos\\demos\\c89\\C89_Copy\\C89_Copy\\C89_Copy.cpp"
             };
+            BaseFiles = new ObservableCollection<string>();
+            SendRequestCommand = new RelayCommand(SendRequestAsync);
+            // _ea.GetEvent<LanguageSetEvent>().Subscribe(ReceiveLanguageSet);
+            ParseLanguageSettings();
+            InitializeRequest();
+            cts = new CancellationTokenSource();
 
-            //show the dialog
-            object result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
-
-            //check the result...
-            Debug.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
+            //_filesControlViewModel = openMultipleFilesControlViewModel;
         }
 
-        private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
-            => Debug.WriteLine("You can intercept the closing event, and cancel here.");
-
-
-        /// <summary>
-        /// All files command
-        /// </summary>
-        private const string AllFiles = "*.*";
-
-
-
-        private long _userId;
-        [Required]
-        public long UserId
+        private void InitializeRequest()
         {
-            get => _userId;
-            set => SetProperty(ref _userId, value);
+            // Read default values from setting file. 
+            long setting = Default.UserId;
+            UserId = setting == 0 ? 0 : setting;
+
+            MaxMatches = Default.OptionM;
+            NumberOfResultsToShow = Default.OptionN;
+            Server = Default.Server;
+            Port = Default.Port;
+
+            Comments = Default.OptionC;
         }
 
 
 
 
-
-        private string _comments;
-        public string Comments
-        {
-            get => _comments;
-            set => SetProperty(ref _comments, value ?? string.Empty);
-        }
+       
 
         private string _response;
 
@@ -476,102 +473,151 @@ namespace MossApp.WPF.ViewModels
             return true;
         }
 
+        /// <summary>
+        /// Determines whether the form is valid.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if the form is valid; otherwise, <c>false</c>.
+        /// </returns
+        private bool IsValidForm()
+        {
+            StringBuilder errMsg = new();
+            bool rtnVal = true;
 
+            if(SelectedLanguage == null)
+            {
+                _ = errMsg.AppendLine(Properties.Resources.SelectedLanguage_Error);
+                rtnVal = false;
+            }
+
+            if (UserId <= 0)
+            {
+                _ = errMsg.AppendLine(Properties.Resources.UserId_Error);
+                rtnVal = false;
+            }
+
+            if(MaxMatches <= 0)
+            {
+                _ = errMsg.AppendLine(Properties.Resources.OptionM_Error);
+                rtnVal = false;
+            }
+
+            if (NumberOfResultsToShow <= 0)
+            {
+                _ = errMsg.AppendLine(Properties.Resources.OptionN_Error);
+                rtnVal = false;
+            }
+
+            if (Files.Count == 0)
+            {
+                _ = errMsg.AppendLine(Properties.Resources.File_List_Empty_Error);
+                rtnVal = false;
+            }
+
+            if (!rtnVal)
+                _ = _messageDialogService.ShowInfoDialogAsync(errMsg.ToString());
+
+            return rtnVal;
+        }
 
 
 
 
         private async void SendRequestAsync(object param)
         {
-            CancellationToken token = cts.Token;
-            Func<string, bool> responseSetter = (string x) => { return SetResponse(x); };
-            //TODO: Check User Id, selected language, etc before sending request
-            if (IsLoading)
-                cts.Cancel();
-
-            //this.ErrorLabel.Text = string.Empty;
-            Default.UserId = Convert.ToInt32(UserId) == 0 ? 337859480 : Convert.ToInt32(UserId);
-            Default.OptionM = Convert.ToInt32(MaxMatches);
-            Default.OptionN = Convert.ToInt32(NumberOfResultsToShow);
-            Default.OptionC = Comments;
-            Default.Save();
-
-            MossRequest request = new MossRequest
+            if(IsValidForm())
             {
-                UserId = Convert.ToInt32(UserId),
-                //IsDirectoryMode = IsDirectoryMode,
-                IsBetaRequest = IsBetaRequest,
-                Comments = Comments,
-                Language = SelectedLanguage.Name,
-                NumberOfResultsToShow = Convert.ToInt32(NumberOfResultsToShow),
-                MaxMatches = Convert.ToInt32(MaxMatches)
-            };
+                CancellationToken token = cts.Token;
+                Func<string, bool> responseSetter = (string x) => { return SetResponse(x); };
+                //TODO: Check User Id, selected language, etc before sending request
+                if (IsLoading)
+                    cts.Cancel();
 
-            request.BaseFile.AddRange(BaseFiles);
-            request.Files.AddRange(Files);
-            //Mediator.GetInstance().OnRequestSent(this, request.SendRequest(out var response));
-            //   RequestProgressBar.Visible = true;
-            SendButtonText = Properties.Resources.CancelRequestText;
-            IsLoading = true;
-            string response = "";
-            bool success = false;
-            bool requestTask = await request.SendRequestAsync(token, responseSetter);
-            IsLoading = false;
-            SendButtonText = Properties.Resources.SendRequestText;
-            //await Task.Run(() =>
-            //{
-            //    success = request.SendRequest(out response);
+                //this.ErrorLabel.Text = string.Empty;
+                Default.UserId = Convert.ToInt32(UserId) == 0 ? 337859480 : Convert.ToInt32(UserId);
+                Default.OptionM = Convert.ToInt32(MaxMatches);
+                Default.OptionN = Convert.ToInt32(NumberOfResultsToShow);
+                Default.OptionC = Comments;
+                Default.Save();
 
-            //});
-            // RequestProgressBar.Visible = false;
-            if (requestTask)
-            {
-                Results results = new Results();
-                results.Options = request.ToString();
-                results.DateSubmitted = DateTime.Now;
-
-
-                HtmlWeb web = new HtmlWeb();
-                List<string> links = new List<string>();
-                HtmlDocument htmlDoc = web.Load(Response);
-
-                HtmlNode node = htmlDoc.DocumentNode.SelectSingleNode("//body");
-
-                foreach (HtmlNode nNode in node.Descendants("a"))
+                MossRequest request = new()
                 {
-                    if (nNode.NodeType == HtmlNodeType.Element)
+                    UserId = Convert.ToInt32(UserId),
+                    //IsDirectoryMode = IsDirectoryMode,
+                    IsBetaRequest = IsBetaRequest,
+                    Comments = Comments,
+                    Language = SelectedLanguage.Name,
+                    NumberOfResultsToShow = Convert.ToInt32(NumberOfResultsToShow),
+                    MaxMatches = Convert.ToInt32(MaxMatches)
+                };
+
+                request.BaseFile.AddRange(BaseFiles);
+                request.Files.AddRange(Files);
+                //Mediator.GetInstance().OnRequestSent(this, request.SendRequest(out var response));
+                //   RequestProgressBar.Visible = true;
+                SendButtonText = Properties.Resources.CancelRequestText;
+                IsLoading = true;
+                string response = "";
+                bool success = false;
+                bool requestTask = await request.SendRequestAsync(token, responseSetter);
+                IsLoading = false;
+                SendButtonText = Properties.Resources.SendRequestText;
+                //await Task.Run(() =>
+                //{
+                //    success = request.SendRequest(out response);
+
+                //});
+                // RequestProgressBar.Visible = false;
+                if (requestTask)
+                {
+                    Results results = new();
+                    results.Options = request.ToString();
+                    results.DateSubmitted = DateTime.Now;
+
+
+                    HtmlWeb web = new();
+                    List<string> links = new();
+                    HtmlDocument htmlDoc = web.Load(Response);
+
+                    HtmlNode node = htmlDoc.DocumentNode.SelectSingleNode("//body");
+
+                    foreach (HtmlNode nNode in node.Descendants("a"))
                     {
+                        if (nNode.NodeType == HtmlNodeType.Element)
+                        {
 
-                        Console.WriteLine("Node Name: " + nNode.Name + "\n" + nNode.OuterHtml);
+                            Console.WriteLine("Node Name: " + nNode.Name + "\n" + nNode.OuterHtml);
+                        }
                     }
+
+                    // Once we have MatchPair, try adding MatchPair to results.MatchPairs Property
+                    // EX: results.MatchPairs.Add(matchPair);
+
+
+                    _repo.AddResults(results);
+                    //  this.WebBrowser.Navigate(new Uri(response));
                 }
-
-                // Once we have MatchPair, try adding MatchPair to results.MatchPairs Property
-                // EX: results.MatchPairs.Add(matchPair);
-
-
-                _repo.AddResults(results);
-                //  this.WebBrowser.Navigate(new Uri(response));
+                else
+                {
+                    //MessageBox.Show(
+                    //    response,
+                    //    Resources.Request_Error_Caption,
+                    //    MessageBoxButtons.OK,
+                    //    MessageBoxIcon.Error);
+                }
+                //MossRequest request = new MossRequest();
+                //request.BaseFile.AddRange(BaseFiles);
+                //request.Files.AddRange(Files);
+                //request.Language = SelectedLanguage.Name;
+                //request.IsBetaRequest = IsBetaRequest;
+                ////request.IsDirectoryMode = IsDirectoryMode;
+                //request.MaxMatches = MaxMatches;
+                //request.NumberOfResultsToShow = NumberOfResultsToShow;
+                //request.Port = Port;
+                //request.Server = Server;
+                //request.Comments = Comments;
             }
-            else
-            {
-                //MessageBox.Show(
-                //    response,
-                //    Resources.Request_Error_Caption,
-                //    MessageBoxButtons.OK,
-                //    MessageBoxIcon.Error);
-            }
-            //MossRequest request = new MossRequest();
-            //request.BaseFile.AddRange(BaseFiles);
-            //request.Files.AddRange(Files);
-            //request.Language = SelectedLanguage.Name;
-            //request.IsBetaRequest = IsBetaRequest;
-            ////request.IsDirectoryMode = IsDirectoryMode;
-            //request.MaxMatches = MaxMatches;
-            //request.NumberOfResultsToShow = NumberOfResultsToShow;
-            //request.Port = Port;
-            //request.Server = Server;
-            //request.Comments = Comments;
+
 
         }
 
@@ -601,7 +647,7 @@ namespace MossApp.WPF.ViewModels
 
         private void OpenLink(string url)
         {
-            ProcessStartInfo psi = new ProcessStartInfo
+            ProcessStartInfo psi = new()
             {
                 FileName = url,
                 UseShellExecute = true
@@ -612,41 +658,8 @@ namespace MossApp.WPF.ViewModels
 
 
 
-        /// <summary>
-        /// Determines whether the form is valid.
-        /// </summary>
-        /// <returns>
-        ///   <c>true</c> if the form is valid; otherwise, <c>false</c>.
-        /// </returns>
-        private bool IsValidForm()
-        {
-            //if (UserId <= 0)
-            //{
-            //    ExecuteRunDialog
-            //    return false;
-            //} // else this field is valid DoNothing();
-
-            //if (!this.IsValidPositiveInteger(this.OptionMTextBox))
-            //{
-            //    this.ErrorLabel.Text = Resources.OptionM_Error;
-            //    return false;
-            //} // else this field is valid DoNothing();
-
-            //if (!this.IsValidPositiveInteger(this.OptionNTextBox))
-            //{
-            //    this.ErrorLabel.Text = Resources.OptionN_Error;
-            //    return false;
-            //} // else this field is valid DoNothing();
-
-            //if (this.SourceFileList.Count == 0)
-            //{
-            //    this.ErrorLabel.Text = Resources.File_List_Empty_Error;
-            //    return false;
-            //}
-
-            return true;
-        }
-        public RelayCommand RunDialogCommand => new RelayCommand(ExecuteRunDialog);
+        
+        public RelayCommand RunDialogCommand => new(ExecuteRunDialog);
 
 
 
@@ -667,19 +680,7 @@ namespace MossApp.WPF.ViewModels
 
 
 
-        /// <summary>
-        /// Determines whether the text box contains is a valid positive integer value.
-        /// </summary>
-        /// <param name="textBox">The text box.</param>
-        /// <returns>
-        ///   <c>true</c> if the text box contains is a valid positive integer value; otherwise, <c>false</c>.
-        /// </returns>
-        private static bool IsValidPositiveInteger(string text)
-        {
-            return int.TryParse(text, out var value) && value >= 0;
-        }
-
-      
+       
 
         private void RestrictFileList()
         {

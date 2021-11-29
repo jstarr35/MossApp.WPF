@@ -313,6 +313,11 @@ namespace MossApp.WPF.Properties {
             }
         }
 
+        internal static string SelectedLanguage_Error
+        {
+            get => ResourceManager.GetString("SelectedLanguage_Error", resourceCulture);
+        }
+
         internal static string SendRequestText
         {
             get => ResourceManager.GetString("SendRequestText", resourceCulture);

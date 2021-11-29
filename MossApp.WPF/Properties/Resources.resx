@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="OptionM_Error" xml:space="preserve">
-    <value>Option M must be a positive number</value>
+    <value>Max Matches must be a positive number</value>
   </data>
   <data name="OptionN_Error" xml:space="preserve">
-    <value>Option N must be a positive number</value>
+    <value>Number of Results to Show must be a positive number</value>
   </data>
   <data name="UserId_Error" xml:space="preserve">
     <value>User Id must be a number</value>
@@ -240,5 +240,8 @@ for example: .cpp,.cc,.hpp</value>
   </data>
   <data name="SendRequestText" xml:space="preserve">
     <value>Send Request</value>
+  </data>
+  <data name="SelectedLanguage_Error" xml:space="preserve">
+    <value>No programming language selected</value>
   </data>
 </root>

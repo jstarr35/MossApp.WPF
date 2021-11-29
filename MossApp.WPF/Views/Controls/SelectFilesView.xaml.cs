@@ -20,7 +20,7 @@ namespace MossApp.WPF.Views.Controls
         {
             if (args is FilesSelectedEventArgs eventArgs && DataContext is RequestConfigViewModel viewModel)
             {
-                StringBuilder sb = new StringBuilder("Selected files: ");
+                StringBuilder sb = new("Selected files: ");
                 eventArgs.Files.ForEach(file => sb.Append($"{file}; "));
                 foreach (string f in eventArgs.Files)
                 {

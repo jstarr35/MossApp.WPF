@@ -91,7 +91,7 @@ namespace MossApp.Modules.Request.ViewModels
         /// <value>
         /// The languages and their associated file extensions.
         /// </value>
-        private ObservableCollection<Language> _languages = new ObservableCollection<Language>();
+        private ObservableCollection<Language> _languages = new();
 
         public ObservableCollection<Language> Languages
         {
@@ -100,7 +100,7 @@ namespace MossApp.Modules.Request.ViewModels
 
         }
 
-        private Language _selectedLanguage = new Language();
+        private Language _selectedLanguage = new();
 
         public Language SelectedLanguage
         {

@@ -6,6 +6,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:MossApp.Utilities.Converters;assembly=MossApp.Utilities"
+             xmlns:validation="clr-namespace:MossApp.Utilities.Validation;assembly=MossApp.Utilities"
     xmlns:viewmodels="clr-namespace:MossApp.WPF.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:RequestConfigViewModel}"
     mc:Ignorable="d">
@@ -14,7 +15,7 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*" />
 
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -63,8 +64,17 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center"
             materialDesign:HintAssist.Hint="Max Matches"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-            Text="{Binding MaxMatches}" />
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+            <TextBox.Text>
+                <Binding Path="MaxMatches" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                        <validation:IsNumberValidationRule ValidatesOnTargetUpdated="True"/>
+                        <validation:IntegerValidationRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <d:Separator Background="{DynamicResource MaterialDesignDarkSeparatorBackground}" />
         <TextBox
             Grid.Row="1"
@@ -74,7 +84,17 @@
             VerticalAlignment="Center"
             materialDesign:HintAssist.Hint="Results to Display"
             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-            Text="{Binding NumberOfResultsToShow}" />
+            >
+            <TextBox.Text>
+                <Binding Path="NumberOfResultsToShow" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                        <validation:IsNumberValidationRule ValidatesOnTargetUpdated="True"/>
+                        <validation:IntegerValidationRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <d:Separator Background="{DynamicResource MaterialDesignDarkSeparatorBackground}" />
 
@@ -90,9 +110,7 @@
             OpenMode="{x:Static materialDesign:DrawerHostOpenMode.Standard}">
 
             <materialDesign:DrawerHost.Style>
-                <Style BasedOn="{StaticResource {x:Type materialDesign:DrawerHost}}" TargetType="materialDesign:DrawerHost">
-                   
-                </Style>
+                <Style BasedOn="{StaticResource {x:Type materialDesign:DrawerHost}}" TargetType="materialDesign:DrawerHost" />
             </materialDesign:DrawerHost.Style>
             <materialDesign:DrawerHost.RightDrawerContent>
                 <StackPanel
@@ -110,7 +128,6 @@
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         Text="{Binding Port}" />
                     <CheckBox
-                       
                         Margin="0,8,8,0"
                         Content="BETA REQUEST"
                         FontFamily="Roboto"
@@ -159,9 +176,9 @@
                     <Button
                         Grid.Row="1"
                         Grid.ColumnSpan="2"
+                        Margin="0,0,0,0"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Margin="0,0,0,0"
                         Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
                         CommandParameter="{x:Static Dock.Right}"
                         Style="{DynamicResource MaterialDesignFlatButton}">
@@ -223,7 +240,6 @@
         <GroupBox
             Grid.RowSpan="2"
             Grid.Column="2"
-             
             materialDesign:ColorZoneAssist.Background="Transparent"
             materialDesign:ColorZoneAssist.Foreground="White"
             materialDesign:ColorZoneAssist.Mode="Custom"
@@ -237,30 +253,30 @@
                 <CheckBox
                     Grid.Row="1"
                     Grid.Column="3"
+                    Margin="0,0,0,8"
                     Content="DIRECTORY MODE"
-                   FontFamily="Roboto"
+                    FontFamily="Roboto"
                     FontSize="10"
                     FontWeight="Bold"
-                    Margin="0,0,0,8"
                     IsChecked="{Binding IsDirectoryMode}"
                     Style="{StaticResource MaterialDesignCheckBox}"
                     ToolTip="MaterialDesignActionLightToggleButton" />
                 <CheckBox
-                    Content="RESTRICT FILE TYPES"
-                    IsChecked="{Binding RestrictFileTypes}"
-                    FontFamily="Roboto"
-                     FontSize="10"
-                    FontWeight="Bold"
                     Margin="0,8,0,0"
+                    Content="RESTRICT FILE TYPES"
+                    FontFamily="Roboto"
+                    FontSize="10"
+                    FontWeight="Bold"
+                    IsChecked="{Binding RestrictFileTypes}"
                     Style="{StaticResource MaterialDesignCheckBox}"
                     ToolTip="Restrict File Types" />
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="2"
-                    Text="{Binding SelectedLanguage.Extensions}"
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="Restricted File Types"
                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                    Text="{Binding SelectedLanguage.Extensions}"
                     Visibility="{Binding RestrictFileTypes, Converter={utils:BooleanToVisibilityConverter}}" />
 
             </StackPanel>

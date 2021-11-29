@@ -15,7 +15,7 @@ namespace MossApp.Utilities.Extensions
 
         public static Dictionary<string, List<string>> ParseTokens(this StringCollection collection)
         {
-            Dictionary<string, List<string>> rtn = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> rtn = new();
             foreach (string language in collection)
             {
                 string[] tokens = language?.Split(',');
@@ -37,7 +37,7 @@ namespace MossApp.Utilities.Extensions
 
         public static string ToExtensionString(this List<string> extensions)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             extensions.ForEach(e => sb.Append(e).Append(", "));
             char[] trims = new char[2] { ',', ' ' };
             return sb.ToString().Trim(trims);

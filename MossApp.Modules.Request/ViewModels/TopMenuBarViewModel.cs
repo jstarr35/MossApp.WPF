@@ -17,7 +17,7 @@ namespace MossApp.Modules.Request.ViewModels
         private async void ExecuteSaveDialog(object o)
         {
             //let's set up a little MVVM, cos that's what the cool kids are doing:
-            SaveDialog view = new SaveDialog()
+            SaveDialog view = new()
             {
                 DataContext = new SaveDialog()
             };

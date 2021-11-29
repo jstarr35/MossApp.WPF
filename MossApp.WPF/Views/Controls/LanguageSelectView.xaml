@@ -48,29 +48,32 @@
                                 BorderThickness="0,0,0,1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                      
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="2*" />
+
                                     </Grid.ColumnDefinitions>
-                                 
+
                                     <Button
-                                        
-                                       
                                         Margin="8,0,0,0"
                                         HorizontalAlignment="Left"
                                         Style="{StaticResource MaterialDesignIconButton}">
-                                        <TextBlock Text="{Binding Mapping}" Style="{StaticResource MaterialDesignCaptionTextBlock}" FontFamily="MossFont" FontSize="24"/>
+                                        <TextBlock
+                                            FontFamily="MossFont"
+                                            FontSize="24"
+                                            Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                            Text="{Binding Mapping}" />
 
                                     </Button>
                                     <TextBlock
                                         Grid.Column="1"
+                                        Margin="0,0,8,0"
                                         Padding="8,0,0,0"
+                                        HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         FontWeight="Bold"
-                                        HorizontalAlignment="Left"
-                                        Text="{Binding DisplayName}" Margin="0,0,8,0" />
+                                        Text="{Binding DisplayName}" />
                                     <!--<TextBlock Text="{Binding Description}" />-->
-                                   
+
 
                                 </Grid>
                             </Border>

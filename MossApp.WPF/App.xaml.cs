@@ -5,6 +5,7 @@ using MossApp.Data.Services;
 using MossApp.Request;
 using MossApp.Utilities.Regions.Adapters;
 using MossApp.WPF.ViewModels;
+using MossApp.WPF.Views.Services;
 using MossApp.WPF.Views.Windows;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -35,7 +36,7 @@ namespace MossApp.WPF
                 .WriteTo.Console()
                 .CreateLogger();
 
-            PaletteHelper helper = new PaletteHelper();
+            PaletteHelper helper = new();
             ITheme theme = helper.GetTheme();
             theme.SetBaseTheme(Theme.Dark);
             Color primaryColor = (Color)ColorConverter.ConvertFromString("#FFB83A4B");
@@ -57,7 +58,7 @@ namespace MossApp.WPF
 
             _ = containerRegistry.Register<MossRequest>();
             _ = containerRegistry.Register<IMossResultsRepository, MossResultsRepository>();
-
+            _ = containerRegistry.Register<IMessageDialogService, MessageDialogService>();
             //  containerRegistry.Register
 
 
@@ -65,7 +66,7 @@ namespace MossApp.WPF
 
         protected override IContainerExtension CreateContainerExtension()
         {
-            ServiceCollection serviceCollection = new ServiceCollection();
+            ServiceCollection serviceCollection = new();
             _ = serviceCollection.AddLogging(l => l.AddSerilog(dispose: true));
             Unity.UnityContainer container = new();
             _ = container.BuildServiceProvider(serviceCollection);
